@@ -1,0 +1,94 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0px 60px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+    max-height: 400px;
+}
+
+.login-container i {
+    font-size: 100px;
+    margin-bottom: 15px;
+}
+.login-container h2 {
+    margin-bottom: 20px;
+}
+.login-container h4{
+   margin-bottom: 20px;
+}
+.forget-password{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+.forget-password a{
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 16px;
+    color: #707070;
+    cursor: pointer;
+}
+.forget-password a:hover{
+    color: #007BFF;
+}
+
+
+
+.login-container input {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: gray;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.login-container .register {
+    margin: 10px 0;
+    background-color: #fff;
+    color: #007BFF;
+    border-radius: 3px;
+    border: 1px solid #007BFF;
+    font-weight: 500;
+}
+.login-container .register:hover{
+    background-color: #007BFF;
+    color: #fff;
+}
+.login-container span{
+    margin: 20px 0;
+    font-size: 13px;
+    line-height: 16px;
+    color: #707070;
+}
+
+
+.login-container button:hover {
+    background-color: #0056b3;
+}
+.navbar img{
+    padding-left: 15px!important;
+}
