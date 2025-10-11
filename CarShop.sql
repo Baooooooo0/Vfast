@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 10, 2025 at 11:53 AM
+-- Generation Time: Oct 11, 2025 at 06:08 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.2.21
 
@@ -29,13 +29,32 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cart_items`
+--
+
+CREATE TABLE `cart_items` (
+    `cart_id` int NOT NULL,
+    `user_id` int NOT NULL,
+    `product_id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+    `product_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+    `color` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+    `image` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+    `product_price` decimal(10, 0) NOT NULL,
+    `quantity` int NOT NULL,
+    `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `update_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `locations`
 --
 
 CREATE TABLE `locations` (
     `location_id` int NOT NULL,
-    `location_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-    `location_address` varchar(100) COLLATE utf8mb4_general_ci NOT NULL
+    `location_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+    `location_address` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
 --
@@ -71,18 +90,18 @@ VALUES (
 --
 
 CREATE TABLE `product` (
-    `product_id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-    `product_name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-    `color` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-    `image` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-    `dimensions` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+    `product_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+    `product_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+    `color` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+    `image` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+    `dimensions` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
     `battery_capacity` decimal(10, 2) DEFAULT NULL,
-    `wheel_type` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+    `wheel_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
     `seat_count` int DEFAULT NULL,
     `airbags` int DEFAULT NULL,
     `product_price` decimal(10, 0) NOT NULL,
     `product_number` int DEFAULT NULL,
-    `status` enum('còn', 'hết') COLLATE utf8mb4_general_ci NOT NULL
+    `status` enum('còn', 'hết') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
 --
@@ -533,7 +552,7 @@ VALUES (
 
 CREATE TABLE `transactions` (
     `transaction_id` int NOT NULL,
-    `product_id` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+    `product_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
     `customer_id` int NOT NULL,
     `transaction_date` date NOT NULL,
     `deposit` decimal(10, 0) NOT NULL,
@@ -541,15 +560,18 @@ CREATE TABLE `transactions` (
     `payment_method` enum(
         'Chuyển khoản ngân hàng',
         'MOMO'
-    ) COLLATE utf8mb4_general_ci NOT NULL,
+    ) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
     `transaction_status` enum(
         'pending',
         'completed',
         'failed'
-    ) COLLATE utf8mb4_general_ci NOT NULL,
-    `order_id` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-    `request_id` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-    `momo_trans_id` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL
+    ) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+    `order_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+    `request_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+    `momo_trans_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+    `receiver_name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+    `receiver_phone` varchar(15) COLLATE utf8mb4_general_ci NOT NULL,
+    `receiver_address` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
 --
@@ -565,7 +587,13 @@ INSERT INTO
         `deposit`,
         `transaction_number`,
         `payment_method`,
-        `transaction_status`
+        `transaction_status`,
+        `order_id`,
+        `request_id`,
+        `momo_trans_id`,
+        `receiver_name`,
+        `receiver_phone`,
+        `receiver_address`
     )
 VALUES (
         1,
@@ -574,8 +602,14 @@ VALUES (
         '2024-07-01',
         '15000000',
         3,
-        'Chuyển khoản',
-        'Đã cọc'
+        '',
+        '',
+        NULL,
+        NULL,
+        NULL,
+        '',
+        '',
+        ''
     ),
     (
         2,
@@ -584,8 +618,14 @@ VALUES (
         '2024-08-15',
         '15000000',
         1,
-        'Chuyển khoản',
-        'Đã cọc'
+        '',
+        '',
+        NULL,
+        NULL,
+        NULL,
+        '',
+        '',
+        ''
     ),
     (
         27,
@@ -594,8 +634,14 @@ VALUES (
         '2024-08-28',
         '15000000',
         1,
-        'Chuyển khoản',
-        'Đã cọc'
+        '',
+        '',
+        NULL,
+        NULL,
+        NULL,
+        '',
+        '',
+        ''
     ),
     (
         28,
@@ -604,8 +650,14 @@ VALUES (
         '2024-08-28',
         '15000000',
         1,
-        'Chuyển khoản',
-        'Đã cọc'
+        '',
+        '',
+        NULL,
+        NULL,
+        NULL,
+        '',
+        '',
+        ''
     ),
     (
         29,
@@ -614,8 +666,14 @@ VALUES (
         '2024-08-28',
         '15000000',
         1,
-        'Chuyển khoản',
-        'Đã cọc'
+        '',
+        '',
+        NULL,
+        NULL,
+        NULL,
+        '',
+        '',
+        ''
     ),
     (
         30,
@@ -624,8 +682,14 @@ VALUES (
         '2024-08-28',
         '15000000',
         1,
-        'Chuyển khoản',
-        'Đã cọc'
+        '',
+        '',
+        NULL,
+        NULL,
+        NULL,
+        '',
+        '',
+        ''
     ),
     (
         33,
@@ -634,8 +698,14 @@ VALUES (
         '2024-09-04',
         '15000000',
         2,
-        'Chuyển khoản',
-        'Đã cọc'
+        '',
+        '',
+        NULL,
+        NULL,
+        NULL,
+        '',
+        '',
+        ''
     ),
     (
         34,
@@ -644,8 +714,14 @@ VALUES (
         '2024-09-04',
         '15000000',
         2,
-        'Chuyển khoản',
-        'Đã cọc'
+        '',
+        '',
+        NULL,
+        NULL,
+        NULL,
+        '',
+        '',
+        ''
     ),
     (
         36,
@@ -654,8 +730,14 @@ VALUES (
         '2024-09-04',
         '15000000',
         2,
-        'Tiền mặt',
-        'Đã cọc'
+        '',
+        '',
+        NULL,
+        NULL,
+        NULL,
+        '',
+        '',
+        ''
     );
 
 --
@@ -755,13 +837,16 @@ DELIMITER;
 
 CREATE TABLE `users` (
     `id` int NOT NULL,
-    `name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-    `email` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-    `phone` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
+    `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+    `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+    `phone` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
     `birthday` date DEFAULT NULL,
-    `usertype` enum('admin', 'user') COLLATE utf8mb4_general_ci NOT NULL,
-    `password` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-    `pob` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL
+    `usertype` enum('admin', 'user') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+    `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+    `pob` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+    `receiver_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+    `receiver_phone` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
+    `receiver_address` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
 --
@@ -777,7 +862,10 @@ INSERT INTO
         `birthday`,
         `usertype`,
         `password`,
-        `pob`
+        `pob`,
+        `receiver_name`,
+        `receiver_phone`,
+        `receiver_address`
     )
 VALUES (
         0,
@@ -787,7 +875,10 @@ VALUES (
         NULL,
         'admin',
         '',
-        'Hồ Chí Minh'
+        'Hồ Chí Minh',
+        NULL,
+        NULL,
+        NULL
     ),
     (
         1,
@@ -797,7 +888,10 @@ VALUES (
         '2004-07-09',
         'user',
         '123',
-        'Hồ Chí Minh'
+        'Hồ Chí Minh',
+        NULL,
+        NULL,
+        NULL
     ),
     (
         2,
@@ -807,7 +901,10 @@ VALUES (
         '2024-07-10',
         'admin',
         '456',
-        'Ninh Thuận'
+        'Ninh Thuận',
+        NULL,
+        NULL,
+        NULL
     ),
     (
         3,
@@ -817,12 +914,23 @@ VALUES (
         '2004-04-09',
         'user',
         'abc',
-        'Hồ Chí Minh'
+        'Hồ Chí Minh',
+        NULL,
+        NULL,
+        NULL
     );
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `cart_items`
+--
+ALTER TABLE `cart_items`
+ADD PRIMARY KEY (`cart_id`),
+ADD KEY `user_id` (`user_id`),
+ADD KEY `product_id` (`product_id`);
 
 --
 -- Indexes for table `locations`
@@ -857,6 +965,12 @@ ADD KEY `pob_index` (`pob`);
 --
 
 --
+-- AUTO_INCREMENT for table `cart_items`
+--
+ALTER TABLE `cart_items`
+MODIFY `cart_id` int NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `locations`
 --
 ALTER TABLE `locations`
@@ -873,6 +987,13 @@ AUTO_INCREMENT = 37;
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `cart_items`
+--
+ALTER TABLE `cart_items`
+ADD CONSTRAINT `cart_items_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+ADD CONSTRAINT `cart_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `transactions`
