@@ -1,6 +1,6 @@
 <?php 
-session_start();
-
+// session_start();
+//đã có session_start() trong home.php
 $host = "localhost";
 $user = "root";
 $password = "";
