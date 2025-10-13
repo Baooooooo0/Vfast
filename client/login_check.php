@@ -18,7 +18,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     // Câu truy vấn chỉ cần lấy id và usertype
-    $sql = "SELECT id, usertype FROM users WHERE email = ? AND password = ?";
+    $sql = "SELECT * FROM users WHERE email = ? AND password = ?";
     
     $stmt = $data->prepare($sql);
     $stmt->bind_param("ss", $email, $password);
@@ -28,6 +28,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     if($row = $result->fetch_assoc()) {
         // Chỉ lưu các thông tin cần thiết vào session
         $_SESSION['user_id'] = $row['id'];
+        $_SESSION['email'] = $row['email'];
         $_SESSION['usertype'] = $row['usertype'];
 
         if($row["usertype"] == 'user') {
