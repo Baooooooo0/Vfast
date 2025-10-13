@@ -29,8 +29,7 @@ $product_price = $_POST['product_price'];
 $color = $_POST['color'];
 $image = $_POST['image'];
 $quantity = $_POST['quantity'];
-//testing
-$deposit_amount = 15000;
+$deposit_amount = 15000000;
 $total_price = $product_price * $quantity;
 
 // --- Fetch User's Delivery Address ---
@@ -60,116 +59,114 @@ $data->close();
     <title>Thanh toán</title>
     <?php include('home_css.php'); ?>
     <style>
+    body {
+        background-color: #f8f9fa;
+    }
 
-body {
-    background-color: #f8f9fa;
-}
+    .payment-container {
+        max-width: 800px;
+        margin: 120px auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
 
-.payment-container {
-    max-width: 800px;
-    margin: 120px auto;
-    padding: 30px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
+    .payment-container h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #007bff;
+    }
 
-.payment-container h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #007bff;
-}
+    .product-summary {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #e9ecef;
+    }
 
-.product-summary {
-    display: flex;
-    align-items: center;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #e9ecef;
-}
+    .product-summary img {
+        width: 150px;
+        height: auto;
+        border-radius: 8px;
+        margin-right: 20px;
+    }
 
-.product-summary img {
-    width: 150px;
-    height: auto;
-    border-radius: 8px;
-    margin-right: 20px;
-}
+    .product-info h3 {
+        margin: 0 0 10px;
+        font-size: 22px;
+    }
 
-.product-info h3 {
-    margin: 0 0 10px;
-    font-size: 22px;
-}
+    .product-info p {
+        margin: 5px 0;
+        color: #6c757d;
+    }
 
-.product-info p {
-    margin: 5px 0;
-    color: #6c757d;
-}
+    .product-info h4 {
+        margin-top: 15px;
+        font-size: 24px;
+        color: #e63946;
+        font-weight: bold;
+    }
 
-.product-info h4 {
-    margin-top: 15px;
-    font-size: 24px;
-    color: #e63946;
-    font-weight: bold;
-}
+    .delivery-info {
+        margin-bottom: 30px;
+    }
 
-.delivery-info {
-    margin-bottom: 30px;
-}
+    .delivery-info h5 {
+        margin-bottom: 15px;
+    }
 
-.delivery-info h5 {
-    margin-bottom: 15px;
-}
+    .address-display p {
+        margin: 5px 0;
+    }
 
-.address-display p {
-    margin: 5px 0;
-}
+    .payment-options {
+        margin-top: 20px;
+    }
 
-.payment-options {
-    margin-top: 20px;
-}
+    .payment-option {
+        padding: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
 
-.payment-option {
-    padding: 20px;
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
+    .payment-option h3 {
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-size: 18px;
+    }
 
-.payment-option h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 18px;
-}
+    .payment-methods button {
+        width: 48%;
+        padding: 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
 
-.payment-methods button {
-width: 48%;
-    padding: 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
+    .btn-momo {
+        background-color: #a50064;
+        color: white;
+    }
 
-.btn-momo {
-    background-color: #a50064;
-    color: white;
-}
+    .btn-momo:hover {
+        background-color: #8c0054;
+    }
 
-.btn-momo:hover {
-    background-color: #8c0054;
-}
+    .btn-bank {
+        background-color: #007bff;
+        color: white;
+        float: right;
+    }
 
-.btn-bank {
-    background-color: #007bff;
-    color: white;
-    float: right;
-}
-
-.btn-bank:hover {
-    background-color: #0056b3;
-}
-
+    .btn-bank:hover {
+        background-color: #0056b3;
+    }
     </style>
     <link rel="stylesheet" href="../css/payment.css">
 </head>
@@ -196,17 +193,11 @@ width: 48%;
                     <p><strong>Tên người nhận:</strong> <?php echo htmlspecialchars($user_address['receiver_name']); ?></p>
                     <p><strong>Số điện thoại:</strong> <?php echo htmlspecialchars($user_address['receiver_phone']); ?></p>
                     <p><strong>Địa chỉ giao xe:</strong> <?php echo htmlspecialchars($user_address['receiver_address']); ?></p>
-
-                    <a href="address_crud.php" class="btn btn-secondary btn-sm" style="margin-top:10px;">Thay đổi địa chỉ</a>
-                </div>
-
                     <a href="javascript:history.back()" class="btn btn-secondary btn-sm" style="margin-top:10px;">Quay lại</a>                </div>
-
             <?php else: ?>
                 <div class="alert alert-warning">
                     Bạn chưa có thông tin giao hàng. Vui lòng cập nhật để tiếp tục.
                 </div>
-
                 <a href="address_crud.php?product_id=<?php echo htmlspecialchars($product_id); ?>" class="btn btn-primary">Thêm địa chỉ giao hàng</a>
             <?php endif; ?>
         </div>
@@ -215,24 +206,42 @@ width: 48%;
             <div class="payment-option">
                 <h3>1. Đặt cọc (<?php echo number_format($deposit_amount, 0, ',', '.'); ?> VND)</h3>
                 <div class="payment-methods">
-                    <button class="btn-momo">Thanh toán bằng Momo</button>
+                    <form action="bank.php" method="POST">
+                        
                         <!-- BANK: Gửi POST sang bank.php với kiểu 'deposit' -->
-                    <form action="bank.php" method="POST" style="display:inline-block; width:48%;">
-                    <input type="hidden" name="payment_method" value="bank">
-                    <input type="hidden" name="payment_type" value="deposit">
-                    <input type="hidden" name="amount" value="<?php echo (int)$deposit_amount; ?>">
-                    <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product_id); ?>">
-                    <input type="hidden" name="product_name" value="<?php echo htmlspecialchars($product_name); ?>">
-                    <input type="hidden" name="product_price" value="<?php echo (int)$product_price; ?>">
-                    <input type="hidden" name="quantity" value="<?php echo (int)$quantity; ?>">
-                    <input type="hidden" name="color" value="<?php echo htmlspecialchars($color); ?>">
-                    <input type="hidden" name="image" value="<?php echo htmlspecialchars($image); ?>">
-                    <?php if ($user_address): ?>
-                        <input type="hidden" name="receiver_name" value="<?php echo htmlspecialchars($user_address['receiver_name']); ?>">
-                        <input type="hidden" name="receiver_phone" value="<?php echo htmlspecialchars($user_address['receiver_phone']); ?>">
-                        <input type="hidden" name="receiver_address" value="<?php echo htmlspecialchars($user_address['receiver_address']); ?>">
-                    <?php endif; ?>
-                    <button class="btn-bank" type="submit" <?php echo $user_address ? '' : 'disabled'; ?>>Chuyển khoản ngân hàng</button>
+                        <input type="hidden" name="payment_method" value="bank">
+                        <input type="hidden" name="payment_type" value="deposit">
+                        <input type="hidden" name="amount" value="<?php echo (int)$deposit_amount; ?>">
+                        <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product_id); ?>">
+                        <input type="hidden" name="product_name" value="<?php echo htmlspecialchars($product_name); ?>">
+                        <input type="hidden" name="product_price" value="<?php echo (int)$product_price; ?>">
+                        <input type="hidden" name="quantity" value="<?php echo (int)$quantity; ?>">
+                        <input type="hidden" name="color" value="<?php echo htmlspecialchars($color); ?>">
+                        <input type="hidden" name="image" value="<?php echo htmlspecialchars($image); ?>">
+                        <?php if ($user_address): ?>
+                            <input type="hidden" name="receiver_name" value="<?php echo htmlspecialchars($user_address['receiver_name']); ?>">
+                            <input type="hidden" name="receiver_phone" value="<?php echo htmlspecialchars($user_address['receiver_phone']); ?>">
+                            <input type="hidden" name="receiver_address" value="<?php echo htmlspecialchars($user_address['receiver_address']); ?>">
+                        <?php endif; ?>
+                        <button class="btn-momo">Thanh toán bằng Momo</button>
+                    </form>
+                    <form action="bank.php" method="POST">
+                        <!-- BANK: Gửi POST sang bank.php với kiểu 'deposit' -->
+                        <input type="hidden" name="payment_method" value="bank">
+                        <input type="hidden" name="payment_type" value="deposit">
+                        <input type="hidden" name="amount" value="<?php echo (int)$deposit_amount; ?>">
+                        <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product_id); ?>">
+                        <input type="hidden" name="product_name" value="<?php echo htmlspecialchars($product_name); ?>">
+                        <input type="hidden" name="product_price" value="<?php echo (int)$product_price; ?>">
+                        <input type="hidden" name="quantity" value="<?php echo (int)$quantity; ?>">
+                        <input type="hidden" name="color" value="<?php echo htmlspecialchars($color); ?>">
+                        <input type="hidden" name="image" value="<?php echo htmlspecialchars($image); ?>">
+                        <?php if ($user_address): ?>
+                            <input type="hidden" name="receiver_name" value="<?php echo htmlspecialchars($user_address['receiver_name']); ?>">
+                            <input type="hidden" name="receiver_phone" value="<?php echo htmlspecialchars($user_address['receiver_phone']); ?>">
+                            <input type="hidden" name="receiver_address" value="<?php echo htmlspecialchars($user_address['receiver_address']); ?>">
+                        <?php endif; ?>
+                        <button class="btn-bank" type="submit" <?php echo $user_address ? '' : 'disabled'; ?>>Chuyển khoản ngân hàng</button>
                     </form>
                 </div>
             </div>
