@@ -7,6 +7,9 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+// Lấy product_id từ URL (GET) hoặc từ form (POST) để không bị mất khi submit
+$product_id = isset($_REQUEST['product_id']) ? $_REQUEST['product_id'] : null;
+
 $host = "localhost";
 $user = "root";
 $password = "";
@@ -19,6 +22,7 @@ if ($data->connect_error) {
 
 $user_id = $_SESSION['user_id'];
 $feedback_message = '';
+$is_success = false;
 
 // Handle form submission to UPDATE/INSERT address
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -30,7 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("sssi", $receiver_name, $receiver_phone, $receiver_address, $user_id);
     
     if ($stmt->execute()) {
-        $feedback_message = '<div class="alert alert-success">Cập nhật địa chỉ thành công!</div>';
+        $is_success = true;
+        $feedback_message = '<div class="alert alert-success">Cập nhật địa chỉ thành công! Đang quay lại...</div>';
     } else {
         $feedback_message = '<div class="alert alert-danger">Lỗi! Không thể cập nhật địa chỉ.</div>';
     }
@@ -69,8 +74,12 @@ $data->close();
 
     <div class="address-container">
         <h2>Thông tin giao hàng</h2>
-        <?php echo $feedback_message; ?>
+        
+        <?php echo $feedback_message; // Hiển thị thông báo ở đây ?>
+
         <form action="address_crud.php" method="POST">
+            <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product_id); ?>">
+
             <div class="form-group">
                 <i class="fa fa-user"></i>
                 <input type="text" class="form-control" name="receiver_name" placeholder="Họ và tên người nhận" value="<?php echo htmlspecialchars($currentUser['receiver_name'] ?? ''); ?>" required>
@@ -83,11 +92,22 @@ $data->close();
                 <i class="fa fa-map-marker"></i>
                 <input type="text" class="form-control" name="receiver_address" placeholder="Địa chỉ nhận xe" value="<?php echo htmlspecialchars($currentUser['receiver_address'] ?? ''); ?>" required>
             </div>
+            
             <button type="submit" class="btn btn-primary" style="width: 100%;">Lưu thay đổi</button>
             <a href="javascript:history.back()" class="btn btn-secondary" style="width: 100%; margin-top: 10px; text-align: center;">Quay lại</a>
         </form>
     </div>
 
     <?php include('footer.php'); ?>
+
+    <?php if ($is_success && $product_id): ?>
+    <script>
+        setTimeout(function() {
+            // Chuyển hướng về trang detail.php với đúng product_id
+            window.location.href = 'detail.php?product_id=<?php echo urlencode($product_id); ?>'; 
+        }, 2000); // 2000 milliseconds = 2 seconds
+    </script>
+    <?php endif; ?>
+
 </body>
 </html>

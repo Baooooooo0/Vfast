@@ -108,7 +108,8 @@
                                     <p><strong>Tên:</strong> <?php echo htmlspecialchars($user_address['receiver_name']); ?></p>
                                     <p><strong>SĐT:</strong> <?php echo htmlspecialchars($user_address['receiver_phone']); ?></p>
                                     <p><strong>Địa chỉ:</strong> <?php echo htmlspecialchars($user_address['receiver_address']); ?></p>
-                                    <a href="address_crud.php" class="btn btn-secondary btn-sm" style="margin-top: 10px;">Chỉnh sửa địa chỉ</a>
+                                    <a href="../client/address_crud.php?product_id=<?php echo htmlspecialchars($product['product_id']) ?>" class="btn btn-primary" style="margin-bottom: 15px; display: block; text-align: center;">chỉnh sửa</a>
+
                                 </div>
                                 <input type="hidden" name="receiver_name" value="<?php echo htmlspecialchars($user_address['receiver_name']); ?>">
                                 <input type="hidden" name="receiver_phone" value="<?php echo htmlspecialchars($user_address['receiver_phone']); ?>">
@@ -117,7 +118,8 @@
                                 <div class="alert alert-warning" style="margin-bottom: 15px;">
                                     Vui lòng thêm thông tin giao hàng để tiếp tục.
                                 </div>
-                                <a href="address_crud.php" class="btn btn-primary" style="margin-bottom: 15px; display: block; text-align: center;">Thêm địa chỉ giao hàng</a>
+                                
+                                <a href="../client/address_crud.php?product_id=<?php echo htmlspecialchars($product['product_id']) ?>" class="btn btn-primary" style="margin-bottom: 15px; display: block; text-align: center;">Thêm địa chỉ giao hàng</a>
                             <?php endif; ?>
                             
                             <hr style="margin-top: 20px; margin-bottom: 20px;">

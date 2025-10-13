@@ -60,7 +60,7 @@ $data->close();
     <title>Thanh toán</title>
     <?php include('home_css.php'); ?>
     <style>
-        /* Vfast-MoMo/css/payment.css */
+
 body {
     background-color: #f8f9fa;
 }
@@ -169,6 +169,7 @@ width: 48%;
 .btn-bank:hover {
     background-color: #0056b3;
 }
+
     </style>
     <link rel="stylesheet" href="../css/payment.css">
 </head>
@@ -195,13 +196,18 @@ width: 48%;
                     <p><strong>Tên người nhận:</strong> <?php echo htmlspecialchars($user_address['receiver_name']); ?></p>
                     <p><strong>Số điện thoại:</strong> <?php echo htmlspecialchars($user_address['receiver_phone']); ?></p>
                     <p><strong>Địa chỉ giao xe:</strong> <?php echo htmlspecialchars($user_address['receiver_address']); ?></p>
+
                     <a href="address_crud.php" class="btn btn-secondary btn-sm" style="margin-top:10px;">Thay đổi địa chỉ</a>
                 </div>
+
+                    <a href="javascript:history.back()" class="btn btn-secondary btn-sm" style="margin-top:10px;">Quay lại</a>                </div>
+
             <?php else: ?>
                 <div class="alert alert-warning">
                     Bạn chưa có thông tin giao hàng. Vui lòng cập nhật để tiếp tục.
                 </div>
-                <a href="address_crud.php" class="btn btn-primary">Thêm địa chỉ giao hàng</a>
+
+                <a href="address_crud.php?product_id=<?php echo htmlspecialchars($product_id); ?>" class="btn btn-primary">Thêm địa chỉ giao hàng</a>
             <?php endif; ?>
         </div>
 
