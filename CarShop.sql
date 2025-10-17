@@ -761,34 +761,34 @@ CREATE TRIGGER `trg_transactions_delete` AFTER DELETE ON `transactions` FOR EACH
 END
 $$
 
-DELIMITER ;
+DELIMITER;
 
-DELIMITER $$
+-- DELIMITER $$
 
-CREATE TRIGGER `trg_transactions_insert` AFTER INSERT ON `transactions` FOR EACH ROW BEGIN
-    DECLARE remain_number INT;
+-- CREATE TRIGGER `trg_transactions_insert` AFTER INSERT ON `transactions` FOR EACH ROW BEGIN
+--     DECLARE remain_number INT;
 
-    -- Lấy số lượng sản phẩm từ bảng `product`
-    SELECT product_number INTO remain_number 
-    FROM product 
-    WHERE product_id = NEW.product_id;
+--     -- Lấy số lượng sản phẩm từ bảng `product`
+--     SELECT product_number INTO remain_number
+--     FROM product
+--     WHERE product_id = NEW.product_id;
 
-    -- Nếu sản phẩm không tồn tại
-    IF remain_number IS NULL THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Sản phẩm không tồn tại!';
-    -- Nếu số lượng sản phẩm còn lại đủ
-    ELSEIF remain_number >= NEW.transaction_number THEN
-        UPDATE product 
-        SET product_number = product_number - NEW.transaction_number 
-        WHERE product_id = NEW.product_id;
-    -- Nếu số lượng sản phẩm không đủ
-    ELSE 
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Số lượng sản phẩm không đủ!';
-    END IF;
-END
-$$
+--     -- Nếu sản phẩm không tồn tại
+--     IF remain_number IS NULL THEN
+--         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Sản phẩm không tồn tại!';
+--     -- Nếu số lượng sản phẩm còn lại đủ
+--     ELSEIF remain_number >= NEW.transaction_number THEN
+--         UPDATE product
+--         SET product_number = product_number - NEW.transaction_number
+--         WHERE product_id = NEW.product_id;
+--     -- Nếu số lượng sản phẩm không đủ
+--     ELSE
+--         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Số lượng sản phẩm không đủ!';
+--     END IF;
+-- END
+-- $$
 
-DELIMITER ;
+-- DELIMITER ;
 
 DELIMITER $$
 
@@ -814,7 +814,7 @@ CREATE TRIGGER `update_product` AFTER UPDATE ON `transactions` FOR EACH ROW BEGI
 END
 $$
 
-DELIMITER ;
+DELIMITER;
 
 DELIMITER $$
 
@@ -827,7 +827,7 @@ CREATE TRIGGER `update_status` AFTER UPDATE ON `transactions` FOR EACH ROW BEGIN
 END
 $$
 
-DELIMITER ;
+DELIMITER;
 
 -- --------------------------------------------------------
 

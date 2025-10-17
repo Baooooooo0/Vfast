@@ -206,27 +206,22 @@ $data->close();
             <div class="payment-option">
                 <h3>1. Đặt cọc (<?php echo number_format($deposit_amount, 0, ',', '.'); ?> VND)</h3>
                 <div class="payment-methods">
-                    <form action="bank.php" method="POST">
-                        
-                        <!-- BANK: Gửi POST sang bank.php với kiểu 'deposit' -->
-                        <input type="hidden" name="payment_method" value="bank">
-                        <input type="hidden" name="payment_type" value="deposit">
+                     <form method="POST" action="MoMo.php">
                         <input type="hidden" name="amount" value="<?php echo (int)$deposit_amount; ?>">
                         <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product_id); ?>">
-                        <input type="hidden" name="product_name" value="<?php echo htmlspecialchars($product_name); ?>">
-                        <input type="hidden" name="product_price" value="<?php echo (int)$product_price; ?>">
                         <input type="hidden" name="quantity" value="<?php echo (int)$quantity; ?>">
-                        <input type="hidden" name="color" value="<?php echo htmlspecialchars($color); ?>">
-                        <input type="hidden" name="image" value="<?php echo htmlspecialchars($image); ?>">
+                        <input type="hidden" name="payment_type" value="deposit">
+                        
                         <?php if ($user_address): ?>
                             <input type="hidden" name="receiver_name" value="<?php echo htmlspecialchars($user_address['receiver_name']); ?>">
                             <input type="hidden" name="receiver_phone" value="<?php echo htmlspecialchars($user_address['receiver_phone']); ?>">
                             <input type="hidden" name="receiver_address" value="<?php echo htmlspecialchars($user_address['receiver_address']); ?>">
                         <?php endif; ?>
-                        <button class="btn-momo">Thanh toán bằng Momo</button>
+                        
+                        <button type="submit" class="btn-momo" <?php echo $user_address ? '' : 'disabled'; ?>>Thanh toán Momo</button>
                     </form>
+
                     <form action="bank.php" method="POST">
-                        <!-- BANK: Gửi POST sang bank.php với kiểu 'deposit' -->
                         <input type="hidden" name="payment_method" value="bank">
                         <input type="hidden" name="payment_type" value="deposit">
                         <input type="hidden" name="amount" value="<?php echo (int)$deposit_amount; ?>">
@@ -249,8 +244,21 @@ $data->close();
             <div class="payment-option">
                 <h3>2. Thanh toán toàn bộ (<?php echo number_format($total_price, 0, ',', '.'); ?> VND)</h3>
                 <div class="payment-methods">
-                    <button class="btn-momo">Thanh toán bằng Momo</button>
-                    <!-- BANK: Gửi POST sang bank.php với kiểu 'full' -->
+                     <form method="POST" action="MoMo.php">
+                        <input type="hidden" name="amount" value="<?php echo (int)$total_price; ?>">
+                        <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product_id); ?>">
+                        <input type="hidden" name="quantity" value="<?php echo (int)$quantity; ?>">
+                        <input type="hidden" name="payment_type" value="full">
+
+                         <?php if ($user_address): ?>
+                            <input type="hidden" name="receiver_name" value="<?php echo htmlspecialchars($user_address['receiver_name']); ?>">
+                            <input type="hidden" name="receiver_phone" value="<?php echo htmlspecialchars($user_address['receiver_phone']); ?>">
+                            <input type="hidden" name="receiver_address" value="<?php echo htmlspecialchars($user_address['receiver_address']); ?>">
+                        <?php endif; ?>
+
+                        <button type="submit" class="btn-momo" <?php echo $user_address ? '' : 'disabled'; ?>>Thanh toán Momo</button>
+                    </form>
+
                     <form action="bank.php" method="POST" style="display:inline-block; width:48%;">
                     <input type="hidden" name="payment_method" value="bank">
                     <input type="hidden" name="payment_type" value="full">
