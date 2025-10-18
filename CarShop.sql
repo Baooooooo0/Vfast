@@ -175,7 +175,7 @@ VALUES (
         'Hợp kim nhôm 16 inch',
         5,
         2,
-        '322000000',
+        '3220',
         2,
         'còn'
     ),
@@ -602,8 +602,8 @@ VALUES (
         '2024-07-01',
         '15000000',
         3,
-        '',
-        '',
+        'MOMO',
+        'peding',
         NULL,
         NULL,
         NULL,
@@ -618,8 +618,8 @@ VALUES (
         '2024-08-15',
         '15000000',
         1,
-        '',
-        '',
+        'MOMO',
+        'pending',
         NULL,
         NULL,
         NULL,
@@ -634,8 +634,8 @@ VALUES (
         '2024-08-28',
         '15000000',
         1,
-        '',
-        '',
+        'MOMO',
+        'pending',
         NULL,
         NULL,
         NULL,
@@ -650,8 +650,8 @@ VALUES (
         '2024-08-28',
         '15000000',
         1,
-        '',
-        '',
+        'MOMO',
+        'pending',
         NULL,
         NULL,
         NULL,
@@ -666,8 +666,8 @@ VALUES (
         '2024-08-28',
         '15000000',
         1,
-        '',
-        '',
+        'MOMO',
+        'pending',
         NULL,
         NULL,
         NULL,
@@ -682,8 +682,8 @@ VALUES (
         '2024-08-28',
         '15000000',
         1,
-        '',
-        '',
+        'MOMO',
+        'pending',
         NULL,
         NULL,
         NULL,
@@ -698,8 +698,8 @@ VALUES (
         '2024-09-04',
         '15000000',
         2,
-        '',
-        '',
+        'MOMO',
+        'pending',
         NULL,
         NULL,
         NULL,
@@ -714,8 +714,8 @@ VALUES (
         '2024-09-04',
         '15000000',
         2,
-        '',
-        '',
+        'MOMO',
+        'pending',
         NULL,
         NULL,
         NULL,
@@ -730,8 +730,8 @@ VALUES (
         '2024-09-04',
         '15000000',
         2,
-        '',
-        '',
+        'MOMO',
+        'pending',
         NULL,
         NULL,
         NULL,
@@ -741,7 +741,7 @@ VALUES (
     );
 
 --
--- Triggers `transactions`
+Triggers `transactions`
 --
 DELIMITER $$
 
@@ -761,7 +761,7 @@ CREATE TRIGGER `trg_transactions_delete` AFTER DELETE ON `transactions` FOR EACH
 END
 $$
 
-DELIMITER;
+DELIMITER ;
 
 DELIMITER $$
 
@@ -788,7 +788,7 @@ CREATE TRIGGER `trg_transactions_insert` AFTER INSERT ON `transactions` FOR EACH
 END
 $$
 
-DELIMITER;
+DELIMITER ;
 
 DELIMITER $$
 
@@ -814,7 +814,7 @@ CREATE TRIGGER `update_product` AFTER UPDATE ON `transactions` FOR EACH ROW BEGI
 END
 $$
 
-DELIMITER;
+DELIMITER ;
 
 DELIMITER $$
 
@@ -827,7 +827,7 @@ CREATE TRIGGER `update_status` AFTER UPDATE ON `transactions` FOR EACH ROW BEGIN
 END
 $$
 
-DELIMITER;
+DELIMITER ;
 
 -- --------------------------------------------------------
 

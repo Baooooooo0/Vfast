@@ -1,10 +1,13 @@
 <?php 
-
+session_start();
 $host = "localhost";
 $user = "root";
 $password = "";
 $db = "carshop";
-
+if(!isset($_SESSION['email'])){
+    header("Location: login.php");
+    exit();
+}
 $data = mysqli_connect($host, $user, $password, $db);
 
 if (!$data) {
@@ -718,7 +721,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 // Modal và điều kiện
- document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
     function initForm() {
         const formSections = document.querySelectorAll(".form-section");
         const nextBtns = document.querySelectorAll(".next-btn");
