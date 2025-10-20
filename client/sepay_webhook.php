@@ -1,49 +1,49 @@
 <?php
-// sepay_webhook.php (PDO)
-header('Content-Type: application/json; charset=utf-8');
+header('Content-Type: application/json');
+require_once realpath(__DIR__ . '/../config/db_connect.php');
 
-// (Tuỳ chọn) xác thực header nếu bạn bật API Key trong SePay
-// $apiKey = 'your-sepay-api-key-or-secret';
-// if (($_SERVER['HTTP_AUTHORIZATION'] ?? '') !== 'Apikey '.$apiKey) {
-//   http_response_code(401); echo json_encode(['success'=>false,'msg'=>'Unauthorized']); exit;
-// }
+// ✅ Lấy header xác thực
+$headers = getallheaders();
+$authHeader = $headers['Authorization'] ?? '';
+$expectedKey = 'E1Y2KPJFTM1WPJGCUBLI8TDVEIWKVPAQPVNHB4FNXAVC3Q7WHSZEUL03XSBBHOCF';
 
-$raw  = file_get_contents('php://input');
-$data = json_decode($raw, true);
-if (!is_array($data)) { echo json_encode(['success'=>false,'msg'=>'no data']); exit; }
+// Ghi log header để debug
+file_put_contents(__DIR__ . '/sepay_webhook_log.txt',
+    date('Y-m-d H:i:s') . " 🔔 HEADER: $authHeader" . PHP_EOL, FILE_APPEND);
 
-// Lấy order_id từ nội dung chuyển khoản (content/description)
-$content = $data['content'] ?? $data['description'] ?? '';
-if (!preg_match('/ORD-[A-Za-z0-9\-]+/', $content, $m)) {
-  echo json_encode(['success'=>false,'msg'=>'order_id not found']); exit;
+// Kiểm tra key
+if (stripos($authHeader, $expectedKey) === false) {
+    http_response_code(401);
+    echo json_encode(["error" => "Invalid Authorization"]);
+    exit;
 }
-$order_id = $m[0];
 
-// DB
-$pdo = new PDO('mysql:host=localhost;dbname=carshop;charset=utf8mb4', 'root', '', [
-  PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-  PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-  PDO::ATTR_EMULATE_PREPARES => false,
-]);
+// ✅ Đọc dữ liệu JSON
+$input = file_get_contents('php://input');
+$data = json_decode($input, true);
+file_put_contents(__DIR__ . '/sepay_webhook_log.txt',
+    date('Y-m-d H:i:s') . " 🔔 BODY: $input" . PHP_EOL, FILE_APPEND);
 
-// Lấy giao dịch pending theo order_id
-$stmt = $pdo->prepare("SELECT id, request_id, transaction_status FROM transactions WHERE order_id = :oid LIMIT 1");
-$stmt->execute([':oid' => $order_id]);
-$tx = $stmt->fetch();
-if (!$tx) { echo json_encode(['success'=>false,'msg'=>'tx not found']); exit; }
-if ($tx['transaction_status'] === 'completed') { echo json_encode(['success'=>true,'msg'=>'already completed']); exit; }
+// Trích xuất order_id
+$content = $data['content'] ?? '';
+preg_match('/ORD[-A-Z0-9]+/i', $content, $matches);
+$order_id = $matches[0] ?? '';
 
-// Lấy số lượng thật từ request_id (đã lưu ở bước tạo)
-$real_qty = (int)($tx['request_id'] ?? 0);
-if ($real_qty <= 0) { echo json_encode(['success'=>false,'msg'=>'invalid qty']); exit; }
+if (!$order_id) {
+    file_put_contents(__DIR__ . '/sepay_webhook_log.txt', "⚠️ Không tìm thấy order_id trong content: $content" . PHP_EOL, FILE_APPEND);
+    echo json_encode(["error" => "Order not found in content"]);
+    exit;
+}
 
-// UPDATE: set completed + đưa transaction_number về số lượng thật
-$stmt = $pdo->prepare("
-  UPDATE transactions
-  SET transaction_status = 'completed',
-      transaction_number = :q
-  WHERE id = :id
-");
-$stmt->execute([':q' => $real_qty, ':id' => $tx['id']]);
+// ✅ Cập nhật DB
+$stmt = $conn->prepare("UPDATE transactions SET transaction_status = 'completed' WHERE order_id = ?");
+$stmt->bind_param('s', $order_id);
+$stmt->execute();
 
-echo json_encode(['success'=>true]);
+if ($stmt->affected_rows > 0) {
+    file_put_contents(__DIR__ . '/sepay_webhook_log.txt', "✅ Cập nhật DB thành công cho $order_id" . PHP_EOL, FILE_APPEND);
+    echo json_encode(["success" => true, "message" => "Updated $order_id to paid"]);
+} else {
+    file_put_contents(__DIR__ . '/sepay_webhook_log.txt', "⚠️ Không tìm thấy đơn hàng $order_id trong DB" . PHP_EOL, FILE_APPEND);
+    echo json_encode(["warning" => "Order not found"]);
+}

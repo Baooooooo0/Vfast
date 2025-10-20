@@ -1,20 +1,50 @@
 <?php
-// check_payment_status.php
+// ==============================================
+// check_payment_status.php - Kiểm tra trạng thái đơn hàng
+// ==============================================
 header('Content-Type: application/json; charset=utf-8');
+require_once realpath(__DIR__ . '/../config/db_connect.php');
+
+// 1️⃣ Nhận order_id từ AJAX
 $order_id = $_POST['order_id'] ?? '';
-if (!$order_id) { echo json_encode(['payment_status'=>'order_not_found']); exit; }
 
-$mysqli = new mysqli('localhost','root','','carshop');
-if ($mysqli->connect_error) { echo json_encode(['payment_status'=>'db_error']); exit; }
-$mysqli->set_charset('utf8mb4');
+if (empty($order_id)) {
+    echo json_encode(["error" => "Missing order_id"]);
+    exit;
+}
 
-// Tìm giao dịch theo order_id
-$stmt = $mysqli->prepare("SELECT transaction_status FROM transactions WHERE order_id = ? LIMIT 1");
+// 2️⃣ Truy vấn DB để lấy trạng thái
+$stmt = $conn->prepare("SELECT transaction_status FROM transactions WHERE order_id = ?");
 $stmt->bind_param('s', $order_id);
 $stmt->execute();
-$res = $stmt->get_result();
-if ($row = $res->fetch_assoc()) {
-  echo json_encode(['payment_status' => ($row['transaction_status']==='completed' ? 'Paid' : 'Unpaid')]);
+$result = $stmt->get_result();
+
+// 3️⃣ Kiểm tra kết quả và phản hồi
+if ($row = $result->fetch_assoc()) {
+    $status = strtolower(trim($row['transaction_status']));
+
+    // ✅ Trả kết quả JSON cho front-end
+    if ($status === 'paid') {
+        echo json_encode([
+            "order_id" => $order_id,
+            "payment_status" => "Paid",
+            "message" => "Payment has been successfully verified"
+        ]);
+    } else {
+        echo json_encode([
+            "order_id" => $order_id,
+            "payment_status" => "Pending",
+            "message" => "Awaiting payment confirmation"
+        ]);
+    }
 } else {
-  echo json_encode(['payment_status'=>'order_not_found']);
+    echo json_encode([
+        "order_id" => $order_id,
+        "payment_status" => "NotFound",
+        "message" => "Order ID not found in database"
+    ]);
 }
+
+$stmt->close();
+$conn->close();
+?>
