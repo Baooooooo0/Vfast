@@ -111,26 +111,57 @@ $qr_url = 'https://qr.sepay.vn/img?' . http_build_query([
 </div>
 
 <script>
-let paid = false;
-const orderId = <?= json_encode($order_id) ?>;
-function checkStatus() {
-    if (paid) return;
-    fetch('check_payment_status.php', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: new URLSearchParams({order_id: orderId})
-    })
-    .then(r => r.json())
-    .then(res => {
-        console.log(res);
-        if (res.payment_status === 'Paid') {
-            paid = true;
-            document.getElementById('statusBox').innerHTML = '<span class="badge">✅ ĐÃ NHẬN THANH TOÁN</span>';
-        }
-    })
-    .catch(err => console.error(err));
+const orderId = "<?php echo $order_id ?? ''; ?>";
+
+function pollPayment() {
+  if (!orderId) return;
+  fetch(`check_payment_status.php?order_id=${orderId}`)
+    .then(res => res.json())
+    .then(data => {
+      console.log("Trạng thái thanh toán:", data);
+      if (data.status === "completed" || data.payment_status === "Paid") {
+  alert("✅ Thanh toán thành công!");
+
+  // Hiển thị hóa đơn trực tiếp trên trang
+  const invoiceHTML = `
+    <div class="invoice" style="margin-top:30px;padding:20px;border:1px solid #ccc;border-radius:8px;">
+      <h3>🧾 HÓA ĐƠN THANH TOÁN</h3>
+      <p><strong>Mã đơn hàng:</strong> ${orderId}</p>
+      <p><strong>Sản phẩm:</strong> <?= htmlspecialchars($product_name) ?></p>
+      <p><strong>Số lượng:</strong> <?= htmlspecialchars($quantity) ?></p>
+      <p><strong>Số tiền:</strong> <?= number_format($amount, 0, ',', '.') ?> VND</p>
+      <p><strong>Ngày thanh toán:</strong> ${new Date().toLocaleString('vi-VN')}</p>
+      <hr>
+      <p><strong>Khách hàng:</strong> <?= htmlspecialchars($receiver_name) ?></p>
+      <p><strong>Số điện thoại:</strong> <?= htmlspecialchars($receiver_phone) ?></p>
+      <p><strong>Địa chỉ giao hàng:</strong> <?= htmlspecialchars($receiver_address) ?></p>
+      <button onclick="window.print()" style="margin-top:10px;padding:8px 16px;background:#007bff;color:white;border:none;border-radius:5px;cursor:pointer;">
+        🖨️ In hóa đơn
+      </button>
+    </div>
+  `;
+
+  // Cập nhật vùng statusBox bằng hóa đơn
+  const box = document.getElementById('statusBox');
+  box.innerHTML = invoiceHTML;
+  box.classList.add('status-success');
 }
-setInterval(checkStatus, 3000);
+else if (data.status === "pending" || data.status === "paid") {
+        setTimeout(pollPayment, 4000);
+      } else {
+        console.log("⏳ Đang chờ thanh toán...");
+        setTimeout(pollPayment, 4000);
+      }
+    })
+    .catch(err => {
+      console.error("Lỗi khi kiểm tra thanh toán:", err);
+      setTimeout(pollPayment, 4000);
+    });
+}
+
+// bắt đầu kiểm tra sau 5 giây, lặp mỗi 4s
+setTimeout(pollPayment, 5000);
 </script>
+
 </body>
 </html>
