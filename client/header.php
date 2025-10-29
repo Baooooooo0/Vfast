@@ -67,7 +67,8 @@ $cart_count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : 0;
         .cart-count {
             position: absolute;
             top: -7px;
-            left: 76px;
+            /* Cập nhật vị trí left để phù hợp với icon mới */
+            left: 142px; 
             background: red;
             color: white;
             border-radius: 50%;
@@ -119,11 +120,13 @@ $cart_count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : 0;
                 </ul>
             </div>
             <div class="notify">
-                <i class="fa fa-heart" id="like_car" aria-hidden="true"></i>
-                <span class="cart-count"><?php echo $cart_count; ?></span>
-
-                <i class="fa fa-car" id="cart_car" aria-hidden="true"></i>
+                <i class="fa fa-heart" id="like_car" aria-hidden="true" title="Xe đã thích" style="cursor: pointer;"></i>
                 <span class="count-heart"></span>
+
+                <i class="fa fa-history" id="history_car" aria-hidden="true" title="Lịch sử mua hàng" style="cursor: pointer;"></i>
+                
+                <i class="fa fa-car" id="cart_car" aria-hidden="true" title="Đơn xe đã cọc" style="cursor: pointer;"></i>
+                <span class="cart-count"><?php echo $cart_count; ?></span>
             </div>
         </div>
     </header>
@@ -132,6 +135,14 @@ $cart_count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : 0;
         document.getElementById('cart_car').addEventListener('click', function () {
             window.location.href = '../client/cart_car.php';
         });
+
+        // THÊM SỰ KIỆN CLICK CHO LỊCH SỬ MUA HÀNG
+        document.getElementById('history_car').addEventListener('click', function () {
+            // Trang cart_car.php của bạn hiển thị "Đơn xe đã cọc",
+            // vì vậy chúng ta sẽ trỏ icon lịch sử đến trang đó.
+            window.location.href = '../client/cart_car.php';
+        });
+
         document.getElementById('like_car').onclick = function(){
             window.location.href = '../client/liked_car.php';
         }

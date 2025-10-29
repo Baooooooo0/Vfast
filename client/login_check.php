@@ -32,14 +32,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['email'] = $row['email'];
         $_SESSION['usertype'] = $row['usertype'];
     }
+    
+    // Chuyển hướng dựa trên usertype
     if($row["usertype"]=="user"){
-        header("Location: home.php");
-    }else if($row["usertype"]=="admin"){
-        header("Location: /admin/ad_home.php");
-    }else{
+        header("Location: home.php"); // Giữ nguyên cho user
+        exit(); // Thêm exit() sau header để đảm bảo dừng thực thi
+    } else if($row["usertype"]=="admin"){
+        // *** ĐÃ SỬA *** Sử dụng đường dẫn tương đối
+        header("Location: ../admin/ad_home.php"); 
+        exit(); // Thêm exit() sau header
+    } else {
+        // Nếu đăng nhập thất bại
         $_SESSION['loginMessage'] = "Email và Password không tồn tại!";
         header("Location: login.php");
+        exit(); // Thêm exit() sau header
     }
     
+    // Đóng statement và connection nếu cần
+    $stmt->close();
+    $data->close();
 }
 ?>
