@@ -58,7 +58,15 @@ $cart_count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : 0;
     <title>Document</title>
     <?php include('home_css.php'); ?>
     <style>
+        .logo a {
+            display: inline-block;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
         
+        .logo a:hover {
+            opacity: 0.8;
+        }
 
         .notify {
             position: relative;
@@ -96,8 +104,10 @@ $cart_count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : 0;
     <header class="header">
         <div class="navbar">
             <div class="logo">
-                <img alt="VinFast - Thương hiệu xe điện đầu tiên Việt Nam"
-                    src="https://vinfastauto.com/themes/porto/img/new-home-page/VinFast-logo.svg">
+                <a href="home.php">
+                    <img alt="VinFast - Thương hiệu xe điện đầu tiên Việt Nam"
+                        src="https://vinfastauto.com/themes/porto/img/new-home-page/VinFast-logo.svg">
+                </a>
             </div>
             <nav>
                 <div class="hamburger" id="hamburger">
