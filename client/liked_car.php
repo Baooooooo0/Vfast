@@ -1,4 +1,9 @@
 <?php
+session_start();
+if(!isset($_SESSION['email'])){
+    header("Location: login.php");
+    exit();
+}
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Lấy dữ liệu JSON từ body request
     $jsonData = file_get_contents('php://input');
@@ -31,7 +36,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     likeCars.forEach(row => {
                         const colDiv = document.createElement('div');
                         colDiv.className = 'col-5';
-                        
+                        // 🩶 Thêm trái tim giống oto.php
+                        const smallCard = document.createElement('div');
+                        smallCard.className = 'small_card';
+                        smallCard.innerHTML = `
+                            <i class="fas fa-heart like_car"
+                                data-id="${row.product_id}"
+                                data-image="${row.image}"
+                                data-name="${row.name}"
+                                data-color="${row.color}"
+                                data-stock="${row.stock}"
+                                style="color:red; cursor:pointer;">
+                            </i>
+                        `;
+                        colDiv.appendChild(smallCard);
+
                         const otoItemDiv = document.createElement('div');
                         otoItemDiv.className = 'oto-item';
                         
@@ -59,21 +78,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         const stockP = document.createElement('p');
                         stockP.textContent = 'Số lượng tồn kho: ' + row.stock;
 
-                        // Nút đặt cọc
-                        const depositBtn = document.createElement('button');
-                        depositBtn.className = 'deposit';
-                        depositBtn.innerHTML = '<a href="#myModal" data-toggle="modal">Đặt cọc</a>';
-
                         // Nút xem chi tiết
                         const detailsBtn = document.createElement('button');
                         detailsBtn.className = 'details';
-                        detailsBtn.innerHTML = '<a href="#">Xem chi tiết</a>';
+                        detailsBtn.innerHTML = `<a href="detail.php?product_id=${row.product_id}">Xem chi tiết</a>`;
 
                         otoItemDiv.appendChild(img);
                         otoItemDiv.appendChild(h3);
                         otoItemDiv.appendChild(colorP);
                         otoItemDiv.appendChild(stockP);
-                        otoItemDiv.appendChild(depositBtn);
                         otoItemDiv.appendChild(detailsBtn);
                         
                         colDiv.appendChild(otoItemDiv);
@@ -206,6 +219,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    
     <?php include('footer.php') ?>
 </body>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const container = document.querySelector('.oto-list');
+    let likeCars = JSON.parse(localStorage.getItem('likeCars')) || [];
+
+    container.addEventListener('click', function(e) {
+        if (e.target.classList.contains('like_car')) {
+            const btn = e.target;
+            const product = {
+                product_id: btn.getAttribute('data-id'),
+                image: btn.getAttribute('data-image'),
+                name: btn.getAttribute('data-name'),
+                color: btn.getAttribute('data-color'),
+                stock: btn.getAttribute('data-stock')
+            };
+
+            toggleLike(product, btn);
+        }
+    });
+
+    function toggleLike(product, btn) {
+        const index = likeCars.findIndex(p => p.product_id === product.product_id);
+        if (index !== -1) {
+            likeCars.splice(index, 1);
+            btn.style.color = '';
+        } else {
+            likeCars.push(product);
+            btn.style.color = 'red';
+        }
+        localStorage.setItem('likeCars', JSON.stringify(likeCars));
+        updateCountHeart();
+    }
+
+    function updateCountHeart() {
+        document.querySelector('.count-heart').textContent = likeCars.length;
+    }
+
+    updateCountHeart();
+});
+</script>
+
 
 <script>
      document.addEventListener('DOMContentLoaded', function () {
