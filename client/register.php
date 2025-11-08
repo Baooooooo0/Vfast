@@ -35,8 +35,6 @@ session_start();
             
             <input type="email" placeholder="Email" id="email" name="email" required>
 
-            <input type="text" placeholder="Số điện thoại" id="phone" name="phone">
-            
             <input type="password" placeholder="Mật khẩu" id="password" name="password" required>
             <input type="password" placeholder="Xác nhận mật khẩu" id="password_confirm" name="password_confirm" required>
 
