@@ -357,6 +357,7 @@ mysqli_close($data);
                 <div class="col-5">
                     <div class="small_card">
                         <i class="fas fa-heart like_car" 
+                        data-id="<?php echo htmlspecialchars($row['product_id']); ?>"
                         data-image="<?php echo htmlspecialchars($row['image']);?>"
                         data-name="<?php echo htmlspecialchars($row['product_name']); ?>"
                         data-color="<?php echo htmlspecialchars($row['color']); ?>"
@@ -626,6 +627,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Hàm khởi tạo nút like
     function initLikeButton(likeButton) {
         const product = {
+            product_id: likeButton.getAttribute('data-id'),
             image: likeButton.getAttribute('data-image'),
             name: likeButton.getAttribute('data-name'),
             color: likeButton.getAttribute('data-color'),
@@ -779,16 +781,6 @@ document.addEventListener('DOMContentLoaded', function () {
     initForm();
 });
 
-
-
-
 </script>
-
-
-
-
-        
-
-
 
 </html>

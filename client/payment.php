@@ -139,14 +139,29 @@ $data->close();
         font-size: 18px;
     }
 
+    .payment-methods {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-top: 10px;
+    }
+
+    .payment-methods form {
+    flex: 1; /* mỗi form chiếm đều nhau */
+    display: flex;
+    justify-content: center;
+    }
+
     .payment-methods button {
-        width: 48%;
-        padding: 12px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: background-color 0.3s ease;
+    width: 100%;
+    padding: 12px 0;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
     }
 
     .btn-momo {
@@ -161,7 +176,6 @@ $data->close();
     .btn-bank {
         background-color: #007bff;
         color: white;
-        float: right;
     }
 
     .btn-bank:hover {
@@ -259,22 +273,22 @@ $data->close();
                         <button type="submit" class="btn-momo" <?php echo $user_address ? '' : 'disabled'; ?>>Thanh toán Momo</button>
                     </form>
 
-                    <form action="bank.php" method="POST" style="display:inline-block; width:48%;">
-                    <input type="hidden" name="payment_method" value="bank">
-                    <input type="hidden" name="payment_type" value="full">
-                    <input type="hidden" name="amount" value="<?php echo (int)$total_price; ?>">
-                    <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product_id); ?>">
-                    <input type="hidden" name="product_name" value="<?php echo htmlspecialchars($product_name); ?>">
-                    <input type="hidden" name="product_price" value="<?php echo (int)$product_price; ?>">
-                    <input type="hidden" name="quantity" value="<?php echo (int)$quantity; ?>">
-                    <input type="hidden" name="color" value="<?php echo htmlspecialchars($color); ?>">
-                    <input type="hidden" name="image" value="<?php echo htmlspecialchars($image); ?>">
-                    <?php if ($user_address): ?>
-                        <input type="hidden" name="receiver_name" value="<?php echo htmlspecialchars($user_address['receiver_name']); ?>">
-                        <input type="hidden" name="receiver_phone" value="<?php echo htmlspecialchars($user_address['receiver_phone']); ?>">
-                        <input type="hidden" name="receiver_address" value="<?php echo htmlspecialchars($user_address['receiver_address']); ?>">
-                    <?php endif; ?>
-                    <button class="btn-bank" type="submit" <?php echo $user_address ? '' : 'disabled'; ?>>Chuyển khoản ngân hàng</button>
+                    <form action="bank.php" method="POST">
+                        <input type="hidden" name="payment_method" value="bank">
+                        <input type="hidden" name="payment_type" value="full">
+                        <input type="hidden" name="amount" value="<?php echo (int)$total_price; ?>">
+                        <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($product_id); ?>">
+                        <input type="hidden" name="product_name" value="<?php echo htmlspecialchars($product_name); ?>">
+                        <input type="hidden" name="product_price" value="<?php echo (int)$product_price; ?>">
+                        <input type="hidden" name="quantity" value="<?php echo (int)$quantity; ?>">
+                        <input type="hidden" name="color" value="<?php echo htmlspecialchars($color); ?>">
+                        <input type="hidden" name="image" value="<?php echo htmlspecialchars($image); ?>">
+                        <?php if ($user_address): ?>
+                            <input type="hidden" name="receiver_name" value="<?php echo htmlspecialchars($user_address['receiver_name']); ?>">
+                            <input type="hidden" name="receiver_phone" value="<?php echo htmlspecialchars($user_address['receiver_phone']); ?>">
+                            <input type="hidden" name="receiver_address" value="<?php echo htmlspecialchars($user_address['receiver_address']); ?>">
+                        <?php endif; ?>
+                        <button class="btn-bank" type="submit" <?php echo $user_address ? '' : 'disabled'; ?>>Chuyển khoản ngân hàng</button>
                     </form>
                 </div>
             </div>

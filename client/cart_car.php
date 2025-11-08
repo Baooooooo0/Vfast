@@ -264,7 +264,7 @@ mysqli_close($data);
                 <hr>
             </div>
             <div class="brand">
-                <i class="fa fa-car" aria-hidden="true"></i>
+                <i class="fa fa-history" aria-hidden="true"></i>
                 <span>Vinfast</span>
             </div>
 
