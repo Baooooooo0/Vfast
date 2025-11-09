@@ -1,14 +1,25 @@
 <?php
-// client/send_invoice.php
-$config = include realpath(__DIR__ . '/../config/mail_config.php');
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+require_once __DIR__ . '/../vendor/autoload.php';
+$config = require realpath(__DIR__ . '/../config/mail_config.php');
+
+$logPath = __DIR__ . '/send_invoice_log.txt';
+file_put_contents($logPath, date('Y-m-d H:i:s') . " 🧩 send_invoice.php loaded\n", FILE_APPEND);
+
+if (!is_array($config) || empty($config['username'])) {
+    file_put_contents($logPath, date('Y-m-d H:i:s') . " ❌ mail_config.php missing or invalid\n", FILE_APPEND);
+    return false;
+}
+
 function send_invoice_for_order(string $order_id, mysqli $conn): bool {
+    global $config, $logPath; // ✅ thêm dòng này để dùng $config bên trong
+
     $sql = "
       SELECT t.order_id, t.deposit AS amount, t.transaction_date,
              t.receiver_name, t.receiver_phone, t.receiver_address,
-             t.product_id, u.email, u.fullname,
+             t.product_id, u.email, u.name AS fullname,
              p.product_name
       FROM transactions t
       LEFT JOIN users   u ON u.id = t.customer_id
@@ -20,9 +31,16 @@ function send_invoice_for_order(string $order_id, mysqli $conn): bool {
     $stmt->bind_param('s', $order_id);
     $stmt->execute();
     $row = $stmt->get_result()->fetch_assoc();
-    if (!$row || empty($row['email'])) return false;
 
-    // HTML nội dung hóa đơn
+    if (!$row) {
+        file_put_contents($logPath, date('Y-m-d H:i:s') . " ❌ Không tìm thấy đơn hàng $order_id\n", FILE_APPEND);
+        return false;
+    }
+    if (empty($row['email'])) {
+        file_put_contents($logPath, date('Y-m-d H:i:s') . " ⚠️ Đơn hàng $order_id không có email khách hàng\n", FILE_APPEND);
+        return false;
+    }
+
     $html = '
       <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto">
         <h2>🧾 HÓA ĐƠN THANH TOÁN</h2>
@@ -37,7 +55,6 @@ function send_invoice_for_order(string $order_id, mysqli $conn): bool {
       </div>
     ';
 
-    require_once __DIR__ . '/../vendor/autoload.php'; // composer require phpmailer/phpmailer
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
@@ -57,10 +74,10 @@ function send_invoice_for_order(string $order_id, mysqli $conn): bool {
         $mail->AltBody = strip_tags($html);
         $mail->send();
 
-        file_put_contents(__DIR__ . '/send_invoice_log.txt', date('Y-m-d H:i:s') . " ✅ Mail sent to {$row['email']} for {$order_id}\n", FILE_APPEND);
+        file_put_contents($logPath, date('Y-m-d H:i:s') . " ✅ Mail sent to {$row['email']} for {$order_id}\n", FILE_APPEND);
         return true;
     } catch (Exception $e) {
-        file_put_contents(__DIR__ . '/send_invoice_log.txt', date('Y-m-d H:i:s') . " ❌ Mail failed for {$order_id}: {$e->getMessage()}\n", FILE_APPEND);
+        file_put_contents($logPath, date('Y-m-d H:i:s') . " ❌ Mail failed for {$order_id}: {$e->getMessage()}\n", FILE_APPEND);
         return false;
     }
 }

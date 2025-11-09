@@ -45,8 +45,27 @@ $stmt->execute();
 
 if ($stmt->affected_rows > 0) {
     file_put_contents(__DIR__ . '/sepay_webhook_log.txt', "✅ Cập nhật DB thành công cho $order_id" . PHP_EOL, FILE_APPEND);
-    @include_once __DIR__ . '/send_invoice.php';
-    if (function_exists('send_invoice_for_order')) { send_invoice_for_order($order_id, $conn); }
+require_once __DIR__ . '/send_invoice.php';
+    if (function_exists('send_invoice_for_order')) {
+        try {
+            $sendResult = send_invoice_for_order($order_id, $conn);
+            file_put_contents(__DIR__ . '/sepay_webhook_log.txt',
+                date('Y-m-d H:i:s') . ($sendResult ? " ✅ Gửi hóa đơn email thành công cho $order_id\n" : " ❌ Gửi hóa đơn thất bại cho $order_id\n"),
+                FILE_APPEND
+            );
+        } catch (Throwable $e) {
+            file_put_contents(__DIR__ . '/sepay_webhook_log.txt',
+                date('Y-m-d H:i:s') . " ❌ Lỗi khi gọi send_invoice_for_order(): " . $e->getMessage() . "\n",
+                FILE_APPEND
+            );
+        }
+    } else {
+        file_put_contents(__DIR__ . '/sepay_webhook_log.txt',
+            date('Y-m-d H:i:s') . " ⚠️ Hàm send_invoice_for_order không tồn tại trong send_invoice.php\n",
+            FILE_APPEND
+        );
+    }
+
     echo json_encode(["success" => true, "message" => "Updated $order_id to paid"]);
 } else {
     file_put_contents(__DIR__ . '/sepay_webhook_log.txt', "⚠️ Không tìm thấy đơn hàng $order_id trong DB" . PHP_EOL, FILE_APPEND);
