@@ -32,7 +32,7 @@
             
             <button type="submit" name="submit" >Đăng Nhập</button>
             <span>Chưa có tài khoản?</span>
-            <button class="register" type="button" onclick="window.location.href='register.html'">Đăng ký tài khoản</button>
+            <button class="register" type="button" onclick="window.location.href='register.php'">Đăng ký tài khoản</button>
         </form>
     </div>
    
