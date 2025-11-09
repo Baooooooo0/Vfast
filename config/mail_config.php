@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../vendor/autoload.php';
+use PHPMailer\PHPMailer\PHPMailer;
 return [
     'smtp_host' => 'smtp.gmail.com',
     'smtp_port' => 587,
