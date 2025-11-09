@@ -45,6 +45,8 @@ $stmt->execute();
 
 if ($stmt->affected_rows > 0) {
     file_put_contents(__DIR__ . '/sepay_webhook_log.txt', "✅ Cập nhật DB thành công cho $order_id" . PHP_EOL, FILE_APPEND);
+    @include_once __DIR__ . '/send_invoice.php';
+    if (function_exists('send_invoice_for_order')) { send_invoice_for_order($order_id, $conn); }
     echo json_encode(["success" => true, "message" => "Updated $order_id to paid"]);
 } else {
     file_put_contents(__DIR__ . '/sepay_webhook_log.txt', "⚠️ Không tìm thấy đơn hàng $order_id trong DB" . PHP_EOL, FILE_APPEND);
