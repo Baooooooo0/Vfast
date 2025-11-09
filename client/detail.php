@@ -24,7 +24,7 @@
     $stmt->execute();
     $result = $stmt->get_result();
     $product = $result->fetch_assoc(); // $product is now an associative array
-
+    echo $product_id;
     // Redirect or show error if product not found
     if (!$product) {
         die("Sản phẩm không tồn tại.");
