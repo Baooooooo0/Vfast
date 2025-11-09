@@ -351,13 +351,13 @@ mysqli_close($data);
             </div>
 
 
-        <!-- list car -->
         <div class="title-list-car"><h2>Danh sách tất cả các xe </h2></div>
             <section class="oto-list">
                 <?php while($row = $result_infor_product->fetch_assoc()): ?>
                 <div class="col-5">
                     <div class="small_card">
                         <i class="fas fa-heart like_car" 
+                        data-id="<?php echo htmlspecialchars($row['product_id']); ?>"
                         data-image="<?php echo htmlspecialchars($row['image']);?>"
                         data-name="<?php echo htmlspecialchars($row['product_name']); ?>"
                         data-color="<?php echo htmlspecialchars($row['color']); ?>"
@@ -372,7 +372,6 @@ mysqli_close($data);
                         <h3><?php echo htmlspecialchars($row['product_name']); ?></h3>
                         <p>Màu: <?php echo htmlspecialchars($row['color']); ?></p>
                         <p>Số lượng tồn kho: <?php echo htmlspecialchars($row['product_number']); ?></p>
-                        <button class="deposit"><a href="#myModal" data-toggle="modal">Đặt cọc</a></button>
                         <button class="details"><a href="../client/detail.php?product_id=<?php echo htmlspecialchars($row['product_id']) ?>">Xem chi tiết</a></button>
                     </div>
                 </div> 
@@ -403,22 +402,17 @@ mysqli_close($data);
             </div>
 
         
-    <!-- The Modal -->
     <div class="modal fade" id="myModal">
         <div class="modal-dialog">
             <div class="modal-content">
-                <!-- Modal Header -->
                 <div class="modal-header">
                     <i class="modal-icon fas fa-pen"></i>
                     <h4 class="modal-title">Thông tin chủ xe</h4>
                     <button type="button" class="close" data-dismiss="modal">X</button>
                 </div>
 
-                <!-- Modal Body -->
                 <div class="modal-body">
-                    <!-- Combined Form -->
                     <form action="../client/process_cart.php" id="combinedForm" method="POST">
-                        <!-- Form Section 1 -->
                         <div class="warningMessage">
                             <span id="contetnt-warning"></span>
                         </div>
@@ -459,7 +453,6 @@ mysqli_close($data);
                             </div>
                         </div>
 
-                        <!-- Form Section 2 -->
                         <div class="warningMessage">
                             <span id="contetnt-warning"></span>
                         </div>
@@ -489,7 +482,6 @@ mysqli_close($data);
                             </div>
                         </div>
 
-                        <!-- Form Section 3 -->
                         <div class="warningMessage">
                             <span id="content-warning"></span>
                         </div>
@@ -533,7 +525,6 @@ mysqli_close($data);
 
 <script src="../js/slick.js"></script>
 
-<!-- Gửi info users xử lý và đưa vào cart -->
 <script>
     document.querySelector('.submit-btn').addEventListener('click', function() {
     var combinedForm = document.createElement('form');
@@ -636,6 +627,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Hàm khởi tạo nút like
     function initLikeButton(likeButton) {
         const product = {
+            product_id: likeButton.getAttribute('data-id'),
             image: likeButton.getAttribute('data-image'),
             name: likeButton.getAttribute('data-name'),
             color: likeButton.getAttribute('data-color'),
@@ -789,16 +781,6 @@ document.addEventListener('DOMContentLoaded', function () {
     initForm();
 });
 
-
-
-
 </script>
-
-
-
-
-        
-
-
 
 </html>

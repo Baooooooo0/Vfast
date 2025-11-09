@@ -6,6 +6,9 @@ $user = "root";
 $password = "";
 $db = "carshop";
 
+if (defined('HEADER_INCLUDED')) return;
+define('HEADER_INCLUDED', true);
+
 $data = new mysqli($host, $user, $password, $db);
 
 if (isset($_SESSION['email'])) {
@@ -58,16 +61,30 @@ $cart_count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : 0;
     <title>Document</title>
     <?php include('home_css.php'); ?>
     <style>
+        .logo a {
+            display: inline-block;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
         
+        .logo a:hover {
+            opacity: 0.8;
+        }
 
         .notify {
+            display: flex;
+            align-items: center;
+            /* justify-content: space-between;  */
+            gap: 25px; 
+            min-width: 120px;
             position: relative;
         }
+
 
         .cart-count {
             position: absolute;
             top: -7px;
-            left: 76px;
+            left: 75px; /* Điều chỉnh vị trí sau khi xóa icon history */
             background: red;
             color: white;
             border-radius: 50%;
@@ -88,6 +105,9 @@ $cart_count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : 0;
             font-size: 10px;
             text-align: center;
         }
+
+
+
     </style>
 </head>
 
@@ -95,8 +115,10 @@ $cart_count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : 0;
     <header class="header">
         <div class="navbar">
             <div class="logo">
-                <img alt="VinFast - Thương hiệu xe điện đầu tiên Việt Nam"
-                    src="https://vinfastauto.com/themes/porto/img/new-home-page/VinFast-logo.svg">
+                <a href="home.php">
+                    <img alt="VinFast - Thương hiệu xe điện đầu tiên Việt Nam"
+                        src="https://vinfastauto.com/themes/porto/img/new-home-page/VinFast-logo.svg">
+                </a>
             </div>
             <nav>
                 <div class="hamburger" id="hamburger">
@@ -108,7 +130,6 @@ $cart_count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : 0;
                     <li><a href="home.php">Giới thiệu</a></li>
                     <li><a href="oto.php">Ô tô</a></li>
                     <li><a href="service.php">Dịch vụ hậu mãi</a></li>
-                    <li><a href="battery_station.php">Pin và trạm sạc</a></li>
                 </ul>
             </nav>
             <div class="box-car-head">
@@ -119,11 +140,15 @@ $cart_count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : 0;
                 </ul>
             </div>
             <div class="notify">
-                <i class="fa fa-heart" id="like_car" aria-hidden="true"></i>
-                <span class="cart-count"><?php echo $cart_count; ?></span>
-
-                <i class="fa fa-car" id="cart_car" aria-hidden="true"></i>
+            <div class="notify-item">
+                <i class="fa fa-heart" id="like_car" aria-hidden="true" title="Xe đã thích"></i>
                 <span class="count-heart"></span>
+            </div>
+
+            <div class="notify-item">
+                <i class="fa fa-car" id="cart_car" aria-hidden="true" title="Lịch sử mua hàng"></i>
+                <span class="cart-count"><?php echo $cart_count; ?></span>
+            </div>
             </div>
         </div>
     </header>
@@ -132,6 +157,7 @@ $cart_count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : 0;
         document.getElementById('cart_car').addEventListener('click', function () {
             window.location.href = '../client/cart_car.php';
         });
+
         document.getElementById('like_car').onclick = function(){
             window.location.href = '../client/liked_car.php';
         }
