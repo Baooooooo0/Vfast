@@ -1,0 +1,36 @@
+====== IPN Received at: 2025-11-08 02:57:48 ======
+Raw JSON Body:
+{"partnerCode":"MOMOBKUN20180529","orderId":"MOMO17625706529742","requestId":"1762570652","amount":15000000,"orderInfo":"Thanh toán đơn hàng MOMO17625706529742","orderType":"momo_wallet","transId":4609012902,"resultCode":0,"message":"Thành công.","payType":"aio_qr","responseTime":1762570668803,"extraData":"","signature":"cca05611ae4ff7c3b03b58d716189ea325d0c5092eac61d6b60fba9b79aa9e91"}
+Decoded PHP Array:
+Array
+(
+    [partnerCode] => MOMOBKUN20180529
+    [orderId] => MOMO17625706529742
+    [requestId] => 1762570652
+    [amount] => 15000000
+    [orderInfo] => Thanh toán đơn hàng MOMO17625706529742
+    [orderType] => momo_wallet
+    [transId] => 4609012902
+    [resultCode] => 0
+    [message] => Thành công.
+    [payType] => aio_qr
+    [responseTime] => 1762570668803
+    [extraData] => 
+    [signature] => cca05611ae4ff7c3b03b58d716189ea325d0c5092eac61d6b60fba9b79aa9e91
+)
+
+MoMo Signature: cca05611ae4ff7c3b03b58d716189ea325d0c5092eac61d6b60fba9b79aa9e91
+Our Signature:  cca05611ae4ff7c3b03b58d716189ea325d0c5092eac61d6b60fba9b79aa9e91
+>>> SIGNATURE MATCHED! <<<
+Signature check PASSED. ResultCode: 0
+Payment SUCCESS. Connecting to DB...
+Searching for transaction with orderId: MOMO17625706529742
+Transaction found: Array
+(
+    [product_id] => VF012
+    [transaction_number] => 1
+)
+
+Updated transactions status to 'completed'.
+Decremented product stock.
+DB transaction COMMITTED.

@@ -82,7 +82,7 @@ $orderInfo = "Thanh toán đơn hàng " . $orderId;
 // $amount đã được lấy từ POST ở trên
 // $orderId đã được tạo ở trên
 $redirectUrl = "http://vfast.vtest/client/oto.php"; // Trang sẽ chuyển đến sau khi thanh toán
-$ipnUrl = "https://2fc1fe108424.ngrok-free.app/vfast/client/momo_ipn_handler.php"; // URL MoMo sẽ gửi kết quả về
+$ipnUrl = "https://96d6a15e1a6d.ngrok-free.app/vfast/client/momo_ipn_handler.php"; // URL MoMo sẽ gửi kết quả về
 $extraData = "";
     
 $requestId = time() . "";
