@@ -13,7 +13,6 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 -- --------------------------------------------------------
-
 --
 -- Cấu trúc bảng cho bảng `users`
 --
@@ -35,13 +34,15 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
+
 -- Đang đổ dữ liệu cho bảng `users`
 --
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `birthday`, `usertype`, `password`, `pob`, `receiver_name`, `receiver_phone`, `receiver_address`) VALUES
 (0, 'Nguyen Van B', 'nguyenvanb@gmail.com', '0923123449', NULL, 'admin', 'adminpass', 'Hồ Chí Minh', NULL, NULL, NULL),
 (1, 'Lê Văn Cừ', 'levancu976@gmail.com', '0366796412', '2004-07-09', 'user', '123', 'Hồ Chí Minh', NULL, NULL, NULL),
 (2, 'Đặng Đức Tĩnh', 'dangductinh1105@gmail.com', '0912412515', '2024-07-10', 'admin', '456', 'Ninh Thuận', NULL, NULL, NULL),
-(3, 'Nguyen Van A', 'nguyenvana@gmail.com', '0912412513', '2004-04-09', 'user', 'abc', 'Hồ Chí Minh', NULL, NULL, NULL);
+(3, 'Nguyen Van A', 'nguyenvana@gmail.com', '0912412513', '2004-04-09', 'user', 'abc', 'Hồ Chí Minh', NULL, NULL, NULL),
+(4, 'Gia Bao', 'giabao4785@gmail.com', '0843257392', '2004-04-09', 'user', 'abc', 'Hồ Chí Minh', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -71,7 +72,7 @@ INSERT INTO `product` (`product_id`, `product_name`, `color`, `image`, `dimensio
 ('VF01', 'VinFast VF3', 'vàng', '../img/vf-3.jpg', '3114 x 1593 x 1600', '20.00', 'Hợp kim nhôm 16 inch', 5, 2, '320000000', 0, 'hết'),
 ('VF011', 'VinFast VF3', 'xanh', '../img/VF3_blue.png', '3114 x 1593 x 1600', '20.00', 'Hợp kim nhôm 16 inch', 5, 6, '322000000', 2, 'còn'),
 ('VF012', 'VinFast VF3', 'đỏ', '../img/VF3_red.png', '3114 x 1593 x 1600', '20.00', 'Hợp kim nhôm 16 inch', 5, 2, '322000000', 2, 'còn'),
-('VF013', 'VinFast VF3', 'đen', '../img/VF3_black.png', '3114 x 1593 x 1600', '20.00', 'Hợp kim nhôm 16 inch', 5, 2, '322000000', 2, 'còn'),
+('VF013', 'VinFast VF3', 'đen', '../img/VF3_black.png', '3114 x 1593 x 1600', '20.00', 'Hợp kim nhôm 16 inch', 5, 2, '15000', 2, 'còn'),
 ('VF014', 'VinFast VF3', 'trắng', '../img/VF3_white.png', '3114 x 1593 x 1600', '20.00', 'Hợp kim nhôm 16 inch', 5, 2, '322000000', 1, 'còn'),
 ('VF02', 'VinFast VF5 ', 'đỏ', '../img/VF5_red.png', '3965 x 1720 x 1600', '37.23', 'Hợp kim nhôm 17 inch', 5, 6, '538000000', 0, 'hết'),
 ('VF021', 'VinFast VF5', 'vàng', '../img/VF5_yellow.png', '3965 x 1720 x 1600', '37.23', 'Hợp kim nhôm 17 inch', 5, 6, '538000000', 0, 'còn'),
@@ -266,4 +267,4 @@ COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;carshop
