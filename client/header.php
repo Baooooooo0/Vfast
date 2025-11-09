@@ -74,7 +74,7 @@ $cart_count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : 0;
         .notify {
             display: flex;
             align-items: center;
-            justify-content: space-between; 
+            /* justify-content: space-between;  */
             gap: 25px; 
             min-width: 120px;
             position: relative;

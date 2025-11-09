@@ -23,7 +23,6 @@ mysqli_set_charset($data, 'utf8mb4');
 // 3. TRUY VẤN DỮ LIỆU CHO DASHBOARD
 // =================================================================
 
-// ... (Phần truy vấn dữ liệu PHP giữ nguyên như trước) ...
 // 3.1. Dữ liệu cho các Thẻ Thống Kê
 $q_revenue = mysqli_query($data, "SELECT SUM(deposit) AS total_revenue FROM transactions WHERE transaction_status = 'completed'");
 $total_revenue = mysqli_fetch_assoc($q_revenue)['total_revenue'] ?? 0;
@@ -132,6 +131,11 @@ $result_users = mysqli_query($data, $sql_users);
     </div>
 </nav>
 
+
+
+ <!-- ****************************************************** -->
+<!--************************ NAVBAR *************************-->
+ <!-- ****************************************************** -->
 <div class="container-fluid">
     <ul class="nav nav-tabs" id="adminTab" role="tablist">
         <li class="nav-item">
@@ -156,6 +160,12 @@ $result_users = mysqli_query($data, $sql_users);
         </li>
     </ul>
 
+
+
+
+ <!-- ****************************************************** -->
+<!--************************ DASHBOARD *************************-->
+ <!-- ****************************************************** -->
     <div class="tab-content" id="adminTabContent">
         <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
             <div class="row">
@@ -220,12 +230,20 @@ $result_users = mysqli_query($data, $sql_users);
             </div>
         </div>
 
+
+
+
+
+
+ <!-- ****************************************************** -->
+<!--************************ QUẢN LÝ GIAO DỊCH *************************-->
+ <!-- ****************************************************** -->
         <div class="tab-pane fade" id="transactions" role="tabpanel" aria-labelledby="transactions-tab">
            <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2>Quản lý Giao dịch</h2>
-                <button class="btn btn-primary" data-toggle="modal" data-target="#insertModal">
+                <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#insertModal">
                     <i class="fas fa-plus"></i> Thêm Giao dịch
-                </button>
+                </button> -->
             </div>
             <div class="table-responsive bg-white p-3 rounded shadow-sm">
                 <table class="table table-bordered table-hover">
@@ -242,9 +260,9 @@ $result_users = mysqli_query($data, $sql_users);
                         if ($result_transactions && mysqli_num_rows($result_transactions) > 0) {
                             while ($row = mysqli_fetch_assoc($result_transactions)) {
                                 $status_class = '';
-                                if ($row['transaction_status'] == 'pending') $status_class = 'badge-pending';
-                                elseif ($row['transaction_status'] == 'completed') $status_class = 'badge-completed';
-                                elseif ($row['transaction_status'] == 'failed') $status_class = 'badge-failed';
+                                if ($row['transaction_status'] == 'Pending') $status_class = 'badge-pending';
+                                elseif ($row['transaction_status'] == 'Completed') $status_class = 'badge-completed';
+                                elseif ($row['transaction_status'] == 'Failed') $status_class = 'badge-failed';
                         ?>
                                 <tr>
                                     <td><?php echo $row['transaction_id']; ?></td>
@@ -253,12 +271,60 @@ $result_users = mysqli_query($data, $sql_users);
                                     <td><?php echo htmlspecialchars($row['product_color']); ?></td>
                                     <td><?php echo $row['transaction_number']; ?></td>
                                     <td><?php echo number_format($row['deposit'], 0, ',', '.'); ?>đ</td>
-                                    <td><span class="badge <?php echo $status_class; ?>"><?php echo htmlspecialchars($row['transaction_status']); ?></span></td>
+                                    <td style="min-width: 200px;">
+                                         <div id="status-display-<?php echo $row['transaction_id']; ?>"
+                                         style=""
+                                         >
+        
+                                            <span class="badge <?php echo $status_class; ?>">
+                                                <?php echo htmlspecialchars($row['transaction_status']); ?>
+                                            </span>
+
+                                            <button type="button" class="btn btn-warning btn-sm" 
+                                                    title="Sửa trạng thái" 
+                                                    onclick="showEditForm(<?php echo $row['transaction_id']; ?>)">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </div>
+
+
+                                        <!-- ****************************************************** -->
+                                        <!--************************ MODAL EDIT STATUS *************************-->
+                                        <!-- ****************************************************** --> 
+                                        <form action="updateTransaction.php" method="POST" 
+                                                id="status-form-<?php echo $row['transaction_id']; ?>" 
+                                                style="display: none; white-space: nowrap;">
+                                                
+                                                <input type="hidden" name="transaction_id" value="<?php echo $row['transaction_id']; ?>">
+
+                                                <select name="new_status" class="custom-select form-control-sm" style="display: inline-block; width: auto;">
+                                                    
+                                                    <option value="Pending" <?php if($row['transaction_status'] == 'Pending') echo 'selected'; ?>>
+                                                        Pending
+                                                    </option>
+                                                    <option value="Completed" <?php if($row['transaction_status'] == 'Completed') echo 'selected'; ?>>
+                                                        Completed
+                                                    </option>
+                                                    <option value="Failed" <?php if($row['transaction_status'] == 'Failed') echo 'selected'; ?>>
+                                                        Failed
+                                                    </option>
+
+                                                </select>
+
+                                                <div class="input-group-append">
+                                                    <button type="submit" class="btn btn-success" title="Lưu">
+                                                        <i class="fas fa-check"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-secondary" title="Hủy" 
+                                                            onclick="hideEditForm(<?php echo $row['transaction_id']; ?>)">
+                                                        <i class="fas fa-times"></i>
+                                                    </button>
+                                                </div>
+                                            </form> 
+                                </td>
                                     <td><?php echo date("d-m-Y", strtotime($row['transaction_date'])); ?></td>
                                     <td>
-                                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModal<?php echo $row['transaction_id']; ?>" title="Sửa">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
+                                        
                                         <a href="delete.php?transaction_id=<?php echo $row['transaction_id']; ?>"
                                            class="btn btn-danger btn-sm" title="Xóa"
                                            onclick="return confirm('Bạn có chắc chắn muốn xóa giao dịch này? Hành động này sẽ hoàn lại tồn kho.');">
@@ -267,41 +333,7 @@ $result_users = mysqli_query($data, $sql_users);
                                     </td>
                                 </tr>
 
-                                <div class="modal fade" id="editModal<?php echo $row['transaction_id']; ?>" tabindex="-1" role="dialog">
-                                    <div class="modal-dialog modal-lg" role="document">
-                                        <div class="modal-content">
-                                            <form action="update.php" method="POST">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Cập nhật Giao dịch #<?php echo $row['transaction_id']; ?></h5>
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <input type="hidden" name="transaction_id" value="<?php echo $row['transaction_id']; ?>">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <h5>Thông tin khách hàng</h5>
-                                                            <div class="form-group"><label>Tên</label><input type="text" class="form-control" name="name" value="<?php echo htmlspecialchars($row['user_name']); ?>"></div>
-                                                            <div class="form-group"><label>SĐT</label><input type="text" class="form-control" name="phone" value="<?php echo htmlspecialchars($row['user_phone']); ?>"></div>
-                                                            <div class="form-group"><label>Tỉnh</label><input type="text" class="form-control" name="pob" value="<?php echo htmlspecialchars($row['user_pob']); ?>"></div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <h5>Thông tin đơn hàng</h5>
-                                                            <div class="form-group"><label>Sản phẩm</label><input type="text" class="form-control" name="product_name" value="<?php echo htmlspecialchars($row['product_name']); ?>"></div>
-                                                            <div class="form-group"><label>Màu</label><input type="text" class="form-control" name="color" value="<?php echo htmlspecialchars($row['product_color']); ?>"></div>
-                                                            <div class="form-group"><label>Giá xe</label><input type="text" class="form-control" name="price" value="<?php echo number_format($row['product_price'], 0, ',', ''); ?>"></div>
-                                                            <div class="form-group"><label>Đã cọc</label><input type="text" class="form-control" name="deposit" value="<?php echo number_format($row['deposit'], 0, ',', ''); ?>"></div>
-                                                            <div class="form-group"><label>Số lượng</label><input type="number" class="form-control" name="number" value="<?php echo $row['transaction_number']; ?>"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                                                    <button type="submit" class="btn btn-primary">Lưu</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+                                
                         <?php
                             } // End while
                         } else {
@@ -312,52 +344,113 @@ $result_users = mysqli_query($data, $sql_users);
                 </table>
             </div>
         </div>
+     
 
+
+
+
+ <!-- ****************************************************** -->
+<!--************************ QUẢN LÝ SẢN PHẨM *************************-->
+ <!-- ****************************************************** -->
         <div class="tab-pane fade" id="products" role="tabpanel" aria-labelledby="products-tab">
            <h2>Quản lý Sản phẩm (Tồn kho)</h2>
            <div class="table-responsive bg-white p-3 rounded shadow-sm">
                 <table class="table table-bordered table-hover">
                     <thead class="thead-light">
-                        <tr>
+                        <tr class="text-center">
                             <th>ID</th> <th>Tên</th> <th>Màu</th> <th>Ảnh</th>
-                            <th>Giá (VNĐ)</th> <th>Tồn kho</th> <th>Trạng thái</th>
+                            <th>Giá (VNĐ)</th> <th>Tồn kho</th> <th>Trạng thái</th> <th>Hoạt động</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        mysqli_data_seek($result_products, 0); // Reset pointer
-                        if ($result_products && mysqli_num_rows($result_products) > 0) {
-                            while ($row = mysqli_fetch_assoc($result_products)) {
-                                $stock_status = ($row['product_number'] > 0) ? 'còn' : 'hết';
-                                $status_class = ($stock_status == 'còn') ? 'badge-completed' : 'badge-failed';
-                        ?>
-                                <tr>
-                                    <td><?php echo htmlspecialchars($row['product_id']); ?></td>
-                                    <td><?php echo htmlspecialchars($row['product_name']); ?></td>
-                                    <td><?php echo htmlspecialchars($row['color']); ?></td>
-                                    <td><img src="../<?php echo htmlspecialchars(ltrim($row['image'], '.')); ?>" alt="Ảnh xe" style="width: 100px; height: auto; border-radius: 5px;"></td>
-                                    <td><?php echo number_format($row['product_price'], 0, ',', '.'); ?></td>
-                                    <td><strong><?php echo $row['product_number']; ?></strong></td>
-                                    <td><span class="badge <?php echo $status_class; ?>"><?php echo $stock_status; ?></span></td>
-                                </tr>
-                        <?php
-                            } // End while
-                        } else {
-                            echo '<tr><td colspan="7" class="text-center">Không có sản phẩm.</td></tr>';
-                        }
-                        ?>
-                    </tbody>
+                    <?php
+                    mysqli_data_seek($result_products, 0); 
+                    if ($result_products && mysqli_num_rows($result_products) > 0) {
+                        while ($row = mysqli_fetch_assoc($result_products)) {
+                            $stock_status = ($row['product_number'] > 0) ? 'còn' : 'hết';
+                            $status_class = ($stock_status == 'còn') ? 'badge-completed' : 'badge-failed';
+                    ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($row['product_id']); ?></td>
+                                <td><?php echo htmlspecialchars($row['product_name']); ?></td>
+                                <td><?php echo htmlspecialchars($row['color']); ?></td>
+                                <td><img src="../<?php echo htmlspecialchars(ltrim($row['image'], '.')); ?>" alt="Ảnh xe" style="width: 100px; height: auto; border-radius: 5px;"></td>
+
+                                <td>
+                                    <span id="price-display-<?php echo $row['product_id']; ?>">
+                                        <?php echo number_format($row['product_price'], 0, ',', '.'); ?> VNĐ
+                                    </span>
+                                    <input type="number" form="edit-form-<?php echo $row['product_id']; ?>" 
+                                        name="new_price" 
+                                        id="price-input-<?php echo $row['product_id']; ?>" 
+                                        value="<?php echo $row['product_price']; ?>" 
+                                        class="form-control form-control-sm d-none" 
+                                        aria-label="Giá mới">
+                                </td>
+
+                                <td>
+                                    <span id="stock-display-<?php echo $row['product_id']; ?>">
+                                        <?php echo $row['product_number']; ?>
+                                    </span>
+                                    <input type="number" form="edit-form-<?php echo $row['product_id']; ?>" 
+                                        name="new_stock" 
+                                        id="stock-input-<?php echo $row['product_id']; ?>" 
+                                        value="<?php echo $row['product_number']; ?>" 
+                                        class="form-control form-control-sm d-none" 
+                                        aria-label="Tồn kho mới">
+                                </td>
+
+                                <td><span class="badge <?php echo $status_class; ?>"><?php echo $stock_status; ?></span></td>
+
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-warning btn-sm" 
+                                            id="edit-button-<?php echo $row['product_id']; ?>" 
+                                            title="Sửa Giá & Tồn kho" 
+                                            onclick="showProductEditInputs('<?php echo $row['product_id']; ?>')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+
+                                    <form action="update_product.php" method="POST" 
+                                        id="edit-form-<?php echo $row['product_id']; ?>" 
+                                        class="d-none">
+                                        
+                                        <input type="hidden" name="product_id" value="<?php echo $row['product_id']; ?>">
+                                        
+                                        <button type="submit" name="update_product" class="btn btn-success btn-sm" title="Lưu">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-secondary btn-sm" title="Hủy" 
+                                                onclick="hideProductEditInputs('<?php echo $row['product_id']; ?>')">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                    <?php
+                        } // End while
+                    } else {
+                        echo '<tr><td colspan="8" class="text-center">Không có sản phẩm.</td></tr>'; // Increased colspan to 8
+                    }
+                    ?>
+                </tbody>
                 </table>
             </div>
         </div>
 
+
+
+
+
+ <!-- ****************************************************** -->
+<!--************************ QUẢN LÝ NGƯỜI DÙNG *************************-->
+ <!-- ****************************************************** -->
         <div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="users-tab">
            <h2>Quản lý Người dùng</h2>
             <div class="table-responsive bg-white p-3 rounded shadow-sm">
                 <table class="table table-bordered table-hover">
                     <thead class="thead-light">
                         <tr>
-                            <th>ID</th> <th>Tên</th> <th>Email</th> <th>SĐT</th> <th>Loại TK</th>
+                            <th>ID</th> <th>Tên</th> <th>Email</th> <th>SĐT</th> <th>Loại TK</th> <th>Hành Động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -372,7 +465,53 @@ $result_users = mysqli_query($data, $sql_users);
                                     <td><?php echo htmlspecialchars($row['name']); ?></td>
                                     <td><?php echo htmlspecialchars($row['email']); ?></td>
                                     <td><?php echo htmlspecialchars($row['phone']); ?></td>
-                                    <td><span class="badge <?php echo $usertype_class; ?>"><?php echo htmlspecialchars($row['usertype']); ?></span></td>
+                                    <td style="min-width: 200px;">
+
+                                        <span id="role-badge-<?php echo $row['id']; ?>" 
+                                            class="badge <?php echo $usertype_class; ?>">
+                                            <?php echo htmlspecialchars($row['usertype']); ?>
+                                        </span>
+
+                                        <form action="update_account.php" method="POST" 
+                                            id="role-form-<?php echo $row['id']; ?>" 
+                                            class="d-none input-group input-group-sm">
+                                            
+                                            <input type="hidden" name="user_id" value="<?php echo $row['id']; ?>">
+
+                                            <select name="new_usertype" class="custom-select">
+                                                <option value="user" <?php if($row['usertype'] == 'user') echo 'selected'; ?>>User</option>
+                                                <option value="admin" <?php if($row['usertype'] == 'admin') echo 'selected'; ?>>Admin</option>
+                                            </select>
+
+                                            <div class="input-group-append">
+                                                <button type="submit" name="update_user_role" class="btn btn-success btn-sm" title="Lưu">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-secondary btn-sm" title="Hủy" 
+                                                        onclick="hideRoleEditForm('<?php echo $row['id']; ?>')">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </td>
+                                <td class="text-center">
+
+                                    <button type="button" class="btn btn-warning btn-sm" 
+                                            id="role-edit-button-<?php echo $row['id']; ?>"
+                                            title="Sửa loại tài khoản" 
+                                            onclick="showRoleEditForm('<?php echo $row['id']; ?>')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    
+                                    <a href="delete.php?user_id=<?php echo $row['id']; ?>"
+                                    class="btn btn-danger btn-sm" 
+                                    title="Xóa người dùng"
+                                    onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này?');">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+
+                                </div>
                                 </tr>
                         <?php
                             } // End while
@@ -384,40 +523,8 @@ $result_users = mysqli_query($data, $sql_users);
                 </table>
             </div>
         </div>
-    </div> </div> <div class="modal fade" id="insertModal" tabindex="-1" role="dialog" aria-labelledby="insertModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <form action="insert.php" method="POST">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="insertModalLabel">Thêm Giao dịch Mới (Thủ công)</h5>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p class="text-muted small">Lưu ý: Tạo người dùng/sản phẩm mới nếu chưa tồn tại.</p>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h5>Thông tin khách hàng</h5>
-                            <div class="form-group"><label>Tên (*)</label><input type="text" class="form-control" name="name" required></div>
-                            <div class="form-group"><label>SĐT (*)</label><input type="text" class="form-control" name="phone" required></div>
-                            <div class="form-group"><label>Tỉnh (*)</label><input type="text" class="form-control" name="pob" required></div>
-                        </div>
-                        <div class="col-md-6">
-                            <h5>Thông tin đơn hàng</h5>
-                            <div class="form-group"><label>ID Giao dịch (*)</label><input type="text" class="form-control" name="transaction_id" required></div>
-                            <div class="form-group"><label>Sản phẩm (*)</label><input type="text" class="form-control" name="product_name" required></div>
-                            <div class="form-group"><label>Màu (*)</label><input type="text" class="form-control" name="color" required></div>
-                            <div class="form-group"><label>Số lượng (*)</label><input type="number" class="form-control" name="number" value="1" required></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                    <button type="submit" class="btn btn-primary">Thêm</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+    </div> </div> 
+
 
 <?php
 mysqli_close($data); // Close DB connection
@@ -460,6 +567,134 @@ mysqli_close($data); // Close DB connection
             localStorage.setItem('lastAdminTab', $(this).attr('href'));
         });
     });
+    /**
+     * HÀM ĐỂ SỬA MODAL TRANG GIAO DỊCH
+     */
+    function showEditForm(id) {
+        // Ẩn phần hiển thị (div)
+        document.getElementById('status-display-' + id).style.display = 'none';
+        
+        // Hiện phần form (form)
+        document.getElementById('status-form-' + id).style.display = 'block';
+    }
+    /**
+     * Hàm này làm ngược lại: ẩn form và hiển thị lại trạng thái tĩnh.
+     */
+    function hideEditForm(id) {
+        // Hiện phần hiển thị (div)
+        document.getElementById('status-display-' + id).style.display = 'block';
+        
+        // Ẩn phần form (form)
+        document.getElementById('status-form-' + id).style.display = 'none';
+    }
+
+    /**
+     * HÀM ĐỂ SỬA MODAL TRANG SẢN PHẨM
+     */
+    // --- HÀM MỚI ĐỂ HIỂN THỊ INPUT SỬA SẢN PHẨM (Giá & Tồn kho) ---
+    function showProductEditInputs(id) {
+        // Lấy các phần tử cần ẩn
+        const priceDisplay = document.getElementById('price-display-' + id);
+        const stockDisplay = document.getElementById('stock-display-' + id);
+        const editButton = document.getElementById('edit-button-' + id);
+
+        // Lấy các phần tử cần hiện
+        const priceInput = document.getElementById('price-input-' + id);
+        const stockInput = document.getElementById('stock-input-' + id);
+        const editForm = document.getElementById('edit-form-' + id); // Form chứa nút Lưu/Hủy
+
+        // Kiểm tra xem có tìm thấy tất cả không (để gỡ lỗi)
+        if (!priceDisplay || !priceInput || !stockDisplay || !stockInput || !editButton || !editForm) {
+            console.error("Lỗi: Không tìm thấy đủ phần tử sản phẩm để sửa cho ID: " + id);
+            return; // Dừng lại nếu thiếu phần tử
+        }
+
+        // Ẩn phần hiển thị tĩnh và nút Edit
+        priceDisplay.classList.add('d-none');
+        stockDisplay.classList.add('d-none');
+        editButton.classList.add('d-none');
+
+        // Hiện các input và form Lưu/Hủy
+        priceInput.classList.remove('d-none');
+        stockInput.classList.remove('d-none');
+        editForm.classList.remove('d-none');
+    }
+
+    // --- HÀM MỚI ĐỂ ẨN INPUT SỬA SẢN PHẨM ---
+    function hideProductEditInputs(id) {
+        // Lấy các phần tử cần ẩn
+        const priceInput = document.getElementById('price-input-' + id);
+        const stockInput = document.getElementById('stock-input-' + id);
+        const editForm = document.getElementById('edit-form-' + id); // Form chứa nút Lưu/Hủy
+
+        // Lấy các phần tử cần hiện
+        const priceDisplay = document.getElementById('price-display-' + id);
+        const stockDisplay = document.getElementById('stock-display-' + id);
+        const editButton = document.getElementById('edit-button-' + id);
+
+        // Kiểm tra xem có tìm thấy tất cả không (để gỡ lỗi)
+        if (!priceDisplay || !priceInput || !stockDisplay || !stockInput || !editButton || !editForm) {
+            console.error("Lỗi: Không tìm thấy đủ phần tử sản phẩm để hủy sửa cho ID: " + id);
+            return; // Dừng lại nếu thiếu phần tử
+        }
+
+        // Ẩn các input và form Lưu/Hủy
+        priceInput.classList.add('d-none');
+        stockInput.classList.add('d-none');
+        editForm.classList.add('d-none');
+
+        // Hiện lại phần hiển thị tĩnh và nút Edit
+        priceDisplay.classList.remove('d-none');
+        stockDisplay.classList.remove('d-none');
+        editButton.classList.remove('d-none');
+    }
+
+
+
+
+
+     /**
+     * HÀM ĐỂ SỬA trang quản lý account
+     */
+    // --- HÀM SỬA LOẠI TÀI KHOẢN ---
+    function showRoleEditForm(id) {
+        // Lấy 3 phần tử
+        const badgeEl = document.getElementById('role-badge-' + id);
+        const editButtonEl = document.getElementById('role-edit-button-' + id);
+        const formEl = document.getElementById('role-form-' + id);
+
+        if (!badgeEl || !editButtonEl || !formEl) {
+            console.error("Lỗi: Không tìm thấy đủ phần tử cho ID: " + id);
+            return;
+        }
+
+        // Ẩn badge và nút Sửa
+        badgeEl.classList.add('d-none');
+        editButtonEl.classList.add('d-none');
+        
+        // Hiện form sửa
+        formEl.classList.remove('d-none');
+    }
+
+    // --- HÀM HỦY SỬA LOẠI TÀI KHOẢN ---
+    function hideRoleEditForm(id) {
+        // Lấy 3 phần tử
+        const badgeEl = document.getElementById('role-badge-' + id);
+        const editButtonEl = document.getElementById('role-edit-button-' + id);
+        const formEl = document.getElementById('role-form-' + id);
+
+        if (!badgeEl || !editButtonEl || !formEl) {
+            console.error("Lỗi: Không tìm thấy đủ phần tử cho ID: " + id);
+            return;
+        }
+        
+        // Hiện lại badge và nút Sửa
+        badgeEl.classList.remove('d-none');
+        editButtonEl.classList.remove('d-none');
+        
+        // Ẩn form sửa
+        formEl.classList.add('d-none');
+    }
 </script>
 
 </body>
