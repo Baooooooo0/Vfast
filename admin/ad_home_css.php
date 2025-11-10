@@ -110,4 +110,9 @@
     .modal-title {
         color: #003366;
     }
+    
+    /* NÚT XÓA SỬA TRẠNG THÁI ĐƠN HÀNG */
+    .input-group-append{
+        float: right;
+    }
 </style>
