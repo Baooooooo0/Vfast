@@ -2,8 +2,8 @@
 // momo_ipn_handler.php
 
 // ===== BẮT ĐẦU ĐOẠN CODE DEBUG =====
-// $log_file = __DIR__ . '/momo_log.txt';
-// $log_message = "====== IPN Received at: " . date("Y-m-d H:i:s") . " ======\n";
+$log_file = __DIR__ . '/momo_log.txt';
+$log_message = "====== IPN Received at: " . date("Y-m-d H:i:s") . " ======\n";
 // ===================================
 
 // BƯỚC 1: ĐỌC DỮ LIỆU JSON THÔ TỪ MOMO
