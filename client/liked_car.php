@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION['email'])){
+if (!isset($_SESSION['email'])) {
     header("Location: login.php");
     exit();
 }
@@ -12,21 +12,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Xử lý dữ liệu trực tiếp (không lưu vào session)
     header('Content-Type: application/json');
     echo json_encode(['status' => 'success', 'message' => 'Dữ liệu đã được nhận']);
-    exit; 
+    exit;
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <?php include('header.php') ?>
     <div class="container">
-    <div class="title-list-car"><h2>Danh sách xe đã thích </h2></div>
+        <div class="title-list-car">
+            <h2>Danh sách xe đã thích </h2>
+        </div>
         <section class="oto-list">
             <script>
                 // Lấy dữ liệu likeCars từ localStorage hoặc AJAX call
@@ -46,14 +50,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 data-name="${row.name}"
                                 data-color="${row.color}"
                                 data-stock="${row.stock}"
-                                style="color:red; cursor:pointer;">
+                                style="color:red; cursor:pointer;"
+                                title="Bỏ yêu thích">
                             </i>
                         `;
                         colDiv.appendChild(smallCard);
 
                         const otoItemDiv = document.createElement('div');
                         otoItemDiv.className = 'oto-item';
-                        
+
                         // Check sold out
                         if (row.stock == 0) {
                             const soldOutDiv = document.createElement('div');
@@ -88,11 +93,90 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         otoItemDiv.appendChild(colorP);
                         otoItemDiv.appendChild(stockP);
                         otoItemDiv.appendChild(detailsBtn);
-                        
+
                         colDiv.appendChild(otoItemDiv);
 
                         document.querySelector('.oto-list').appendChild(colDiv);
                     });
+                } else {
+                    // Hiển thị thông báo trống
+                    document.querySelector('.oto-list').innerHTML = `
+                        <div class="empty-list" style="
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            min-height: 60vh;
+                            text-align: center;
+                            padding: 80px 20px;
+                            color: #666;
+                            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+                            border-radius: 20px;
+                            margin: 40px auto;
+                            max-width: 600px;
+                            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+                            border: 1px solid #e2e8f0;
+                        ">
+                            <div style="margin-bottom: 30px;">
+                                <i class="fas fa-heart-broken" style="
+                                    font-size: 80px;
+                                    color: #cbd5e0;
+                                    margin-bottom: 20px;
+                                    display: block;
+                                    animation: pulse 2s infinite;
+                                "></i>
+                            </div>
+                            <h3 style="
+                                color: #4a5568;
+                                font-size: 28px;
+                                font-weight: 600;
+                                margin: 20px 0 15px 0;
+                                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                            ">Chưa có xe nào được yêu thích</h3>
+                            <p style="
+                                color: #718096;
+                                font-size: 16px;
+                                margin: 15px 0 30px 0;
+                                line-height: 1.6;
+                            ">
+                                Hãy khám phá bộ sưu tập xe điện VinFast<br>
+                                và thêm những chiếc xe yêu thích của bạn!
+                            </p>
+                            <a href="oto.php" style="
+                                display: inline-flex;
+                                align-items: center;
+                                gap: 8px;
+                                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                                color: white;
+                                text-decoration: none;
+                                padding: 15px 30px;
+                                border-radius: 50px;
+                                font-weight: 600;
+                                font-size: 16px;
+                                transition: all 0.3s ease;
+                                box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+                                text-transform: uppercase;
+                                letter-spacing: 0.5px;
+                            " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(102, 126, 234, 0.6)';" 
+                               onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(102, 126, 234, 0.4)';">
+                                <i class="fas fa-car" style="font-size: 18px;"></i>
+                                Khám phá xe điện
+                            </a>
+                            <style>
+                                @keyframes pulse {
+                                    0% { opacity: 0.6; transform: scale(1); }
+                                    50% { opacity: 1; transform: scale(1.05); }
+                                    100% { opacity: 0.6; transform: scale(1); }
+                                }
+                                .oto-list {
+                                    display: flex !important;
+                                    align-items: center !important;
+                                    justify-content: center !important;
+                                    min-height: 70vh !important;
+                                }
+                            </style>
+                        </div>
+                    `;
                 }
             </script>
         </section>
@@ -163,7 +247,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <option value="" disabled selected hidden>Tên sản phẩm</option>
                                     <?php foreach ($products as $product): ?>
                                         <option value="<?php echo htmlspecialchars($product); ?>"><?php echo htmlspecialchars($product); ?></option>
-                                    <?php  endforeach ?>
+                                    <?php endforeach ?>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -203,7 +287,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <span>Quét mã QR tại đây để thanh toán: </span>
                             </div>
                             <div class="form-group">
-                                <img src="../img/qr_code.png" alt="qr_code" >
+                                <img src="../img/qr_code.png" alt="qr_code">
                             </div>
 
                             <div class="form-navigation">
@@ -216,206 +300,409 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
     </div>
-   
+
     <?php include('footer.php') ?>
 </body>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const container = document.querySelector('.oto-list');
-    let likeCars = JSON.parse(localStorage.getItem('likeCars')) || [];
+    document.addEventListener('DOMContentLoaded', function() {
+        const container = document.querySelector('.oto-list');
+        let likeCars = JSON.parse(localStorage.getItem('likeCars')) || [];
 
-    container.addEventListener('click', function(e) {
-        if (e.target.classList.contains('like_car')) {
-            const btn = e.target;
-            const product = {
-                product_id: btn.getAttribute('data-id'),
-                image: btn.getAttribute('data-image'),
-                name: btn.getAttribute('data-name'),
-                color: btn.getAttribute('data-color'),
-                stock: btn.getAttribute('data-stock')
-            };
+        container.addEventListener('click', function(e) {
+            if (e.target.classList.contains('like_car')) {
+                const btn = e.target;
+                const product = {
+                    product_id: btn.getAttribute('data-id'),
+                    image: btn.getAttribute('data-image'),
+                    name: btn.getAttribute('data-name'),
+                    color: btn.getAttribute('data-color'),
+                    stock: btn.getAttribute('data-stock')
+                };
 
-            toggleLike(product, btn);
+                toggleLike(product, btn);
+            }
+        });
+
+        function toggleLike(product, btn) {
+            const index = likeCars.findIndex(p => p.product_id === product.product_id);
+            if (index !== -1) {
+                // Unlike: xóa khỏi danh sách và DOM
+                likeCars.splice(index, 1);
+
+                // Tìm và xóa phần tử xe khỏi DOM
+                const carElement = btn.closest('.col-5');
+                if (carElement) {
+                    carElement.remove();
+                }
+
+                // Hiển thị thông báo
+                showNotification('Đã bỏ xe khỏi danh sách yêu thích', 'warning');
+
+                // Kiểm tra nếu không còn xe nào, hiển thị thông báo trống
+                checkEmptyList();
+            } else {
+                // Like: thêm vào danh sách (case này ít xảy ra trong liked_car.php)
+                likeCars.push(product);
+                btn.style.color = 'red';
+                btn.title = 'Bỏ yêu thích';
+
+                // Hiển thị thông báo
+                showNotification('Đã thêm xe vào danh sách yêu thích', 'success');
+            }
+            localStorage.setItem('likeCars', JSON.stringify(likeCars));
+            updateCountHeart();
+
+            // Trigger event để notify header
+            window.dispatchEvent(new CustomEvent('likeCountChanged', {
+                detail: {
+                    count: likeCars.length
+                }
+            }));
         }
-    });
 
-    function toggleLike(product, btn) {
-        const index = likeCars.findIndex(p => p.product_id === product.product_id);
-        if (index !== -1) {
-            likeCars.splice(index, 1);
-            btn.style.color = '';
-        } else {
-            likeCars.push(product);
-            btn.style.color = 'red';
+        function checkEmptyList() {
+            const otoList = document.querySelector('.oto-list');
+            const existingCars = otoList.querySelectorAll('.col-5');
+
+            if (existingCars.length === 0) {
+                otoList.innerHTML = `
+                <div class="empty-list" style="
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            min-height: 60vh;
+                            text-align: center;
+                            padding: 80px 20px;
+                            color: #666;
+                            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+                            border-radius: 20px;
+                            margin: 40px auto;
+                            max-width: 600px;
+                            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+                            border: 1px solid #e2e8f0;
+                        ">
+                            <div style="margin-bottom: 30px;">
+                                <i class="fas fa-heart-broken" style="
+                                    font-size: 80px;
+                                    color: #cbd5e0;
+                                    margin-bottom: 20px;
+                                    display: block;
+                                    animation: pulse 2s infinite;
+                                "></i>
+                            </div>
+                            <h3 style="
+                                color: #4a5568;
+                                font-size: 28px;
+                                font-weight: 600;
+                                margin: 20px 0 15px 0;
+                                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                            ">Chưa có xe nào được yêu thích</h3>
+                            <p style="
+                                color: #718096;
+                                font-size: 16px;
+                                margin: 15px 0 30px 0;
+                                line-height: 1.6;
+                            ">
+                                Hãy khám phá bộ sưu tập xe điện VinFast<br>
+                                và thêm những chiếc xe yêu thích của bạn!
+                            </p>
+                            <a href="oto.php" style="
+                                display: inline-flex;
+                                align-items: center;
+                                gap: 8px;
+                                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                                color: white;
+                                text-decoration: none;
+                                padding: 15px 30px;
+                                border-radius: 50px;
+                                font-weight: 600;
+                                font-size: 16px;
+                                transition: all 0.3s ease;
+                                box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+                                text-transform: uppercase;
+                                letter-spacing: 0.5px;
+                            " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(102, 126, 234, 0.6)';" 
+                               onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(102, 126, 234, 0.4)';">
+                                <i class="fas fa-car" style="font-size: 18px;"></i>
+                                Khám phá xe điện
+                            </a>
+                            <style>
+                                @keyframes pulse {
+                                    0% { opacity: 0.6; transform: scale(1); }
+                                    50% { opacity: 1; transform: scale(1.05); }
+                                    100% { opacity: 0.6; transform: scale(1); }
+                                }
+                                .oto-list {
+                                    display: flex !important;
+                                    align-items: center !important;
+                                    justify-content: center !important;
+                                    min-height: 70vh !important;
+                                }
+                            </style>
+                        </div>
+                   
+                `;
+            }
         }
-        localStorage.setItem('likeCars', JSON.stringify(likeCars));
+
+        function showNotification(message, type = 'success') {
+            // Xóa thông báo cũ nếu có
+            const existingNotification = document.querySelector('.like-notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+
+            const notification = document.createElement('div');
+            notification.className = 'like-notification';
+            notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${type === 'success' ? '#28a745' : type === 'warning' ? '#ffc107' : '#dc3545'};
+            color: ${type === 'warning' ? '#333' : 'white'};
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            font-size: 14px;
+            max-width: 300px;
+            animation: slideIn 0.3s ease-out;
+        `;
+
+            // Thêm animation CSS nếu chưa có
+            if (!document.querySelector('#notification-styles')) {
+                const style = document.createElement('style');
+                style.id = 'notification-styles';
+                style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+                document.head.appendChild(style);
+            }
+
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            // Tự động xóa sau 3 giây
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-in';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        function updateCountHeart() {
+            const countElement = document.querySelector('.count-heart');
+            if (countElement) {
+                countElement.textContent = likeCars.length;
+                // Ẩn badge nếu count = 0
+                countElement.style.display = likeCars.length > 0 ? 'block' : 'none';
+            }
+
+            // Cập nhật cả header counter (nếu có header function)
+            if (typeof window.updateCountHeart === 'function') {
+                window.updateCountHeart();
+            }
+        }
+
+        function updateLikeStates() {
+            const likeButtons = document.querySelectorAll('.like_car');
+            likeButtons.forEach(btn => {
+                const productId = btn.getAttribute('data-id');
+                const isLiked = likeCars.some(car => car.product_id == productId);
+                if (isLiked) {
+                    btn.style.color = 'red';
+                    btn.title = 'Bỏ yêu thích';
+                } else {
+                    btn.style.color = '#ccc';
+                    btn.title = 'Thêm vào yêu thích';
+                }
+            });
+        }
+
+        // Cập nhật trạng thái khi trang load
         updateCountHeart();
-    }
+        updateLikeStates();
 
-    function updateCountHeart() {
-        document.querySelector('.count-heart').textContent = likeCars.length;
-    }
-
-    updateCountHeart();
-});
+        // Đảm bảo header counter cũng được cập nhật
+        setTimeout(() => {
+            // Trigger custom event để notify header
+            window.dispatchEvent(new CustomEvent('likeCountChanged', {
+                detail: {
+                    count: likeCars.length
+                }
+            }));
+        }, 100);
+    });
 </script>
 
 
 <script>
-     document.addEventListener('DOMContentLoaded', function () {
-    function initForm() {
-        const formSections = document.querySelectorAll(".form-section");
-        const nextBtns = document.querySelectorAll(".next-btn");
-        const prevBtns = document.querySelectorAll(".prev-btn");
-        let currentForm = 0;
+    document.addEventListener('DOMContentLoaded', function() {
+        function initForm() {
+            const formSections = document.querySelectorAll(".form-section");
+            const nextBtns = document.querySelectorAll(".next-btn");
+            const prevBtns = document.querySelectorAll(".prev-btn");
+            let currentForm = 0;
 
-        function showForm() {
-            formSections.forEach((section, index) => {
-                section.style.display = 'none'; 
-            });
-            formSections[currentForm].style.display = 'block';  
-        }
-
-        function validateCurrentForm() {
-            const currentSectionInputs = formSections[currentForm].querySelectorAll('input, select');
-            // console.log("Validating Form Section: ", currentForm);
-            let isValid = true;
-
-            currentSectionInputs.forEach(function(input) {
-                // console.log("Input Value: ", input.value.trim());
-                if (input.value.trim() === "") {
-                    isValid = false;
-                }
-            });
-
-            return isValid;
-        }
-
-        function NotifyWarning() {
-            const messageWarning = "Vui lòng điền đầy đủ thông tin trước khi qua bước kế tiếp!";
-            document.getElementById("content-warning").innerHTML = messageWarning;
-            document.getElementById("content-warning").style.display = 'block';
-        }
-        function ClearWarning() {
-            document.getElementById("content-warning").innerHTML = "";
-            document.getElementById("content-warning").style.display = 'none';
-        }
-
-        nextBtns.forEach(btn => {
-            btn.addEventListener('click', function () {
-                if (validateCurrentForm()) {
-                    ClearWarning();
-                    if (currentForm < formSections.length - 1) {
-                        currentForm++;
-                        showForm();
-                        
-                    }
-                } else {
-                    NotifyWarning();
-                }
-            });
-        });
-        prevBtns.forEach(btn => {
-            btn.addEventListener('click', function () {
-                if (currentForm > 0) {
-                    currentForm--;
-                    showForm();
-                }
-            });
-        });
-
-        showForm();
-    }
-
-    initForm();
-});
-
-
-document.querySelector('.submit-btn').addEventListener('click', function() {
-    var combinedForm = document.createElement('form');
-    combinedForm.method = 'POST';
-    combinedForm.action = '../client/process_cart.php';
-
-
-    var forms = [document.getElementById('inforUser'), document.getElementById('inforProduct'), document.getElementById('inforShipping')];
-
-    forms.forEach(function(form) {
-        var inputs = form.querySelectorAll('input, select');
-        inputs.forEach(function(input) {
-            if (input.name && input.value) {
-                var hiddenField = document.createElement('input');
-                hiddenField.type = 'hidden';
-                hiddenField.name = input.name;
-                hiddenField.value = input.value;
-                combinedForm.appendChild(hiddenField);
+            function showForm() {
+                formSections.forEach((section, index) => {
+                    section.style.display = 'none';
+                });
+                formSections[currentForm].style.display = 'block';
             }
-        });
+
+            function validateCurrentForm() {
+                const currentSectionInputs = formSections[currentForm].querySelectorAll('input, select');
+                // console.log("Validating Form Section: ", currentForm);
+                let isValid = true;
+
+                currentSectionInputs.forEach(function(input) {
+                    // console.log("Input Value: ", input.value.trim());
+                    if (input.value.trim() === "") {
+                        isValid = false;
+                    }
+                });
+
+                return isValid;
+            }
+
+            function NotifyWarning() {
+                const messageWarning = "Vui lòng điền đầy đủ thông tin trước khi qua bước kế tiếp!";
+                document.getElementById("content-warning").innerHTML = messageWarning;
+                document.getElementById("content-warning").style.display = 'block';
+            }
+
+            function ClearWarning() {
+                document.getElementById("content-warning").innerHTML = "";
+                document.getElementById("content-warning").style.display = 'none';
+            }
+
+            nextBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (validateCurrentForm()) {
+                        ClearWarning();
+                        if (currentForm < formSections.length - 1) {
+                            currentForm++;
+                            showForm();
+
+                        }
+                    } else {
+                        NotifyWarning();
+                    }
+                });
+            });
+            prevBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (currentForm > 0) {
+                        currentForm--;
+                        showForm();
+                    }
+                });
+            });
+
+            showForm();
+        }
+
+        initForm();
     });
 
 
-    document.body.appendChild(combinedForm);
-    combinedForm.submit();
-});
+    document.querySelector('.submit-btn').addEventListener('click', function() {
+        var combinedForm = document.createElement('form');
+        combinedForm.method = 'POST';
+        combinedForm.action = '../client/process_cart.php';
+
+
+        var forms = [document.getElementById('inforUser'), document.getElementById('inforProduct'), document.getElementById('inforShipping')];
+
+        forms.forEach(function(form) {
+            var inputs = form.querySelectorAll('input, select');
+            inputs.forEach(function(input) {
+                if (input.name && input.value) {
+                    var hiddenField = document.createElement('input');
+                    hiddenField.type = 'hidden';
+                    hiddenField.name = input.name;
+                    hiddenField.value = input.value;
+                    combinedForm.appendChild(hiddenField);
+                }
+            });
+        });
+
+
+        document.body.appendChild(combinedForm);
+        combinedForm.submit();
+    });
 
 
 
     document.getElementById("Select_product").onchange = function() {
-    var productName = this.value;
-    fetch("get_productname.php?product_name=" + productName)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log(data); 
-
-            document.getElementById("price-display").innerText = data.price ? data.price + " VND" : "Không có giá";
-            
-            const showColor = document.getElementById('showColor');
-            showColor.innerHTML = '<option value="" disabled selected hidden>Màu</option>';
-            
-            data.colors.forEach(color => {
-                const option = document.createElement('option');
-                option.value = color.color;
-                option.textContent = color.color;
-                option.disabled = !color.in_stock; 
-                showColor.appendChild(option);
-            });
-
-            
-            showColor.disabled = !data.inStock;
-
-        })
-        .catch(error => {
-            console.error('Fetch error:', error);
-            document.getElementById("price-display").innerText = "Lỗi khi nhận giá";
-        });
-};
-
-
-
-document.getElementById('placeSelect').addEventListener('change', function() {
-    const place = this.value;
-
-    if (place) {
-        fetch('get_showrooms.php?place=' + place)
-            .then(response => response.json())
-            .then(data => {
-                const showroomSelect = document.getElementById('showroomSelect');
-                showroomSelect.innerHTML = '<option value="" disabled selected hidden>Showroom nhận xe</option>';
-                data.forEach(showroom => {
-                    const option = document.createElement('option');
-                    option.value = showroom;
-                    option.textContent = showroom;
-                    showroomSelect.appendChild(option);
-                });
+        var productName = this.value;
+        fetch("get_productname.php?product_name=" + productName)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
             })
-            .catch(error => console.error('Error fetching showrooms:', error));
-    }
-});
+            .then(data => {
+                console.log(data);
 
+                document.getElementById("price-display").innerText = data.price ? data.price + " VND" : "Không có giá";
+
+                const showColor = document.getElementById('showColor');
+                showColor.innerHTML = '<option value="" disabled selected hidden>Màu</option>';
+
+                data.colors.forEach(color => {
+                    const option = document.createElement('option');
+                    option.value = color.color;
+                    option.textContent = color.color;
+                    option.disabled = !color.in_stock;
+                    showColor.appendChild(option);
+                });
+
+
+                showColor.disabled = !data.inStock;
+
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                document.getElementById("price-display").innerText = "Lỗi khi nhận giá";
+            });
+    };
+
+
+
+    document.getElementById('placeSelect').addEventListener('change', function() {
+        const place = this.value;
+
+        if (place) {
+            fetch('get_showrooms.php?place=' + place)
+                .then(response => response.json())
+                .then(data => {
+                    const showroomSelect = document.getElementById('showroomSelect');
+                    showroomSelect.innerHTML = '<option value="" disabled selected hidden>Showroom nhận xe</option>';
+                    data.forEach(showroom => {
+                        const option = document.createElement('option');
+                        option.value = showroom;
+                        option.textContent = showroom;
+                        showroomSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching showrooms:', error));
+        }
+    });
 </script>
+
 </html>
