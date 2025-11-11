@@ -9,8 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
 
-    // Use plaintext comparison (per request)
-    $sql = "SELECT id, email, usertype FROM users WHERE email = ? AND password = ? LIMIT 1";
+    // So sánh mật khẩu trực tiếp (plaintext)
+    $sql = "SELECT id, email, password, usertype FROM users WHERE email = ? AND password = ? LIMIT 1";
     if ($stmt = mysqli_prepare($conn, $sql)) {
         mysqli_stmt_bind_param($stmt, 'ss', $email, $password);
         mysqli_stmt_execute($stmt);
@@ -23,6 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['email'] = $row['email'];
             $_SESSION['usertype'] = $row['usertype'];
 
+            mysqli_stmt_close($stmt);
+
             if ($row['usertype'] === 'admin') {
                 header('Location: ../admin/ad_home.php');
                 exit();
@@ -32,15 +34,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         } else {
             // Login failed
+            mysqli_stmt_close($stmt);
             $_SESSION['loginMessage'] = 'Email và Password không tồn tại!';
             header('Location: login.php');
             exit();
         }
-
     } else {
         $_SESSION['loginMessage'] = 'Lỗi hệ thống. Vui lòng thử lại.';
         header('Location: login.php');
         exit();
     }
 }
-?>
