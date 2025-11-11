@@ -19,8 +19,14 @@
         <h2>Đăng nhập</h2>
         <h4>
             <?php 
-            echo  $_SESSION['loginMessage'];
-            unset ($_SESSION['loginMessage']);
+            if (!empty($_SESSION['loginMessage'])) {
+                echo $_SESSION['loginMessage'];
+                unset($_SESSION['loginMessage']);
+            }
+            if (!empty($_SESSION['registerSuccess'])) {
+                echo '<span style="color: green;">' . $_SESSION['registerSuccess'] . '</span>';
+                unset($_SESSION['registerSuccess']);
+            }
             ?>    
         </h4>
         <form action="login_check.php" method="POST">
