@@ -1,19 +1,21 @@
 <?php
 session_start();
-if(!isset($_SESSION['email'])){
+if (!isset($_SESSION['email'])) {
     header("Location: login.php");
     exit();
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Dịch vụ hậu mãi - VinFast</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dịch vụ hậu mãi - VinFast</title>
+    <?php include('home_css.php'); ?>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -28,27 +30,33 @@ if(!isset($_SESSION['email'])){
             color: #2c3e50;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .container {
+            max-width: 1400px;
             margin: 0 auto;
             background-color: #fff;
-            padding-top: 0px!important;
-            min-height: 100vh;
+            padding-top: 100px;
+            flex: 1;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
         }
 
         /* Hero Section */
         .hero-section {
             position: relative;
             overflow: hidden;
-            margin-bottom: 60px;
+            margin-bottom: 80px;
+            border-radius: 0 0 30px 30px;
         }
 
         .hero-section img {
             width: 100%;
-            height: 350px;
+            height: 400px;
             object-fit: cover;
-            filter: brightness(0.8);
+            filter: brightness(0.7);
+            transform: scale(1.02);
         }
 
         .hero-overlay {
@@ -126,19 +134,21 @@ if(!isset($_SESSION['email'])){
         /* Grid Layout */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+            margin-top: 50px;
+            padding: 0 20px;
         }
 
         .grid-item {
             background: #fff;
-            border-radius: 16px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0, 113, 188, 0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0, 113, 188, 0.08);
             position: relative;
+            transform: translateY(0);
         }
 
         .grid-item::before {
@@ -147,13 +157,14 @@ if(!isset($_SESSION['email'])){
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #0071bc, #3498db);
+            height: 5px;
+            background: linear-gradient(135deg, #0071bc, #3498db, #2ecc71);
         }
 
         .grid-item:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 113, 188, 0.15);
+            border-color: rgba(0, 113, 188, 0.2);
         }
 
         .grid-item img {
@@ -168,16 +179,17 @@ if(!isset($_SESSION['email'])){
         }
 
         .grid-content {
-            padding: 25px;
+            padding: 30px;
         }
 
         .grid-item span {
-            font-weight: 600;
-            font-size: 1.3rem;
+            font-weight: 700;
+            font-size: 1.35rem;
             color: #0071bc;
             display: block;
-            margin-bottom: 15px;
-            line-height: 1.3;
+            margin-bottom: 20px;
+            line-height: 1.4;
+            letter-spacing: -0.3px;
         }
 
         .grid-item ul {
@@ -217,36 +229,63 @@ if(!isset($_SESSION['email'])){
             .grid-container {
                 grid-template-columns: repeat(2, 1fr);
             }
-            
+
             .main-content {
                 padding: 0 20px 60px 20px;
             }
         }
 
         @media (max-width: 768px) {
+            .container {
+                padding-top: 85px;
+            }
+
+            .hero-section {
+                margin-bottom: 50px;
+                border-radius: 0 0 20px 20px;
+            }
+
+            .hero-section img {
+                height: 300px;
+            }
+
             .hero-title {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
             }
-            
+
             .hero-subtitle {
-                font-size: 1.1rem;
+                font-size: 1rem;
+                padding: 0 20px;
             }
-            
+
             .section-title {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
-            
+
             .grid-container {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 25px;
+                padding: 0 10px;
             }
-            
+
             .main-content {
-                padding: 0 15px 40px 15px;
+                padding: 0 10px 40px 10px;
             }
-            
+
             .grid-content {
-                padding: 20px;
+                padding: 25px;
+            }
+
+            .benefits-section,
+            .contact-section,
+            .process-section,
+            .faq-section {
+                padding: 60px 20px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
             }
         }
 
@@ -254,11 +293,11 @@ if(!isset($_SESSION['email'])){
             .hero-title {
                 font-size: 2rem;
             }
-            
+
             .hero-subtitle {
                 font-size: 1rem;
             }
-            
+
             .section-title {
                 font-size: 1.7rem;
             }
@@ -271,10 +310,21 @@ if(!isset($_SESSION['email'])){
             animation: fadeInUp 0.6s ease forwards;
         }
 
-        .grid-item:nth-child(1) { animation-delay: 0.1s; }
-        .grid-item:nth-child(2) { animation-delay: 0.2s; }
-        .grid-item:nth-child(3) { animation-delay: 0.3s; }
-        .grid-item:nth-child(4) { animation-delay: 0.4s; }
+        .grid-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .grid-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .grid-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .grid-item:nth-child(4) {
+            animation-delay: 0.4s;
+        }
 
         @keyframes fadeInUp {
             to {
@@ -346,6 +396,7 @@ if(!isset($_SESSION['email'])){
             background: #f8f9fa;
             padding: 80px 40px;
             margin-top: 60px;
+            margin-bottom: 0;
         }
 
         .contact-container {
@@ -452,11 +503,38 @@ if(!isset($_SESSION['email'])){
 
         .timeline-content {
             background: white;
-            padding: 68px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
             width: 45%;
             position: relative;
+            border: 1px solid rgba(0, 113, 188, 0.08);
+        }
+
+        @media (max-width: 768px) {
+            .process-timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                flex-direction: row !important;
+            }
+
+            .timeline-item:nth-child(even) {
+                flex-direction: row !important;
+            }
+
+            .timeline-content {
+                width: calc(100% - 80px);
+                margin-left: 80px !important;
+                margin-right: 0 !important;
+            }
+
+            .timeline-number {
+                left: 30px;
+                top: 30px;
+                transform: translateX(-20%);
+            }
         }
 
         .timeline-item:nth-child(even) .timeline-content {
@@ -470,7 +548,7 @@ if(!isset($_SESSION['email'])){
         .timeline-number {
             position: absolute;
             left: 50%;
-            top: 30px;
+            top: 60px;
             transform: translateX(-50%);
             width: 50px;
             height: 50px;
@@ -490,6 +568,7 @@ if(!isset($_SESSION['email'])){
             font-weight: 600;
             color: #0071bc;
             margin-bottom: 15px;
+            margin-right: 10px;
         }
 
         .process-desc {
@@ -501,6 +580,7 @@ if(!isset($_SESSION['email'])){
         .faq-section {
             background: #f8f9fa;
             padding: 80px 40px;
+            margin-bottom: 0;
         }
 
         .faq-container {
@@ -574,8 +654,9 @@ if(!isset($_SESSION['email'])){
         }
     </style>
 </head>
-<?php include('header.php') ?>
+
 <body>
+    <?php include('header.php'); ?>
     <div class="container">
         <!-- Hero Section -->
         <div class="hero-section">
@@ -593,7 +674,7 @@ if(!isset($_SESSION['email'])){
             <div class="section-header">
                 <h2 class="section-title">Chính Sách Bảo Hành</h2>
                 <p class="section-description">
-                    VinFast cung cấp chính sách bảo hành toàn diện và dịch vụ hậu mãi chuyên nghiệp, 
+                    VinFast cung cấp chính sách bảo hành toàn diện và dịch vụ hậu mãi chuyên nghiệp,
                     đảm bảo trải nghiệm tốt nhất cho khách hàng trong suốt quá trình sử dụng xe.
                 </p>
             </div>
@@ -838,13 +919,13 @@ if(!isset($_SESSION['email'])){
                 const faqItem = element.parentElement;
                 const faqAnswer = faqItem.querySelector('.faq-answer');
                 const isActive = faqItem.classList.contains('active');
-                
+
                 // Close all FAQ items
                 document.querySelectorAll('.faq-item').forEach(item => {
                     item.classList.remove('active');
                     item.querySelector('.faq-answer').classList.remove('show');
                 });
-                
+
                 // Toggle current item
                 if (!isActive) {
                     faqItem.classList.add('active');
@@ -854,5 +935,7 @@ if(!isset($_SESSION['email'])){
         </script>
     </div>
     <?php include('../client/footer.php') ?>
+
 </body>
+
 </html>
