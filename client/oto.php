@@ -1,10 +1,10 @@
-<?php 
+<?php
 session_start();
 $host = "localhost";
 $user = "root";
 $password = "";
 $db = "carshop";
-if(!isset($_SESSION['email'])){
+if (!isset($_SESSION['email'])) {
     header("Location: login.php");
     exit();
 }
@@ -28,8 +28,8 @@ while ($row = mysqli_fetch_assoc($result_places)) {
 
 $sql_products = "SELECT DISTINCT product_name from product";
 $result_products = mysqli_query($data, $sql_products);
-$products=[];
-while($row1 = mysqli_fetch_assoc($result_products)){
+$products = [];
+while ($row1 = mysqli_fetch_assoc($result_products)) {
     $products[] = $row1['product_name'];
 }
 
@@ -48,7 +48,7 @@ mysqli_close($data);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ô tô VinFast | VinFast</title>
     <?php include('home_css.php'); ?>
-    
+
 </head>
 
 <body>
@@ -185,165 +185,165 @@ mysqli_close($data);
 
                 </svg>
             </div>
-                <div class="slider">
-                    <div class="slides">
-                        <div class="slide">
-                            <img src="../img/vf-3.jpg" alt="VF 3" class="centered-image" >
-                            <div class="infor-car">
-                                <div class="line-car" >
-                                    <span class="title">Dòng xe: </span>
-                                    <span class="title-desc">MiniCar</span>
-                                </div>
-                                <div class="seating-car">
-                                    <span class="title">Số chỗ ngồi: </span>
-                                    <span class="title-desc">4 chỗ</span>
-                                </div>
-                                <div class="distance">
-                                    <span class="title">Quảng đường lên tới: </span>
-                                    <span class="title-desc">~ 210 km (NEDC)</span>
-                                </div>
-                                <div class="price-car">
-                                    <span class="title">Giá từ: </span>
-                                    <span class="title-desc">320.000.000 VNĐ</span>
-                                </div>
-                               
+            <div class="slider">
+                <div class="slides">
+                    <div class="slide">
+                        <img src="../img/vf-3.jpg" alt="VF 3" class="centered-image">
+                        <div class="infor-car">
+                            <div class="line-car">
+                                <span class="title">Dòng xe: </span>
+                                <span class="title-desc">MiniCar</span>
                             </div>
-                            
+                            <div class="seating-car">
+                                <span class="title">Số chỗ ngồi: </span>
+                                <span class="title-desc">4 chỗ</span>
+                            </div>
+                            <div class="distance">
+                                <span class="title">Quảng đường lên tới: </span>
+                                <span class="title-desc">~ 210 km (NEDC)</span>
+                            </div>
+                            <div class="price-car">
+                                <span class="title">Giá từ: </span>
+                                <span class="title-desc">320.000.000 VNĐ</span>
+                            </div>
+
                         </div>
-                        <div class="slide">
-                            <img src="../img/vf-5.jpg" alt="VF 5">
-                            <div class="infor-car">
-                                <div class="line-car" >
-                                    <span class="title">Dòng xe: </span>
-                                    <span class="title-desc">A-SUV</span>
-                                </div>
-                                <div class="seating-car">
-                                    <span class="title">Số chỗ ngồi: </span>
-                                    <span class="title-desc">5 chỗ</span>
-                                </div>
-                                <div class="distance">
-                                    <span class="title">Quảng đường lên tới: </span>
-                                    <span class="title-desc">326,4km(NEDC)</span>
-                                </div>
-                                <div class="price-car">
-                                    <span class="title">Giá từ: </span>
-                                    <span class="title-desc">538.000.000 VNĐ</span>
-                                </div>
-                               
+
+                    </div>
+                    <div class="slide">
+                        <img src="../img/vf-5.jpg" alt="VF 5">
+                        <div class="infor-car">
+                            <div class="line-car">
+                                <span class="title">Dòng xe: </span>
+                                <span class="title-desc">A-SUV</span>
                             </div>
-                        </div>
-                        <div class="slide">
-                            <img src="../img/vf-6.jpg" alt="VF 6">
-                            <div class="infor-car">
-                                <div class="line-car" >
-                                    <span class="title">Dòng xe: </span>
-                                    <span class="title-desc">B-SUV</span>
-                                </div>
-                                <div class="seating-car">
-                                    <span class="title">Số chỗ ngồi: </span>
-                                    <span class="title-desc">5 chỗ</span>
-                                </div>
-                                <div class="distance">
-                                    <span class="title">Quảng đường lên tới: </span>
-                                    <span class="title-desc">381km (WLTP)</span>
-                                </div>
-                                <div class="price-car">
-                                    <span class="title">Giá từ: </span>
-                                    <span class="title-desc">690.000.000 VNĐ</span>
-                                </div>
-                               
+                            <div class="seating-car">
+                                <span class="title">Số chỗ ngồi: </span>
+                                <span class="title-desc">5 chỗ</span>
                             </div>
-                        </div>
-                        <div class="slide">
-                            <img src="../img/vf-e34.jpg" alt="VF e34">
-                            <div class="infor-car">
-                                <div class="line-car" >
-                                    <span class="title">Dòng xe: </span>
-                                    <span class="title-desc">C-SUV</span>
-                                </div>
-                                <div class="seating-car">
-                                    <span class="title">Số chỗ ngồi: </span>
-                                    <span class="title-desc">5 chỗ</span>
-                                </div>
-                                <div class="distance">
-                                    <span class="title">Quảng đường lên tới: </span>
-                                    <span class="title-desc">318,6km (NEDC)</span>
-                                </div>
-                                <div class="price-car">
-                                    <span class="title">Giá từ: </span>
-                                    <span class="title-desc">850.000.000 VNĐ</span>
-                                </div>
-                               
+                            <div class="distance">
+                                <span class="title">Quảng đường lên tới: </span>
+                                <span class="title-desc">326,4km(NEDC)</span>
                             </div>
-                        </div>
-                        <div class="slide">
-                            <img src="../img/vf-7.jpg" alt="VF 7">
-                            <div class="infor-car">
-                                <div class="line-car" >
-                                    <span class="title">Dòng xe: </span>
-                                    <span class="title-desc">C-SUV</span>
-                                </div>
-                                <div class="seating-car">
-                                    <span class="title">Số chỗ ngồi: </span>
-                                    <span class="title-desc">5 chỗ</span>
-                                </div>
-                                <div class="distance">
-                                    <span class="title">Quảng đường lên tới: </span>
-                                    <span class="title-desc">431km </span>
-                                </div>
-                                <div class="price-car">
-                                    <span class="title">Giá từ: </span>
-                                    <span class="title-desc">1.100.000.000 VNĐ</span>
-                                </div>
-                               
+                            <div class="price-car">
+                                <span class="title">Giá từ: </span>
+                                <span class="title-desc">538.000.000 VNĐ</span>
                             </div>
-                        </div>
-                        <div class="slide">
-                            <img src="../img/vf-8.jpg" alt="VF 8">
-                            <div class="infor-car">
-                                <div class="line-car" >
-                                    <span class="title">Dòng xe: </span>
-                                    <span class="title-desc">D-SUV</span>
-                                </div>
-                                <div class="seating-car">
-                                    <span class="title">Số chỗ ngồi: </span>
-                                    <span class="title-desc">5 chỗ</span>
-                                </div>
-                                <div class="distance">
-                                    <span class="title">Quảng đường lên tới: </span>
-                                    <span class="title-desc">471km </span>
-                                </div>
-                                <div class="price-car">
-                                    <span class="title">Giá từ: </span>
-                                    <span class="title-desc">1.500.000.000 VNĐ</span>
-                                </div>
-                               
-                            </div>
-                        </div>
-                        <div class="slide">
-                            <img src="../img/vf-9.jpg" alt="VF 9">
-                            <div class="infor-car">
-                                <div class="line-car" >
-                                    <span class="title">Dòng xe: </span>
-                                    <span class="title-desc">E-SUV</span>
-                                </div>
-                                <div class="seating-car">
-                                    <span class="title">Số chỗ ngồi: </span>
-                                    <span class="title-desc">6-7 chỗ</span>
-                                </div>
-                                <div class="distance">
-                                    <span class="title">Quảng đường lên tới: </span>
-                                    <span class="title-desc">626km </span>
-                                </div>
-                                <div class="price-car">
-                                    <span class="title">Giá từ: </span>
-                                    <span class="title-desc">1.513.000.000 VNĐ</span>
-                                </div>
-                               
-                            </div>
+
                         </div>
                     </div>
-                   
+                    <div class="slide">
+                        <img src="../img/vf-6.jpg" alt="VF 6">
+                        <div class="infor-car">
+                            <div class="line-car">
+                                <span class="title">Dòng xe: </span>
+                                <span class="title-desc">B-SUV</span>
+                            </div>
+                            <div class="seating-car">
+                                <span class="title">Số chỗ ngồi: </span>
+                                <span class="title-desc">5 chỗ</span>
+                            </div>
+                            <div class="distance">
+                                <span class="title">Quảng đường lên tới: </span>
+                                <span class="title-desc">381km (WLTP)</span>
+                            </div>
+                            <div class="price-car">
+                                <span class="title">Giá từ: </span>
+                                <span class="title-desc">690.000.000 VNĐ</span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="../img/vf-e34.jpg" alt="VF e34">
+                        <div class="infor-car">
+                            <div class="line-car">
+                                <span class="title">Dòng xe: </span>
+                                <span class="title-desc">C-SUV</span>
+                            </div>
+                            <div class="seating-car">
+                                <span class="title">Số chỗ ngồi: </span>
+                                <span class="title-desc">5 chỗ</span>
+                            </div>
+                            <div class="distance">
+                                <span class="title">Quảng đường lên tới: </span>
+                                <span class="title-desc">318,6km (NEDC)</span>
+                            </div>
+                            <div class="price-car">
+                                <span class="title">Giá từ: </span>
+                                <span class="title-desc">850.000.000 VNĐ</span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="../img/vf-7.jpg" alt="VF 7">
+                        <div class="infor-car">
+                            <div class="line-car">
+                                <span class="title">Dòng xe: </span>
+                                <span class="title-desc">C-SUV</span>
+                            </div>
+                            <div class="seating-car">
+                                <span class="title">Số chỗ ngồi: </span>
+                                <span class="title-desc">5 chỗ</span>
+                            </div>
+                            <div class="distance">
+                                <span class="title">Quảng đường lên tới: </span>
+                                <span class="title-desc">431km </span>
+                            </div>
+                            <div class="price-car">
+                                <span class="title">Giá từ: </span>
+                                <span class="title-desc">1.100.000.000 VNĐ</span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="../img/vf-8.jpg" alt="VF 8">
+                        <div class="infor-car">
+                            <div class="line-car">
+                                <span class="title">Dòng xe: </span>
+                                <span class="title-desc">D-SUV</span>
+                            </div>
+                            <div class="seating-car">
+                                <span class="title">Số chỗ ngồi: </span>
+                                <span class="title-desc">5 chỗ</span>
+                            </div>
+                            <div class="distance">
+                                <span class="title">Quảng đường lên tới: </span>
+                                <span class="title-desc">471km </span>
+                            </div>
+                            <div class="price-car">
+                                <span class="title">Giá từ: </span>
+                                <span class="title-desc">1.500.000.000 VNĐ</span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="../img/vf-9.jpg" alt="VF 9">
+                        <div class="infor-car">
+                            <div class="line-car">
+                                <span class="title">Dòng xe: </span>
+                                <span class="title-desc">E-SUV</span>
+                            </div>
+                            <div class="seating-car">
+                                <span class="title">Số chỗ ngồi: </span>
+                                <span class="title-desc">6-7 chỗ</span>
+                            </div>
+                            <div class="distance">
+                                <span class="title">Quảng đường lên tới: </span>
+                                <span class="title-desc">626km </span>
+                            </div>
+                            <div class="price-car">
+                                <span class="title">Giá từ: </span>
+                                <span class="title-desc">1.513.000.000 VNĐ</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
                 <div class="nav container-nav">
                     <button class="prev"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
                     <button class="next"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
@@ -351,36 +351,37 @@ mysqli_close($data);
             </div>
 
 
-        <div class="title-list-car"><h2>Danh sách tất cả các xe </h2></div>
+            <div class="title-list-car">
+                <h2>Danh sách tất cả các xe </h2>
+            </div>
             <section class="oto-list">
-                <?php while($row = $result_infor_product->fetch_assoc()): ?>
-                <div class="col-5">
-                    <div class="small_card">
-                        <i class="fas fa-heart like_car" 
-                        data-id="<?php echo htmlspecialchars($row['product_id']); ?>"
-                        data-image="<?php echo htmlspecialchars($row['image']);?>"
-                        data-name="<?php echo htmlspecialchars($row['product_name']); ?>"
-                        data-color="<?php echo htmlspecialchars($row['color']); ?>"
-                        data-stock="<?php echo htmlspecialchars($row['product_number']); ?>"
-                        ></i>
-                    </div>
-                    <?php if ($row['product_number'] == 0): ?>
+                <?php while ($row = $result_infor_product->fetch_assoc()): ?>
+                    <div class="col-5">
+                        <div class="small_card">
+                            <i class="fas fa-heart like_car"
+                                data-id="<?php echo htmlspecialchars($row['product_id']); ?>"
+                                data-image="<?php echo htmlspecialchars($row['image']); ?>"
+                                data-name="<?php echo htmlspecialchars($row['product_name']); ?>"
+                                data-color="<?php echo htmlspecialchars($row['color']); ?>"
+                                data-stock="<?php echo htmlspecialchars($row['product_number']); ?>"></i>
+                        </div>
+                        <?php if ($row['product_number'] == 0): ?>
                             <div class="sold-out"></div>
-                    <?php endif; ?>
-                    <div class="oto-item">
-                        <img src="<?php echo htmlspecialchars($row['image']); ?>" alt="<?php echo htmlspecialchars($row['product_name']); ?>">
-                        <h3><?php echo htmlspecialchars($row['product_name']); ?></h3>
-                        <p>Màu: <?php echo htmlspecialchars($row['color']); ?></p>
-                        <p>Số lượng tồn kho: <?php echo htmlspecialchars($row['product_number']); ?></p>
-                        <button class="details"><a href="../client/detail.php?product_id=<?php echo htmlspecialchars($row['product_id']) ?>">Xem chi tiết</a></button>
+                        <?php endif; ?>
+                        <div class="oto-item">
+                            <img src="<?php echo htmlspecialchars($row['image']); ?>" alt="<?php echo htmlspecialchars($row['product_name']); ?>">
+                            <h3><?php echo htmlspecialchars($row['product_name']); ?></h3>
+                            <p>Màu: <?php echo htmlspecialchars($row['color']); ?></p>
+                            <p>Số lượng tồn kho: <?php echo htmlspecialchars($row['product_number']); ?></p>
+                            <button class="details"><a href="../client/detail.php?product_id=<?php echo htmlspecialchars($row['product_id']) ?>">Xem chi tiết</a></button>
+                        </div>
                     </div>
-                </div> 
                 <?php endwhile; ?>
 
             </section>
-       
-    
-        
+
+
+
 
             <div class="flex">
                 <div class="box-item-sac">
@@ -401,125 +402,125 @@ mysqli_close($data);
                 </div>
             </div>
 
-        
-    <div class="modal fade" id="myModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <i class="modal-icon fas fa-pen"></i>
-                    <h4 class="modal-title">Thông tin chủ xe</h4>
-                    <button type="button" class="close" data-dismiss="modal">X</button>
-                </div>
 
-                <div class="modal-body">
-                    <form action="../client/process_cart.php" id="combinedForm" method="POST">
-                        <div class="warningMessage">
-                            <span id="contetnt-warning"></span>
-                        </div>
-                        <div class="form-section active">
-                            <div class="form-group">
-                                <i class="fa fa-user"></i>
-                                <input type="text" class="form-control" placeholder="Họ và tên" name="name" required>
-                            </div>
-                            <div class="form-group">
-                                <i class="fa fa-phone"></i>
-                                <input type="text" class="form-control" placeholder="Số điện thoại" name="phone" required>
-                            </div>
-                            <div class="form-group">
-                                <i class="fa fa-envelope"></i>
-                                <input type="email" class="form-control" placeholder="Email" name="email" required>
-                            </div>
-                            <div class="form-group">
-                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M15.8333 12.5H14.1667V10.8333H15.8333V12.5ZM15.8333 15.8333H14.1667V14.1666H15.8333V15.8333ZM10.8333 5.83329H9.16667V4.16663H10.8333V5.83329ZM10.8333 9.16663H9.16667V7.49996H10.8333V9.16663ZM10.8333 12.5H9.16667V10.8333H10.8333V12.5ZM10.8333 15.8333H9.16667V14.1666H10.8333V15.8333ZM5.83333 9.16663H4.16667V7.49996H5.83333V9.16663ZM5.83333 12.5H4.16667V10.8333H5.83333V12.5ZM5.83333 15.8333H4.16667V14.1666H5.83333V15.8333ZM12.5 9.16663V4.16663L10 1.66663L7.5 4.16663V5.83329H2.5V17.5H17.5V9.16663H12.5Z" fill="#8a8a8a"></path>
-                                </svg>
-                                <select name="place" id="placeSelect" class="form-control" required>
-                                    <option value="" disabled selected hidden>Tỉnh thành</option>
-                                    <?php foreach ($places as $place): ?>
-                                        <option value="<?php echo htmlspecialchars($place); ?>"><?php echo htmlspecialchars($place); ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10.0002 1.66663C12.7585 1.66663 15.0002 3.88329 15.0002 6.62496C15.0002 10.3416 10.0002 15.8333 10.0002 15.8333C10.0002 15.8333 5.00016 10.3416 5.00016 6.62496C5.00016 3.88329 7.24183 1.66663 10.0002 1.66663ZM10.0002 4.99996C9.55814 4.99996 9.13421 5.17555 8.82165 5.48811C8.50909 5.80067 8.3335 6.2246 8.3335 6.66663C8.3335 7.10865 8.50909 7.53258 8.82165 7.84514C9.13421 8.1577 9.55814 8.33329 10.0002 8.33329C10.4422 8.33329 10.8661 8.1577 11.1787 7.84514C11.4912 7.53258 11.6668 7.10865 11.6668 6.66663C11.6668 6.2246 11.4912 5.80067 11.1787 5.48811C10.8661 5.17555 10.4422 4.99996 10.0002 4.99996ZM16.6668 15.8333C16.6668 17.675 13.6835 19.1666 10.0002 19.1666C6.31683 19.1666 3.3335 17.675 3.3335 15.8333C3.3335 14.7583 4.35016 13.8 5.92516 13.1916L6.4585 13.95C5.5585 14.325 5.00016 14.8416 5.00016 15.4166C5.00016 16.5666 7.24183 17.5 10.0002 17.5C12.7585 17.5 15.0002 16.5666 15.0002 15.4166C15.0002 14.8416 14.4418 14.325 13.5418 13.95L14.0752 13.1916C15.6502 13.8 16.6668 14.7583 16.6668 15.8333Z" fill="#8a8a8a"></path>
-                                </svg>
-                                <select name="showroom" id="showroomSelect" class="form-control" required>
-                                    <option value="" disabled selected hidden>Showroom nhận xe</option>
-                                </select>
-                            </div>
-                            <div class="form-navigation1">
-                                <button type="button" class="btn btn-primary next-btn">Bước kế tiếp</button>
-                            </div>
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <i class="modal-icon fas fa-pen"></i>
+                            <h4 class="modal-title">Thông tin chủ xe</h4>
+                            <button type="button" class="close" data-dismiss="modal">X</button>
                         </div>
 
-                        <div class="warningMessage">
-                            <span id="contetnt-warning"></span>
-                        </div>
-                        <div class="form-section">
-                            <div class="form-group">
-                                <select name="product_name" id="Select_product" class="form-control" required>
-                                    <option value="" disabled selected hidden>Tên sản phẩm</option>
-                                    <?php foreach ($products as $product): ?>
-                                        <option value="<?php echo htmlspecialchars($product); ?>"><?php echo htmlspecialchars($product); ?></option>
-                                    <?php  endforeach ?>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <select name="color" id="showColor" class="form-control" required>
-                                    <option value="" disabled selected hidden>Màu xe</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <input type="number" placeholder="Số lượng mua xe" name="transaction_number" min="1" max="10">
-                            </div>
-                            <div class="form-group">
-                                <b>Giá xe : </b>&nbsp;<span id="price-display"></span>
-                            </div>
-                            <div class="form-navigation">
-                                <button type="button" class="btn btn-primary prev-btn">Quay lại</button>
-                                <button type="button" class="btn btn-primary next-btn">Bước kế tiếp</button>
-                            </div>
-                        </div>
+                        <div class="modal-body">
+                            <form action="../client/process_cart.php" id="combinedForm" method="POST">
+                                <div class="warningMessage">
+                                    <span id="contetnt-warning"></span>
+                                </div>
+                                <div class="form-section active">
+                                    <div class="form-group">
+                                        <i class="fa fa-user"></i>
+                                        <input type="text" class="form-control" placeholder="Họ và tên" name="name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <i class="fa fa-phone"></i>
+                                        <input type="text" class="form-control" placeholder="Số điện thoại" name="phone" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <i class="fa fa-envelope"></i>
+                                        <input type="email" class="form-control" placeholder="Email" name="email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M15.8333 12.5H14.1667V10.8333H15.8333V12.5ZM15.8333 15.8333H14.1667V14.1666H15.8333V15.8333ZM10.8333 5.83329H9.16667V4.16663H10.8333V5.83329ZM10.8333 9.16663H9.16667V7.49996H10.8333V9.16663ZM10.8333 12.5H9.16667V10.8333H10.8333V12.5ZM10.8333 15.8333H9.16667V14.1666H10.8333V15.8333ZM5.83333 9.16663H4.16667V7.49996H5.83333V9.16663ZM5.83333 12.5H4.16667V10.8333H5.83333V12.5ZM5.83333 15.8333H4.16667V14.1666H5.83333V15.8333ZM12.5 9.16663V4.16663L10 1.66663L7.5 4.16663V5.83329H2.5V17.5H17.5V9.16663H12.5Z" fill="#8a8a8a"></path>
+                                        </svg>
+                                        <select name="place" id="placeSelect" class="form-control" required>
+                                            <option value="" disabled selected hidden>Tỉnh thành</option>
+                                            <?php foreach ($places as $place): ?>
+                                                <option value="<?php echo htmlspecialchars($place); ?>"><?php echo htmlspecialchars($place); ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M10.0002 1.66663C12.7585 1.66663 15.0002 3.88329 15.0002 6.62496C15.0002 10.3416 10.0002 15.8333 10.0002 15.8333C10.0002 15.8333 5.00016 10.3416 5.00016 6.62496C5.00016 3.88329 7.24183 1.66663 10.0002 1.66663ZM10.0002 4.99996C9.55814 4.99996 9.13421 5.17555 8.82165 5.48811C8.50909 5.80067 8.3335 6.2246 8.3335 6.66663C8.3335 7.10865 8.50909 7.53258 8.82165 7.84514C9.13421 8.1577 9.55814 8.33329 10.0002 8.33329C10.4422 8.33329 10.8661 8.1577 11.1787 7.84514C11.4912 7.53258 11.6668 7.10865 11.6668 6.66663C11.6668 6.2246 11.4912 5.80067 11.1787 5.48811C10.8661 5.17555 10.4422 4.99996 10.0002 4.99996ZM16.6668 15.8333C16.6668 17.675 13.6835 19.1666 10.0002 19.1666C6.31683 19.1666 3.3335 17.675 3.3335 15.8333C3.3335 14.7583 4.35016 13.8 5.92516 13.1916L6.4585 13.95C5.5585 14.325 5.00016 14.8416 5.00016 15.4166C5.00016 16.5666 7.24183 17.5 10.0002 17.5C12.7585 17.5 15.0002 16.5666 15.0002 15.4166C15.0002 14.8416 14.4418 14.325 13.5418 13.95L14.0752 13.1916C15.6502 13.8 16.6668 14.7583 16.6668 15.8333Z" fill="#8a8a8a"></path>
+                                        </svg>
+                                        <select name="showroom" id="showroomSelect" class="form-control" required>
+                                            <option value="" disabled selected hidden>Showroom nhận xe</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-navigation1">
+                                        <button type="button" class="btn btn-primary next-btn">Bước kế tiếp</button>
+                                    </div>
+                                </div>
 
-                        <div class="warningMessage">
-                            <span id="content-warning"></span>
-                        </div>
-                        <div class="form-section">
-                            <div class="form-group">
-                                <span>Đặt cọc trước <b>10%</b>&nbsp;&rarr;&nbsp;<b>15,000,000 VND</b></span>
-                            </div>
-                            <div class="form-group">
-                                <select name="payment_method" class="form-control" required>
-                                    <option value="" disabled selected hidden>Phương thức thanh toán</option>
-                                    <option value="Tiền mặt">Tiền mặt</option>
-                                    <option value="Chuyển khoản">Chuyển khoản</option>
-                                    <option value="Trả góp">Trả góp</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <span>Quét mã QR tại đây để thanh toán: </span>
-                            </div>
-                            <div class="form-group">
-                                <img src="../img/qr_code.png" alt="qr_code" >
-                            </div>
+                                <div class="warningMessage">
+                                    <span id="contetnt-warning"></span>
+                                </div>
+                                <div class="form-section">
+                                    <div class="form-group">
+                                        <select name="product_name" id="Select_product" class="form-control" required>
+                                            <option value="" disabled selected hidden>Tên sản phẩm</option>
+                                            <?php foreach ($products as $product): ?>
+                                                <option value="<?php echo htmlspecialchars($product); ?>"><?php echo htmlspecialchars($product); ?></option>
+                                            <?php endforeach ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="color" id="showColor" class="form-control" required>
+                                            <option value="" disabled selected hidden>Màu xe</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="number" placeholder="Số lượng mua xe" name="transaction_number" min="1" max="10">
+                                    </div>
+                                    <div class="form-group">
+                                        <b>Giá xe : </b>&nbsp;<span id="price-display"></span>
+                                    </div>
+                                    <div class="form-navigation">
+                                        <button type="button" class="btn btn-primary prev-btn">Quay lại</button>
+                                        <button type="button" class="btn btn-primary next-btn">Bước kế tiếp</button>
+                                    </div>
+                                </div>
 
-                            <div class="form-navigation">
-                                <button type="button" class="btn btn-primary prev-btn">Quay lại</button>
-                                <button type="submit" class="btn btn-primary submit-btn">Gửi</button>
-                            </div>
+                                <div class="warningMessage">
+                                    <span id="content-warning"></span>
+                                </div>
+                                <div class="form-section">
+                                    <div class="form-group">
+                                        <span>Đặt cọc trước <b>10%</b>&nbsp;&rarr;&nbsp;<b>15,000,000 VND</b></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="payment_method" class="form-control" required>
+                                            <option value="" disabled selected hidden>Phương thức thanh toán</option>
+                                            <option value="Tiền mặt">Tiền mặt</option>
+                                            <option value="Chuyển khoản">Chuyển khoản</option>
+                                            <option value="Trả góp">Trả góp</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <span>Quét mã QR tại đây để thanh toán: </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <img src="../img/qr_code.png" alt="qr_code">
+                                    </div>
+
+                                    <div class="form-navigation">
+                                        <button type="button" class="btn btn-primary prev-btn">Quay lại</button>
+                                        <button type="submit" class="btn btn-primary submit-btn">Gửi</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-
- 
-  
 
 
-    <?php include('../client/footer.php') ?>
+
+
+
+            <?php include('../client/footer.php') ?>
 </body>
 
 
@@ -527,260 +528,337 @@ mysqli_close($data);
 
 <script>
     document.querySelector('.submit-btn').addEventListener('click', function() {
-    var combinedForm = document.createElement('form');
-    combinedForm.method = 'POST';
-    combinedForm.action = '../client/process_cart.php';
+        var combinedForm = document.createElement('form');
+        combinedForm.method = 'POST';
+        combinedForm.action = '../client/process_cart.php';
 
 
-    var forms = [document.getElementById('inforUser'), document.getElementById('inforProduct'), document.getElementById('inforShipping')];
+        var forms = [document.getElementById('inforUser'), document.getElementById('inforProduct'), document.getElementById('inforShipping')];
 
-    forms.forEach(function(form) {
-        var inputs = form.querySelectorAll('input, select');
-        inputs.forEach(function(input) {
-            if (input.name && input.value) {
-                var hiddenField = document.createElement('input');
-                hiddenField.type = 'hidden';
-                hiddenField.name = input.name;
-                hiddenField.value = input.value;
-                combinedForm.appendChild(hiddenField);
-            }
+        forms.forEach(function(form) {
+            var inputs = form.querySelectorAll('input, select');
+            inputs.forEach(function(input) {
+                if (input.name && input.value) {
+                    var hiddenField = document.createElement('input');
+                    hiddenField.type = 'hidden';
+                    hiddenField.name = input.name;
+                    hiddenField.value = input.value;
+                    combinedForm.appendChild(hiddenField);
+                }
+            });
         });
+
+
+        document.body.appendChild(combinedForm);
+        combinedForm.submit();
     });
 
 
-    document.body.appendChild(combinedForm);
-    combinedForm.submit();
-});
-
-
-//Xử lý price khi chọn product
-document.getElementById("Select_product").onchange = function() {
-    var productName = this.value;
-    fetch("get_productname.php?product_name=" + productName)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log(data); 
-
-            document.getElementById("price-display").innerText = data.price ? data.price + " VND" : "Không có giá";
-            
-            const showColor = document.getElementById('showColor');
-            showColor.innerHTML = '<option value="" disabled selected hidden>Màu</option>';
-            
-            data.colors.forEach(color => {
-                const option = document.createElement('option');
-                option.value = color.color;
-                option.textContent = color.color;
-                
-                // Kiểm tra xem màu có trong kho hay không
-                if (!color.in_stock) {
-                    option.disabled = true; 
-                    option.title = "Dự kiến hàng sẽ có vào ngày 20/9/2024"; 
+    //Xử lý price khi chọn product
+    document.getElementById("Select_product").onchange = function() {
+        var productName = this.value;
+        fetch("get_productname.php?product_name=" + productName)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
                 }
-                
-                showColor.appendChild(option);
-            });
-
-            showColor.disabled = !data.inStock;
-
-        })
-        .catch(error => {
-            console.error('Fetch error:', error);
-            document.getElementById("price-display").innerText = "Lỗi khi nhận giá";
-        });
-};
-
-
-
-//Xử lý Showroom theo location
-document.getElementById('placeSelect').addEventListener('change', function() {
-    const place = this.value;
-
-    if (place) {
-        fetch('get_showrooms.php?place=' + place)
-            .then(response => response.json())
-            .then(data => {
-                const showroomSelect = document.getElementById('showroomSelect');
-                showroomSelect.innerHTML = '<option value="" disabled selected hidden>Showroom nhận xe</option>';
-                data.forEach(showroom => {
-                    const option = document.createElement('option');
-                    option.value = showroom;
-                    option.textContent = showroom;
-                    showroomSelect.appendChild(option);
-                });
+                return response.json();
             })
-            .catch(error => console.error('Error fetching showrooms:', error));
-    }
-});
+            .then(data => {
+                console.log(data);
 
+                document.getElementById("price-display").innerText = data.price ? data.price + " VND" : "Không có giá";
 
+                const showColor = document.getElementById('showColor');
+                showColor.innerHTML = '<option value="" disabled selected hidden>Màu</option>';
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Xử lý like sản phẩm
-    const likeButtons = document.querySelectorAll('.like_car');
-    likeButtons.forEach(initLikeButton);
+                data.colors.forEach(color => {
+                    const option = document.createElement('option');
+                    option.value = color.color;
+                    option.textContent = color.color;
 
-    // Hàm khởi tạo nút like
-    function initLikeButton(likeButton) {
-        const product = {
-            product_id: likeButton.getAttribute('data-id'),
-            image: likeButton.getAttribute('data-image'),
-            name: likeButton.getAttribute('data-name'),
-            color: likeButton.getAttribute('data-color'),
-            stock: likeButton.getAttribute('data-stock')
-        };
-
-        // Kiểm tra nếu sản phẩm đã được like và cập nhật màu sắc nút
-        if (isProductLiked(product)) {
-            likeButton.style.color = 'red';
-        }
-
-        // Thêm sự kiện click cho nút like
-        likeButton.addEventListener('click', function() {
-            toggleLike(product, likeButton);
-            updateCountHeart();
-        });
-    }
-
-    // Hàm kiểm tra sản phẩm đã được like hay chưa
-    function isProductLiked(product) {
-        const likeCars = JSON.parse(localStorage.getItem('likeCars')) || [];;
-        return likeCars.some(p => p.name === product.name && p.color === product.color);
-    }
-
-    // Hàm thêm hoặc xóa sản phẩm khỏi danh sách yêu thích
-    function toggleLike(product, likeButton) {
-        let likeCars = JSON.parse(localStorage.getItem('likeCars')) || [];;
-        const productIndex = likeCars.findIndex(p => p.name === product.name && p.color === product.color);
-        
-        if (productIndex !== -1) {
-            // Nếu sản phẩm đã tồn tại, xóa khỏi danh sách yêu thích
-            likeCars.splice(productIndex, 1);
-            likeButton.style.color = ''; // Trả lại màu mặc định cho nút
-        } else {
-            // Nếu chưa tồn tại, thêm sản phẩm vào danh sách yêu thích
-            likeCars.push(product);
-            likeButton.style.color = 'red'; // Đặt màu cho nút đã yêu thích
-        }
-
-        // Cập nhật localStorage
-        localStorage.setItem('likeCars', JSON.stringify(likeCars));
-
-        // Gửi dữ liệu sang server
-        sendLikedCars();
-    }
-
-   
-
-    // Hàm cập nhật số lượng sản phẩm yêu thích
-    function updateCountHeart() {
-        const likeProducts = JSON.parse(localStorage.getItem('likeCars')) || [];;
-        document.querySelector('.count-heart').textContent = likeProducts.length;
-    }
-
-    // Hàm gửi dữ liệu localStorage sang liked_car.php
-    function sendLikedCars() {
-        const likeCars = JSON.parse(localStorage.getItem('likeCars')) || [];;
-        fetch('liked_car.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(likeCars),
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data.message); // Thông báo từ server
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-        console.log(likeCars);
-    }
-
-    // Cập nhật số lượng yêu thích khi tải trang
-    updateCountHeart();
-});
-
-
- //Xóa localStorage
-// localStorage.clear(); 
-
-
-
-// Modal và điều kiện
-document.addEventListener('DOMContentLoaded', function () {
-    function initForm() {
-        const formSections = document.querySelectorAll(".form-section");
-        const nextBtns = document.querySelectorAll(".next-btn");
-        const prevBtns = document.querySelectorAll(".prev-btn");
-        let currentForm = 0;
-
-        function showForm() {
-            formSections.forEach((section, index) => {
-                section.style.display = 'none'; 
-            });
-            formSections[currentForm].style.display = 'block';  
-        }
-
-        function validateCurrentForm() {
-            const currentSectionInputs = formSections[currentForm].querySelectorAll('input, select');
-            // console.log("Validating Form Section: ", currentForm);
-            let isValid = true;
-
-            currentSectionInputs.forEach(function(input) {
-                // console.log("Input Value: ", input.value.trim());
-                if (input.value.trim() === "") {
-                    isValid = false;
-                }
-            });
-
-            return isValid;
-        }
-
-        function NotifyWarning() {
-            const messageWarning = "Vui lòng điền đầy đủ thông tin trước khi qua bước kế tiếp!";
-            document.getElementById("content-warning").innerHTML = messageWarning;
-            document.getElementById("content-warning").style.display = 'block';
-        }
-        function ClearWarning() {
-            document.getElementById("content-warning").innerHTML = "";
-            document.getElementById("content-warning").style.display = 'none';
-        }
-
-        nextBtns.forEach(btn => {
-            btn.addEventListener('click', function () {
-                if (validateCurrentForm()) {
-                    ClearWarning();
-                    if (currentForm < formSections.length - 1) {
-                        currentForm++;
-                        showForm();
-                        
+                    // Kiểm tra xem màu có trong kho hay không
+                    if (!color.in_stock) {
+                        option.disabled = true;
+                        option.title = "Dự kiến hàng sẽ có vào ngày 20/9/2024";
                     }
-                } else {
-                    NotifyWarning();
-                }
+
+                    showColor.appendChild(option);
+                });
+
+                showColor.disabled = !data.inStock;
+
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                document.getElementById("price-display").innerText = "Lỗi khi nhận giá";
             });
-        });
-        prevBtns.forEach(btn => {
-            btn.addEventListener('click', function () {
-                if (currentForm > 0) {
-                    currentForm--;
-                    showForm();
-                }
+    };
+
+
+
+    //Xử lý Showroom theo location
+    document.getElementById('placeSelect').addEventListener('change', function() {
+        const place = this.value;
+
+        if (place) {
+            fetch('get_showrooms.php?place=' + place)
+                .then(response => response.json())
+                .then(data => {
+                    const showroomSelect = document.getElementById('showroomSelect');
+                    showroomSelect.innerHTML = '<option value="" disabled selected hidden>Showroom nhận xe</option>';
+                    data.forEach(showroom => {
+                        const option = document.createElement('option');
+                        option.value = showroom;
+                        option.textContent = showroom;
+                        showroomSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching showrooms:', error));
+        }
+    });
+
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Xử lý like sản phẩm
+        const likeButtons = document.querySelectorAll('.like_car');
+        likeButtons.forEach(initLikeButton);
+
+        // Hàm khởi tạo nút like
+        function initLikeButton(likeButton) {
+            const product = {
+                product_id: likeButton.getAttribute('data-id'),
+                image: likeButton.getAttribute('data-image'),
+                name: likeButton.getAttribute('data-name'),
+                color: likeButton.getAttribute('data-color'),
+                stock: likeButton.getAttribute('data-stock')
+            };
+
+            // Kiểm tra nếu sản phẩm đã được like và cập nhật màu sắc nút
+            if (isProductLiked(product)) {
+                likeButton.style.color = 'red';
+                likeButton.title = 'Bỏ yêu thích';
+            } else {
+                likeButton.style.color = '#ccc';
+                likeButton.title = 'Thêm vào yêu thích';
+            }
+
+            // Thêm sự kiện click cho nút like
+            likeButton.addEventListener('click', function() {
+                toggleLike(product, likeButton);
             });
-        });
+        }
 
-        showForm();
-    }
+        // Hàm kiểm tra sản phẩm đã được like hay chưa
+        function isProductLiked(product) {
+            const likeCars = JSON.parse(localStorage.getItem('likeCars')) || [];;
+            return likeCars.some(p => p.name === product.name && p.color === product.color);
+        }
 
-    initForm();
-});
+        // Hàm thêm hoặc xóa sản phẩm khỏi danh sách yêu thích
+        function toggleLike(product, likeButton) {
+            let likeCars = JSON.parse(localStorage.getItem('likeCars')) || [];;
+            const productIndex = likeCars.findIndex(p => p.name === product.name && p.color === product.color);
 
+            if (productIndex !== -1) {
+                // Nếu sản phẩm đã tồn tại, xóa khỏi danh sách yêu thích
+                likeCars.splice(productIndex, 1);
+                likeButton.style.color = '#ccc'; // Màu xám cho chưa yêu thích
+                likeButton.title = 'Thêm vào yêu thích';
+                showNotification('Đã bỏ xe khỏi danh sách yêu thích', 'warning');
+            } else {
+                // Nếu chưa tồn tại, thêm sản phẩm vào danh sách yêu thích
+                likeCars.push(product);
+                likeButton.style.color = 'red'; // Đặt màu đỏ cho nút đã yêu thích
+                likeButton.title = 'Bỏ yêu thích';
+                showNotification('Đã thêm xe vào danh sách yêu thích', 'success');
+            }
+
+            // Cập nhật localStorage
+            localStorage.setItem('likeCars', JSON.stringify(likeCars));
+
+            // Cập nhật số lượng
+            updateCountHeart();
+
+            // Gửi dữ liệu sang server
+            sendLikedCars();
+        }
+
+        function showNotification(message, type = 'success') {
+            // Xóa thông báo cũ nếu có
+            const existingNotification = document.querySelector('.like-notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+
+            const notification = document.createElement('div');
+            notification.className = 'like-notification';
+            notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${type === 'success' ? '#28a745' : type === 'warning' ? '#ffc107' : '#dc3545'};
+            color: ${type === 'warning' ? '#333' : 'white'};
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            font-size: 14px;
+            max-width: 300px;
+            animation: slideIn 0.3s ease-out;
+        `;
+
+            // Thêm animation CSS nếu chưa có
+            if (!document.querySelector('#notification-styles')) {
+                const style = document.createElement('style');
+                style.id = 'notification-styles';
+                style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+                document.head.appendChild(style);
+            }
+
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            // Tự động xóa sau 3 giây
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-in';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+
+
+        // Hàm cập nhật số lượng sản phẩm yêu thích
+        function updateCountHeart() {
+            const likeProducts = JSON.parse(localStorage.getItem('likeCars')) || [];
+            const countElement = document.querySelector('.count-heart');
+            if (countElement) {
+                countElement.textContent = likeProducts.length;
+                // Ẩn badge nếu count = 0
+                countElement.style.display = likeProducts.length > 0 ? 'block' : 'none';
+            }
+
+            // Trigger event để notify header
+            window.dispatchEvent(new CustomEvent('likeCountChanged', {
+                detail: {
+                    count: likeProducts.length
+                }
+            }));
+        }
+
+        // Hàm gửi dữ liệu localStorage sang liked_car.php
+        function sendLikedCars() {
+            const likeCars = JSON.parse(localStorage.getItem('likeCars')) || [];;
+            fetch('liked_car.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(likeCars),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message); // Thông báo từ server
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            console.log(likeCars);
+        }
+
+        // Cập nhật số lượng yêu thích khi tải trang
+        updateCountHeart();
+    });
+
+
+    //Xóa localStorage
+    // localStorage.clear(); 
+
+
+
+    // Modal và điều kiện
+    document.addEventListener('DOMContentLoaded', function() {
+        function initForm() {
+            const formSections = document.querySelectorAll(".form-section");
+            const nextBtns = document.querySelectorAll(".next-btn");
+            const prevBtns = document.querySelectorAll(".prev-btn");
+            let currentForm = 0;
+
+            function showForm() {
+                formSections.forEach((section, index) => {
+                    section.style.display = 'none';
+                });
+                formSections[currentForm].style.display = 'block';
+            }
+
+            function validateCurrentForm() {
+                const currentSectionInputs = formSections[currentForm].querySelectorAll('input, select');
+                // console.log("Validating Form Section: ", currentForm);
+                let isValid = true;
+
+                currentSectionInputs.forEach(function(input) {
+                    // console.log("Input Value: ", input.value.trim());
+                    if (input.value.trim() === "") {
+                        isValid = false;
+                    }
+                });
+
+                return isValid;
+            }
+
+            function NotifyWarning() {
+                const messageWarning = "Vui lòng điền đầy đủ thông tin trước khi qua bước kế tiếp!";
+                document.getElementById("content-warning").innerHTML = messageWarning;
+                document.getElementById("content-warning").style.display = 'block';
+            }
+
+            function ClearWarning() {
+                document.getElementById("content-warning").innerHTML = "";
+                document.getElementById("content-warning").style.display = 'none';
+            }
+
+            nextBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (validateCurrentForm()) {
+                        ClearWarning();
+                        if (currentForm < formSections.length - 1) {
+                            currentForm++;
+                            showForm();
+
+                        }
+                    } else {
+                        NotifyWarning();
+                    }
+                });
+            });
+            prevBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (currentForm > 0) {
+                        currentForm--;
+                        showForm();
+                    }
+                });
+            });
+
+            showForm();
+        }
+
+        initForm();
+    });
 </script>
 
 </html>
