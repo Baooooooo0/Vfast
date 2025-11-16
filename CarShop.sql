@@ -127,9 +127,141 @@ INSERT INTO `locations` (`location_id`, `location_name`, `location_address`) VAL
 -- Cấu trúc bảng cho bảng `cart_items`
 --
 CREATE TABLE `cart_items` (
+  `cart_id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `product_id` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `color` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `product_price` decimal(10,0) NOT NULL,
+  `quantity` int NOT NULL,
+  `add_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`cart_id`),
+  KEY `user_id` (`user_id`),
+  KEY `product_id` (`product_id`),
+  CONSTRAINT `cart_items_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `cart_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `transactions`
+--
+CREATE TABLE `transactions` (
+  `transaction_id` int NOT NULL AUTO_INCREMENT,
+  `product_id` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customer_id` int NOT NULL,
+  `transaction_date` date NOT NULL,
+  `deposit` decimal(10,0) NOT NULL,
+  `transaction_number` int NOT NULL,
+  `payment_method` enum('Chuyển khoản ngân hàng','MOMO') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `transaction_status` enum('pending','completed','failed') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `order_id` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `request_id` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `momo_trans_id` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `receiver_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `receiver_phone` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `receiver_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`transaction_id`),
+  KEY `fk_customer` (`customer_id`),
+  KEY `fk_product` (`product_id`),
+  CONSTRAINT `fk_customer` FOREIGN KEY (`customer_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `transactions`
+--
+INSERT INTO `transactions` (`transaction_id`, `product_id`, `customer_id`, `transaction_date`, `deposit`, `transaction_number`, `payment_method`, `transaction_status`, `order_id`, `request_id`, `momo_trans_id`, `receiver_name`, `receiver_phone`, `receiver_address`) VALUES
+(1, 'VF01', 1, '2024-07-01', '15000000', 3, 'MOMO', 'pending', NULL, NULL, NULL, '', '', ''),
+(2, 'VF014', 3, '2024-08-15', '15000000', 1, 'MOMO', 'pending', NULL, NULL, NULL, '', '', ''),
+(27, 'VF023', 0, '2024-08-28', '15000000', 1, 'MOMO', 'pending', NULL, NULL, NULL, '', '', ''),
+(28, 'VF042', 1, '2024-08-28', '15000000', 1, 'MOMO', 'pending', NULL, NULL, NULL, '', '', ''),
+(29, 'VF073', 1, '2024-08-28', '15000000', 1, 'MOMO', 'pending', NULL, NULL, NULL, '', '', ''),
+(30, 'VF072', 3, '2024-08-28', '15000000', 1, 'MOMO', 'pending', NULL, NULL, NULL, '', '', ''),
+(33, 'VF02', 1, '2024-09-04', '15000000', 2, 'MOMO', 'pending', NULL, NULL, NULL, '', '', ''),
+(34, 'VF021', 1, '2024-09-04', '15000000', 2, 'MOMO', 'pending', NULL, NULL, NULL, '', '', ''),
+(36, 'VF034', 1, '2024-09-04', '15000000', 2, 'MOMO', 'pending', NULL, NULL, NULL, '', '', '');
+
+--
+-- Triggers `transactions`
+--
+DELIMITER $$
+CREATE TRIGGER `trg_transactions_delete` AFTER DELETE ON `transactions` FOR EACH ROW BEGIN
+  -- Declare variables to store the deleted information
+  DECLARE v_product_id varchar(10);
+  DECLARE v_transaction_number int;
+
+  -- Get the information from the deleted row
+  SET v_product_id = OLD.product_id;
+  SET v_transaction_number = OLD.transaction_number;
+
+  -- Update the product table
+  UPDATE `product`
+  SET product_number = product_number + v_transaction_number
+  WHERE product_id = v_product_id;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `trg_transactions_insert` AFTER INSERT ON `transactions` FOR EACH ROW BEGIN
+    DECLARE remain_number INT;
+
+    -- Lấy số lượng sản phẩm từ bảng `product`
+    SELECT product_number INTO remain_number 
+    FROM product 
+    WHERE product_id = NEW.product_id;
+
+    -- Nếu sản phẩm không tồn tại
+    IF remain_number IS NULL THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Sản phẩm không tồn tại!';
+    -- Nếu số lượng sản phẩm còn lại đủ
+    ELSEIF remain_number >= NEW.transaction_number THEN
+        UPDATE product 
+        SET product_number = product_number - NEW.transaction_number 
+        WHERE product_id = NEW.product_id;
+    -- Nếu số lượng sản phẩm không đủ
+    ELSE 
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Số lượng sản phẩm không đủ!';
+    END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_product` AFTER UPDATE ON `transactions` FOR EACH ROW BEGIN
+
+  IF OLD.transaction_number <> NEW.transaction_number THEN
+
+    IF NEW.transaction_number < 0 THEN 
+      SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Số giao dịch không thể nhỏ hơn 0.';
+    ELSE 
+
+      IF (SELECT product_number FROM product WHERE product_id = NEW.product_id) - (NEW.transaction_number - OLD.transaction_number) < 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Số lượng xe không thể nhỏ hơn 0.';
+      ELSE
+     
+        UPDATE product
+        SET product_number = product_number - (NEW.transaction_number - OLD.transaction_number)
+        WHERE product_id = NEW.product_id;
+      END IF;
+    END IF;
+  END IF;
+
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_status` AFTER UPDATE ON `transactions` FOR EACH ROW BEGIN
+  IF (SELECT product_number FROM product WHERE product_id = NEW.product_id) = 0 THEN
+    UPDATE product
+    SET status = 'hết'
+    WHERE product_id = NEW.product_id;
+  END IF; 
+END
+$$
+DELIMITER ;
 -- Thêm dữ liệu trạm sạc VinFast vào database
 
 -- Tạo bảng charging_stations nếu chưa tồn tại
@@ -291,6 +423,14 @@ INSERT IGNORE INTO `locations` (`location_name`, `location_address`) VALUES
 
 COMMIT;
 
+-- Hiển thị tổng số trạm sạc đã thêm
+SELECT COUNT(*) as 'Tổng số trạm sạc' FROM charging_stations;
+SELECT station_type, COUNT(*) as 'Số lượng' FROM charging_stations GROUP BY station_type;
+SELECT status, COUNT(*) as 'Số lượng' FROM charging_stations GROUP BY status;
+--
+
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;carshop
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

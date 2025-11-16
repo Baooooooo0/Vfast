@@ -205,6 +205,9 @@ $cart_count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : 0;
             }
         }
 
+        // Làm function có thể access từ window
+        window.updateCountHeart = updateCountHeart;
+
         // Cập nhật badge giỏ hàng
         function updateCartCount() {
             const cartCountElement = document.querySelector('.cart-count');
@@ -229,6 +232,14 @@ $cart_count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : 0;
                 updateCountHeart();
             }
         });
+
+        // Lắng nghe custom event từ các trang khác
+        window.addEventListener('likeCountChanged', function(e) {
+            updateCountHeart();
+        });
+
+        // Force update khi trang load xong
+        setTimeout(updateCountHeart, 200);
     </script>
 </body>
 
