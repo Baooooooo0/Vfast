@@ -1,6 +1,14 @@
 <?php
+// File: header.php
 // session_start();
 //đã có session_start() trong home.php
+
+// Xử lý reset flag
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'reset_liked_cars_flag') {
+    $_SESSION['liked_cars_reset'] = false;
+    exit();
+}
+
 $host = "localhost";
 $user = "root";
 $password = "";
@@ -24,7 +32,7 @@ if (isset($_SESSION['email'])) {
         $row = $result->fetch_assoc();
         $name = $row['name'];
 
-        // Sử dụng INNER JOIN để lấy số lượng giao dịch dựa trên tên người dùng
+        // Sử dụng INNER JOIN để lấy số lượng giao dịch dựa trên user_id
         $cart_sql = $data->prepare("
             SELECT COUNT(*) as count 
             FROM transactions 
@@ -39,6 +47,10 @@ if (isset($_SESSION['email'])) {
 
         $_SESSION['cart_count'] = $cart_count_row['count'];
         $_SESSION['name'] = $name;
+    } else {
+        // Nếu không tìm thấy user, set cart_count = 0
+        $_SESSION['cart_count'] = 0;
+        $_SESSION['name'] = '';
     }
 } else {
 
@@ -68,63 +80,6 @@ $cart_count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : 0;
         .logo a:hover {
             opacity: 0.8;
         }
-
-        .notify {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-            min-width: 120px;
-            position: relative;
-        }
-
-        .notify-item {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .notify-item i {
-            font-size: 16px;
-            color: #3C3C3C;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .notify-item i:hover {
-            color: #1464F4;
-            transform: scale(1.1);
-        }
-
-        .cart-count {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: red;
-            color: white;
-            border-radius: 50%;
-            width: 16px;
-            height: 16px;
-            font-size: 10px;
-            text-align: center;
-            line-height: 16px;
-            font-weight: bold;
-        }
-
-        .count-heart {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: red;
-            color: white;
-            border-radius: 50%;
-            width: 16px;
-            height: 16px;
-            font-size: 10px;
-            text-align: center;
-            line-height: 16px;
-            font-weight: bold;
-        }
     </style>
 </head>
 
@@ -137,12 +92,14 @@ $cart_count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : 0;
                         src="https://vinfastauto.com/themes/porto/img/new-home-page/VinFast-logo.svg">
                 </a>
             </div>
+
+            <button class="hamburger" id="hamburger" type="button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
             <nav>
-                <div class="hamburger" id="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
                 <ul id="nav-links">
                     <li><a href="home.php">Giới thiệu</a></li>
                     <li><a href="oto.php">Ô tô</a></li>
@@ -150,24 +107,31 @@ $cart_count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : 0;
                     <li><a href="battery_station.php">Trạm Sạc VinFast</a></li>
                 </ul>
             </nav>
-            <div class="box-car-head">
-                <span class="account"><i class="fas fa-user"></i>
-                    <p><?php echo htmlspecialchars($name); ?></p>
-                </span>
-                <ul class="menu-account">
-                    <li class="menu-account-item"><a href="../client/information.php">Thông tin cá nhân</a></li>
-                    <li class="menu-account-item"><a href="logout.php">Đăng xuất</a></li>
-                </ul>
-            </div>
-            <div class="notify">
-                <div class="notify-item">
-                    <i class="fa fa-heart" id="like_car" aria-hidden="true" title="Xe đã thích"></i>
-                    <span class="count-heart"></span>
-                </div>
 
-                <div class="notify-item">
-                    <i class="fa fa-car" id="cart_car" aria-hidden="true" title="Lịch sử mua hàng"></i>
-                    <span class="cart-count"><?php echo $cart_count; ?></span>
+            <div class="navbar-right">
+                <div class="box-car-head">
+                    <span class="account">
+                        <i class="fas fa-user"></i>
+                        <p><?php echo htmlspecialchars($name); ?></p>
+                    </span>
+                    <ul class="menu-account">
+                        <li class="menu-account-item">
+                            <a href="../client/information.php">Thông tin cá nhân</a>
+                        </li>
+                        <li class="menu-account-item">
+                            <a href="logout.php">Đăng xuất</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="notify">
+                    <div class="notify-item">
+                        <i class="fa fa-heart" id="like_car" aria-hidden="true" title="Xe đã thích"></i>
+                        <span class="count-heart"></span>
+                    </div>
+                    <div class="notify-item">
+                        <i class="fa fa-car" id="cart_car" aria-hidden="true" title="Lịch sử mua hàng"></i>
+                        <span class="cart-count" data-count="<?php echo $cart_count; ?>" style="<?php echo $cart_count > 0 ? 'display: flex;' : 'display: none;'; ?>"><?php echo $cart_count > 0 ? $cart_count : ''; ?></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -192,21 +156,55 @@ $cart_count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : 0;
             navLinks.classList.toggle('show');
         });
 
-        // Cập nhật số lượng xe đã thích từ localStorage
+        // Cập nhật số lượng xe đã thích từ localStorage (theo user)
         function updateCountHeart() {
-            const likeProducts = JSON.parse(localStorage.getItem('likeCars')) || [];
+            const currentUserId = <?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '0'; ?>;
+            const storageKey = 'likeCars_' + currentUserId;
+            const likeProducts = JSON.parse(localStorage.getItem(storageKey)) || [];
             const countHeart = likeProducts.length;
             const heartCountElement = document.querySelector('.count-heart');
 
             if (heartCountElement) {
-                heartCountElement.textContent = countHeart;
-                // Ẩn badge nếu count = 0
-                heartCountElement.style.display = countHeart > 0 ? 'block' : 'none';
+                if (countHeart > 0) {
+                    heartCountElement.textContent = countHeart;
+                    heartCountElement.style.display = 'flex';
+                    heartCountElement.style.visibility = 'visible';
+                } else {
+                    heartCountElement.textContent = '';
+                    heartCountElement.style.display = 'none';
+                    heartCountElement.style.visibility = 'hidden';
+                }
             }
         }
 
         // Làm function có thể access từ window
         window.updateCountHeart = updateCountHeart;
+
+        // Function để clear localStorage cho user cũ khi đăng nhập user mới
+        function clearPreviousUserData() {
+            const shouldReset = <?php echo isset($_SESSION['liked_cars_reset']) && $_SESSION['liked_cars_reset'] ? 'true' : 'false'; ?>;
+            if (shouldReset) {
+                // Xóa tất cả localStorage keys liên quan đến likeCars của user khác
+                for (let i = localStorage.length - 1; i >= 0; i--) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith('likeCars_')) {
+                        const userId = key.split('_')[1];
+                        const currentUserId = <?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '0'; ?>;
+                        if (userId != currentUserId) {
+                            localStorage.removeItem(key);
+                        }
+                    }
+                }
+                // Reset flag
+                fetch(window.location.href, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 'action=reset_liked_cars_flag'
+                });
+            }
+        }
 
         // Cập nhật badge giỏ hàng
         function updateCartCount() {
@@ -214,21 +212,32 @@ $cart_count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : 0;
             const cartCount = <?php echo $cart_count; ?>;
 
             if (cartCountElement) {
-                cartCountElement.textContent = cartCount;
-                // Ẩn badge nếu count = 0
-                cartCountElement.style.display = cartCount > 0 ? 'block' : 'none';
+                cartCountElement.setAttribute('data-count', cartCount);
+
+                if (cartCount > 0) {
+                    cartCountElement.textContent = cartCount;
+                    cartCountElement.style.display = 'flex';
+                    cartCountElement.style.visibility = 'visible';
+                } else {
+                    cartCountElement.textContent = '';
+                    cartCountElement.style.display = 'none';
+                    cartCountElement.style.visibility = 'hidden';
+                }
             }
         }
 
         // Gọi function khi trang load
         document.addEventListener('DOMContentLoaded', function() {
+            clearPreviousUserData();
             updateCountHeart();
             updateCartCount();
         });
 
         // Cập nhật khi có thay đổi trong localStorage
         window.addEventListener('storage', function(e) {
-            if (e.key === 'likeCars') {
+            const currentUserId = <?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '0'; ?>;
+            const storageKey = 'likeCars_' + currentUserId;
+            if (e.key === storageKey) {
                 updateCountHeart();
             }
         });
