@@ -26,6 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['email'] = $row['email'];
             $_SESSION['usertype'] = $row['usertype'];
 
+            mysqli_stmt_close($stmt);
+
             if ($row['usertype'] === 'admin') {
                 header('Location: ../admin/ad_home.php');
                 exit();
@@ -35,15 +37,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         } else {
             // Login failed
+            mysqli_stmt_close($stmt);
             $_SESSION['loginMessage'] = 'Email và Password không tồn tại!';
             header('Location: login.php');
             exit();
         }
-
     } else {
         $_SESSION['loginMessage'] = 'Lỗi hệ thống. Vui lòng thử lại.';
         header('Location: login.php');
         exit();
     }
 }
-?>
