@@ -22,7 +22,66 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Xe yêu thích - VinFast</title>
+    <?php include('home_css.php'); ?>
+    <style>
+        .container {
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+        
+        .title-list-car {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .title-list-car h2 {
+            color: #0071bc;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .oto-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: flex-start;
+            padding: 0 20px;
+        }
+        
+        .col-5 {
+            flex: 0 0 calc(20% - 16px);
+            position: relative;
+        }
+        
+        @media (max-width: 1200px) {
+            .col-5 {
+                flex: 0 0 calc(25% - 15px);
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .col-5 {
+                flex: 0 0 calc(33.333% - 14px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .col-5 {
+                flex: 0 0 calc(50% - 10px);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .col-5 {
+                flex: 0 0 100%;
+            }
+            .oto-list {
+                padding: 0 10px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -33,8 +92,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <section class="oto-list">
             <script>
-                // Lấy dữ liệu likeCars từ localStorage hoặc AJAX call
-                let likeCars = JSON.parse(localStorage.getItem('likeCars')) || [];
+                // Lấy dữ liệu likeCars từ localStorage với user-specific key
+                const currentUserId = <?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '0'; ?>;
+                const storageKey = 'likeCars_' + currentUserId;
+                let likeCars = JSON.parse(localStorage.getItem(storageKey)) || [];
 
                 if (likeCars.length > 0) {
                     likeCars.forEach(row => {
@@ -307,7 +368,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const container = document.querySelector('.oto-list');
-        let likeCars = JSON.parse(localStorage.getItem('likeCars')) || [];
+        const currentUserId = <?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '0'; ?>;
+        const storageKey = 'likeCars_' + currentUserId;
+        let likeCars = JSON.parse(localStorage.getItem(storageKey)) || [];
 
         container.addEventListener('click', function(e) {
             if (e.target.classList.contains('like_car')) {
@@ -325,7 +388,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         });
 
         function toggleLike(product, btn) {
-            const index = likeCars.findIndex(p => p.product_id === product.product_id);
+            // Tìm theo name và color để tránh trùng product_id
+            const index = likeCars.findIndex(p => p.name === product.name && p.color === product.color);
             if (index !== -1) {
                 // Unlike: xóa khỏi danh sách và DOM
                 likeCars.splice(index, 1);
@@ -350,7 +414,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Hiển thị thông báo
                 showNotification('Đã thêm xe vào danh sách yêu thích', 'success');
             }
-            localStorage.setItem('likeCars', JSON.stringify(likeCars));
+            localStorage.setItem(storageKey, JSON.stringify(likeCars));
             updateCountHeart();
 
             // Trigger event để notify header
@@ -503,11 +567,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         function updateCountHeart() {
+            const currentUserId = <?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '0'; ?>;
+            const storageKey = 'likeCars_' + currentUserId;
+            const likeProducts = JSON.parse(localStorage.getItem(storageKey)) || [];
             const countElement = document.querySelector('.count-heart');
             if (countElement) {
-                countElement.textContent = likeCars.length;
-                // Ẩn badge nếu count = 0
-                countElement.style.display = likeCars.length > 0 ? 'block' : 'none';
+                if (likeProducts.length > 0) {
+                    countElement.textContent = likeProducts.length;
+                    countElement.style.display = 'flex';
+                    countElement.style.visibility = 'visible';
+                } else {
+                    countElement.textContent = '';
+                    countElement.style.display = 'none';
+                    countElement.style.visibility = 'hidden';
+                }
             }
 
             // Cập nhật cả header counter (nếu có header function)
@@ -517,10 +590,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         function updateLikeStates() {
+            const currentUserId = <?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '0'; ?>;
+            const storageKey = 'likeCars_' + currentUserId;
+            const likeProducts = JSON.parse(localStorage.getItem(storageKey)) || [];
             const likeButtons = document.querySelectorAll('.like_car');
+            
             likeButtons.forEach(btn => {
-                const productId = btn.getAttribute('data-id');
-                const isLiked = likeCars.some(car => car.product_id == productId);
+                const productName = btn.getAttribute('data-name');
+                const productColor = btn.getAttribute('data-color');
+                const isLiked = likeProducts.some(car => car.name === productName && car.color === productColor);
+                
                 if (isLiked) {
                     btn.style.color = 'red';
                     btn.title = 'Bỏ yêu thích';
@@ -537,10 +616,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Đảm bảo header counter cũng được cập nhật
         setTimeout(() => {
+            const currentUserId = <?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '0'; ?>;
+            const storageKey = 'likeCars_' + currentUserId;
+            const likeProducts = JSON.parse(localStorage.getItem(storageKey)) || [];
             // Trigger custom event để notify header
             window.dispatchEvent(new CustomEvent('likeCountChanged', {
                 detail: {
-                    count: likeCars.length
+                    count: likeProducts.length
                 }
             }));
         }, 100);

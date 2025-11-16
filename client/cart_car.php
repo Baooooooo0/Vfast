@@ -70,46 +70,46 @@ if (isset($_SESSION['user_id'])) { // Kiểm tra user_id
 }
 
 // Nếu không có dữ liệu thật, tạo dữ liệu giả (ĐÃ CẬP NHẬT)
-// if (!$has_real_data) {
-//     $transactions[] = [
-//         'transaction_id' => 'F1', // ID giả
-//         'product_id' => 'VF06',
-//         'product_name' => 'VinFast VF 8',
-//         'color' => 'Trắng',
-//         'product_price' => 1100000000,
-//         'image' => '../img/vf-8.jpg',
-//         'deposit' => 1100000000,
-//         'transaction_date' => date('Y-m-d'),
-//         'transaction_number' => 1,
-//         'transaction_status' => 'completed',
-//         'payment_method' => 'Chuyển khoản ngân hàng',
-//         'receiver_name' => 'Nguyễn Văn A (Fake)',
-//         'receiver_phone' => '0901234567',
-//         'receiver_address' => '123 Đường ABC, Phường X, Quận Y, TP HCM',
-//         'customer_name' => 'Nguyễn Văn A (Fake)',
-//         'customer_email' => 'nguyenvana@example.com',
-//         'customer_phone' => '0901234567'
-//     ];
-//      $transactions[] = [
-//         'transaction_id' => 'F2', // ID giả
-//         'product_id' => 'VF02',
-//         'product_name' => 'VinFast VF 5',
-//         'color' => 'Đỏ',
-//         'product_price' => 538000000,
-//         'image' => '../img/VF5_red.png',
-//         'deposit' => 15000000,
-//         'transaction_date' => date('Y-m-d', strtotime('-5 days')),
-//         'transaction_number' => 1,
-//         'transaction_status' => 'completed',
-//         'payment_method' => 'MOMO',
-//         'receiver_name' => 'Trần Thị B (Fake)',
-//         'receiver_phone' => '0901234588',
-//         'receiver_address' => '456 Đường DEF, Phường Z, Quận K, TP Hà Nội',
-//         'customer_name' => 'Trần Thị B (Fake)',
-//         'customer_email' => 'tranthib@example.com',
-//         'customer_phone' => '0901234588'
-//     ];
-// }
+if (!$has_real_data) {
+    $transactions[] = [
+        'transaction_id' => 'F1', // ID giả
+        'product_id' => 'VF06',
+        'product_name' => 'VinFast VF 8',
+        'color' => 'Trắng',
+        'product_price' => 1100000000,
+        'image' => '../img/vf-8.jpg',
+        'deposit' => 1100000000,
+        'transaction_date' => date('Y-m-d'),
+        'transaction_number' => 1,
+        'transaction_status' => 'completed',
+        'payment_method' => 'Chuyển khoản ngân hàng',
+        'receiver_name' => 'Nguyễn Văn A (Fake)',
+        'receiver_phone' => '0901234567',
+        'receiver_address' => '123 Đường ABC, Phường X, Quận Y, TP HCM',
+        'customer_name' => 'Nguyễn Văn A (Fake)',
+        'customer_email' => 'nguyenvana@example.com',
+        'customer_phone' => '0901234567'
+    ];
+     $transactions[] = [
+        'transaction_id' => 'F2', // ID giả
+        'product_id' => 'VF02',
+        'product_name' => 'VinFast VF 5',
+        'color' => 'Đỏ',
+        'product_price' => 538000000,
+        'image' => '../img/VF5_red.png',
+        'deposit' => 15000000,
+        'transaction_date' => date('Y-m-d', strtotime('-5 days')),
+        'transaction_number' => 1,
+        'transaction_status' => 'completed',
+        'payment_method' => 'MOMO',
+        'receiver_name' => 'Trần Thị B (Fake)',
+        'receiver_phone' => '0901234588',
+        'receiver_address' => '456 Đường DEF, Phường Z, Quận K, TP Hà Nội',
+        'customer_name' => 'Trần Thị B (Fake)',
+        'customer_email' => 'tranthib@example.com',
+        'customer_phone' => '0901234588'
+    ];
+}
 
 mysqli_close($data);
 ?>

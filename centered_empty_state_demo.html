@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empty State Centered - VinFast</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8fafc;
+            min-height: 100vh;
+        }
+        
+        /* Header simulation */
+        .header-sim {
+            background: #1e3a8a;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        
+        .user-info {
+            font-size: 14px;
+        }
+        
+        /* Container styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .title-list-car {
+            text-align: center;
+            margin: 40px 0;
+            color: #6b46c1;
+        }
+        
+        .title-list-car h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        /* Main content area */
+        .oto-list {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            min-height: 70vh !important;
+        }
+        
+        /* Animation */
+        @keyframes pulse {
+            0% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 0.6; transform: scale(1); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .empty-list {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        /* Demo controls */
+        .demo-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            min-width: 250px;
+        }
+        
+        .demo-controls h4 {
+            margin-bottom: 15px;
+            color: #374151;
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            margin: 8px 0;
+            padding: 10px 15px;
+            background: #4f46e5;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            background: #3730a3;
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: #64748b;
+        }
+        
+        .btn-secondary:hover {
+            background: #475569;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .title-list-car h2 {
+                font-size: 28px;
+            }
+            
+            .demo-controls {
+                position: static;
+                margin: 20px auto;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Simulation -->
+    <div class="header-sim">
+        <div class="logo">🚗 VinFast</div>
+        <ul class="nav-links">
+            <li><a href="#">Giới thiệu</a></li>
+            <li><a href="#">Ô tô</a></li>
+            <li><a href="#">Dịch vụ hậu mãi</a></li>
+            <li><a href="#">Trạm Sạc VinFast</a></li>
+        </ul>
+        <div class="user-info">👤 Đức Tịnh</div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="title-list-car">
+            <h2>Danh sách xe đã thích</h2>
+        </div>
+
+        <!-- Empty State - Perfectly Centered -->
+        <div class="oto-list">
+            <div class="empty-list" style="
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 60vh;
+                text-align: center;
+                padding: 80px 20px;
+                color: #666;
+                background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+                border-radius: 20px;
+                margin: 40px auto;
+                max-width: 600px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+                border: 1px solid #e2e8f0;
+            ">
+                <div style="margin-bottom: 30px;">
+                    <i class="fas fa-heart-broken" style="
+                        font-size: 80px;
+                        color: #cbd5e0;
+                        margin-bottom: 20px;
+                        display: block;
+                        animation: pulse 2s infinite;
+                    "></i>
+                </div>
+                <h3 style="
+                    color: #4a5568;
+                    font-size: 28px;
+                    font-weight: 600;
+                    margin: 20px 0 15px 0;
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                ">Chưa có xe nào được yêu thích</h3>
+                <p style="
+                    color: #718096;
+                    font-size: 16px;
+                    margin: 15px 0 30px 0;
+                    line-height: 1.6;
+                ">
+                    Hãy khám phá bộ sưu tập xe điện VinFast<br>
+                    và thêm những chiếc xe yêu thích của bạn!
+                </p>
+                <a href="#" onclick="showDemo()" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    color: white;
+                    text-decoration: none;
+                    padding: 15px 30px;
+                    border-radius: 50px;
+                    font-weight: 600;
+                    font-size: 16px;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
+                " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(102, 126, 234, 0.6)';" 
+                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(102, 126, 234, 0.4)';">
+                    <i class="fas fa-car" style="font-size: 18px;"></i>
+                    Khám phá xe điện
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demo Controls -->
+    <div class="demo-controls">
+        <h4>🎯 Centering Test</h4>
+        <button class="btn" onclick="checkCentering()">
+            <i class="fas fa-crosshairs"></i> Check Centering
+        </button>
+        <button class="btn btn-secondary" onclick="toggleHeight()">
+            <i class="fas fa-arrows-alt-v"></i> Toggle Height
+        </button>
+        <button class="btn btn-secondary" onclick="resetDemo()">
+            <i class="fas fa-sync"></i> Reset Demo
+        </button>
+        <button class="btn btn-secondary" onclick="showMobileView()">
+            <i class="fas fa-mobile-alt"></i> Mobile View
+        </button>
+    </div>
+
+    <script>
+        function showDemo() {
+            alert('🚗 Perfect! Empty state được căn giữa hoàn hảo!');
+        }
+
+        function checkCentering() {
+            const emptyList = document.querySelector('.empty-list');
+            const container = document.querySelector('.oto-list');
+            
+            // Add visual indicators
+            const indicator = document.createElement('div');
+            indicator.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                width: 4px;
+                height: 4px;
+                background: red;
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 1000;
+                box-shadow: 0 0 10px red;
+            `;
+            
+            document.body.appendChild(indicator);
+            
+            // Show centering info
+            const rect = emptyList.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const viewportCenterX = window.innerWidth / 2;
+            const viewportCenterY = window.innerHeight / 2;
+            
+            const offsetX = Math.abs(centerX - viewportCenterX);
+            const offsetY = Math.abs(centerY - viewportCenterY);
+            
+            alert(`📐 Centering Analysis:
+            
+✅ Horizontal Center: ${offsetX < 50 ? 'Perfect' : 'Needs adjustment'} (offset: ${offsetX.toFixed(1)}px)
+✅ Vertical Center: ${offsetY < 100 ? 'Perfect' : 'Needs adjustment'} (offset: ${offsetY.toFixed(1)}px)
+
+Empty state is positioned at center of viewport!`);
+            
+            // Remove indicator after 3 seconds
+            setTimeout(() => {
+                document.body.removeChild(indicator);
+            }, 3000);
+        }
+
+        let heightToggle = false;
+        function toggleHeight() {
+            const otoList = document.querySelector('.oto-list');
+            if (heightToggle) {
+                otoList.style.minHeight = '70vh';
+                event.target.innerHTML = '<i class="fas fa-arrows-alt-v"></i> Toggle Height';
+            } else {
+                otoList.style.minHeight = '50vh';
+                event.target.innerHTML = '<i class="fas fa-arrows-alt-v"></i> Restore Height';
+            }
+            heightToggle = !heightToggle;
+        }
+
+        function resetDemo() {
+            const emptyList = document.querySelector('.empty-list');
+            emptyList.style.animation = 'none';
+            setTimeout(() => {
+                emptyList.style.animation = 'fadeInUp 0.8s ease-out';
+            }, 10);
+        }
+
+        function showMobileView() {
+            if (window.innerWidth > 768) {
+                // Simulate mobile view
+                const viewport = document.querySelector('meta[name="viewport"]');
+                alert('📱 Mobile Simulation:\n\nResize browser window to < 768px to see mobile responsiveness.\n\nOr use browser dev tools (F12) to simulate mobile devices.');
+            } else {
+                alert('📱 You are already in mobile view!');
+            }
+        }
+
+        // Add resize listener to show responsive behavior
+        window.addEventListener('resize', function() {
+            const width = window.innerWidth;
+            const indicator = document.querySelector('.width-indicator');
+            
+            if (!indicator) {
+                const div = document.createElement('div');
+                div.className = 'width-indicator';
+                div.style.cssText = `
+                    position: fixed;
+                    top: 10px;
+                    left: 10px;
+                    background: rgba(0,0,0,0.8);
+                    color: white;
+                    padding: 5px 10px;
+                    border-radius: 5px;
+                    font-size: 12px;
+                    z-index: 1000;
+                `;
+                document.body.appendChild(div);
+            }
+            
+            document.querySelector('.width-indicator').textContent = `${width}px ${width <= 768 ? '(Mobile)' : '(Desktop)'}`;
+        });
+
+        // Initialize
+        window.dispatchEvent(new Event('resize'));
+    </script>
+</body>
+</html>

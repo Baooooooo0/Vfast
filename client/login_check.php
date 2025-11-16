@@ -9,15 +9,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
 
-    // So sánh mật khẩu trực tiếp (plaintext)
-    $sql = "SELECT id, email, password, usertype FROM users WHERE email = ? AND password = ? LIMIT 1";
+    // Prepare: get user row by email
+    $sql = "SELECT id, email, password, usertype FROM users WHERE email = ? LIMIT 1";
     if ($stmt = mysqli_prepare($conn, $sql)) {
-        mysqli_stmt_bind_param($stmt, 'ss', $email, $password);
+        mysqli_stmt_bind_param($stmt, 's', $email);
         mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-        $row = $result ? mysqli_fetch_assoc($result) : null;
+    $result = mysqli_stmt_get_result($stmt);
+    $row = $result ? mysqli_fetch_assoc($result) : null;
 
-        if ($row) {
+    // Close prepared statement early to avoid unreachable code warnings
+    mysqli_stmt_close($stmt);
+
+    if ($row && password_verify($password, $row['password'])) {
             // Successful login
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['email'] = $row['email'];
