@@ -1,0 +1,195 @@
+[2025-11-12 05:04:03] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Login attempt started
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"POST_data_received":true,"session_id":"","server_software":"Apache\/2.4.62 (Win64) OpenSSL\/3.0.15 PHP\/8.3.26","https_status":"not_set"}
+--------------------------------------------------------------------------------
+[2025-11-12 05:04:03] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Database connection successful
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+--------------------------------------------------------------------------------
+[2025-11-12 05:04:03] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Login form submitted
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"email":"giabao4785@gmail.com","password_length":3,"post_data_keys":["email","password","submit"]}
+--------------------------------------------------------------------------------
+[2025-11-12 05:04:03] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Executing SQL query
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"sql":"SELECT id, email, password, usertype FROM users WHERE email = ? LIMIT 1","email_param":"giabao4785@gmail.com"}
+--------------------------------------------------------------------------------
+[2025-11-12 05:04:03] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Query executed
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"user_found":true,"result_type":"object","num_rows":1}
+--------------------------------------------------------------------------------
+[2025-11-12 05:04:03] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] User found in database
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"user_id":4,"email":"giabao4785@gmail.com","usertype":"user","password_hash_length":3}
+--------------------------------------------------------------------------------
+[2025-11-12 05:04:03] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Password verification
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"password_match":false,"input_password_length":3,"stored_hash_starts_with":"abc"}
+--------------------------------------------------------------------------------
+[2025-11-12 05:04:03] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Login failed - wrong password
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"email":"giabao4785@gmail.com","attempt_count":1}
+--------------------------------------------------------------------------------
+[2025-11-12 05:14:54] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Login attempt started
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"POST_data_received":true,"session_id":"","server_software":"Apache\/2.4.62 (Win64) OpenSSL\/3.0.15 PHP\/8.3.26","https_status":"not_set"}
+--------------------------------------------------------------------------------
+[2025-11-12 05:14:54] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Database connection successful
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+--------------------------------------------------------------------------------
+[2025-11-12 05:14:54] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Login form submitted
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"email":"giabao4785@gmail.com","password_length":3,"post_data_keys":["email","password","submit"]}
+--------------------------------------------------------------------------------
+[2025-11-12 05:14:54] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Executing SQL query
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"sql":"SELECT id, email, password, usertype FROM users WHERE email = ? LIMIT 1","email_param":"giabao4785@gmail.com"}
+--------------------------------------------------------------------------------
+[2025-11-12 05:14:54] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Query executed
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"user_found":true,"result_type":"object","num_rows":1}
+--------------------------------------------------------------------------------
+[2025-11-12 05:14:54] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] User found in database
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"user_id":4,"email":"giabao4785@gmail.com","usertype":"user","password_hash_length":3}
+--------------------------------------------------------------------------------
+[2025-11-12 05:14:54] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Password verification
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"password_match":null,"input_password_length":3,"stored_hash_starts_with":"abc"}
+--------------------------------------------------------------------------------
+[2025-11-12 05:14:54] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Login failed - wrong password
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"email":"giabao4785@gmail.com","attempt_count":2}
+--------------------------------------------------------------------------------
+[2025-11-12 05:15:43] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Login attempt started
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"POST_data_received":true,"session_id":"","server_software":"Apache\/2.4.62 (Win64) OpenSSL\/3.0.15 PHP\/8.3.26","https_status":"not_set"}
+--------------------------------------------------------------------------------
+[2025-11-12 05:15:44] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Database connection successful
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+--------------------------------------------------------------------------------
+[2025-11-12 05:15:44] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Login form submitted
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"email":"giabao4785@gmail.com","password_length":3,"post_data_keys":["email","password","submit"]}
+--------------------------------------------------------------------------------
+[2025-11-12 05:15:44] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Executing SQL query
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"sql":"SELECT id, email, password, usertype FROM users WHERE email = ? LIMIT 1","email_param":"giabao4785@gmail.com"}
+--------------------------------------------------------------------------------
+[2025-11-12 05:15:44] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Query executed
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"user_found":true,"result_type":"object","num_rows":1}
+--------------------------------------------------------------------------------
+[2025-11-12 05:15:44] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] User found in database
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"user_id":4,"email":"giabao4785@gmail.com","usertype":"user","password_hash_length":3}
+--------------------------------------------------------------------------------
+[2025-11-12 05:15:44] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Password verification
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"password_match":null,"input_password_length":3,"stored_hash_starts_with":"abc"}
+--------------------------------------------------------------------------------
+[2025-11-12 05:15:44] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Login failed - wrong password
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"email":"giabao4785@gmail.com","attempt_count":3}
+--------------------------------------------------------------------------------
+[2025-11-12 05:18:18] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Login attempt started
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"POST_data_received":true,"session_id":"","server_software":"Apache\/2.4.62 (Win64) OpenSSL\/3.0.15 PHP\/8.3.26","https_status":"not_set"}
+--------------------------------------------------------------------------------
+[2025-11-12 05:18:18] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Database connection successful
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+--------------------------------------------------------------------------------
+[2025-11-12 05:18:18] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Login form submitted
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"email":"trumphp@gmail.com","password_length":3,"post_data_keys":["email","password","submit"]}
+--------------------------------------------------------------------------------
+[2025-11-12 05:18:18] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Executing SQL query
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"sql":"SELECT id, email, password, usertype FROM users WHERE email = ? LIMIT 1","email_param":"trumphp@gmail.com"}
+--------------------------------------------------------------------------------
+[2025-11-12 05:18:18] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Query executed
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"user_found":true,"result_type":"object","num_rows":1}
+--------------------------------------------------------------------------------
+[2025-11-12 05:18:18] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] User found in database
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"user_id":8,"email":"trumphp@gmail.com","usertype":"user","password_hash_length":60}
+--------------------------------------------------------------------------------
+[2025-11-12 05:18:18] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Password verification
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"password_match":true,"input_password_length":3,"stored_hash_starts_with":"$2y$10$vWv"}
+--------------------------------------------------------------------------------
+[2025-11-12 05:18:18] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Login successful
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"user_id":8,"usertype":"user","redirect_to":"home.php"}
+--------------------------------------------------------------------------------
+[2025-11-12 05:29:22] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Login attempt started
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"POST_data_received":true,"session_id":"","server_software":"Apache\/2.4.62 (Win64) OpenSSL\/3.0.15 PHP\/8.3.26","https_status":"not_set"}
+--------------------------------------------------------------------------------
+[2025-11-12 05:29:22] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Database connection successful
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+--------------------------------------------------------------------------------
+[2025-11-12 05:29:22] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Login form submitted
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"email":"baosieudeptrai@gmail.com","password_length":3,"post_data_keys":["email","password","submit"]}
+--------------------------------------------------------------------------------
+[2025-11-12 05:29:22] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Executing SQL query
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"sql":"SELECT id, email, password, usertype FROM users WHERE email = ? LIMIT 1","email_param":"baosieudeptrai@gmail.com"}
+--------------------------------------------------------------------------------
+[2025-11-12 05:29:22] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Query executed
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"user_found":true,"result_type":"object","num_rows":1}
+--------------------------------------------------------------------------------
+[2025-11-12 05:29:22] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] User found in database
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"user_id":9,"email":"baosieudeptrai@gmail.com","usertype":"user","password_hash_length":60}
+--------------------------------------------------------------------------------
+[2025-11-12 05:29:22] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Password verification
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"password_match":true,"input_password_length":3,"stored_hash_starts_with":"$2y$10$Xo3"}
+--------------------------------------------------------------------------------
+[2025-11-12 05:29:22] [::1] [donna-uncorrupting-indecipherably.ngrok-free.dev] Login successful
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /Vfast/client/login_check.php
+Additional Data: {"user_id":9,"usertype":"user","redirect_to":"home.php"}
+--------------------------------------------------------------------------------
