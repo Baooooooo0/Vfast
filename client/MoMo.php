@@ -81,8 +81,8 @@ $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
 $orderInfo = "Thanh toán đơn hàng " . $orderId; 
 // $amount đã được lấy từ POST ở trên
 // $orderId đã được tạo ở trên
-$redirectUrl = "http://vfast.vtest/client/oto.php"; // Trang sẽ chuyển đến sau khi thanh toán
-$ipnUrl = "https://96d6a15e1a6d.ngrok-free.app/vfast/client/momo_ipn_handler.php"; // URL MoMo sẽ gửi kết quả về
+$redirectUrl = "https://donna-uncorrupting-indecipherably.ngrok-free.dev/Vfast/client/oto.php"; // Trang sẽ chuyển đến sau khi thanh toán
+$ipnUrl = "https://donna-uncorrupting-indecipherably.ngrok-free.dev/Vfast/client/momo_ipn_handler.php"; // URL MoMo sẽ gửi kết quả về
 $extraData = "";
     
 $requestId = time() . "";
