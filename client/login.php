@@ -1,5 +1,14 @@
 <?php 
     error_reporting(0);
+    // 🔧 FIX: Giữ session đồng bộ giữa ngrok và localhost
+    session_set_cookie_params([
+        'lifetime' => 0,
+        'path' => '/',
+        'domain' => '',
+        'secure' => false,
+        'httponly' => true,
+        'samesite' => 'Lax'
+    ]);
     session_start();
     // session_destroy();
 ?>
@@ -33,7 +42,7 @@
             <input type="email" placeholder="Email" id="email" name="email" required>
             <input type="password" placeholder="Mật khẩu" id="password" name="password" required>
             
-            <div class="forget-password"><a href="#">Quên mật khẩu?</a></div>
+            <!-- <div class="forget-password"><a href="#">Quên mật khẩu?</a></div> -->
                 
             
             <button type="submit" name="submit" >Đăng Nhập</button>
