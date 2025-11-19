@@ -42,7 +42,7 @@
             <input type="email" placeholder="Email" id="email" name="email" required>
             <input type="password" placeholder="Mật khẩu" id="password" name="password" required>
             
-            <div class="forget-password"><a href="#">Quên mật khẩu?</a></div>
+            <!-- <div class="forget-password"><a href="#">Quên mật khẩu?</a></div> -->
                 
             
             <button type="submit" name="submit" >Đăng Nhập</button>
