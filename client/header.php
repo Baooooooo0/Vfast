@@ -105,6 +105,7 @@ $cart_count = isset($_SESSION['cart_count']) ? $_SESSION['cart_count'] : 0;
                     <li><a href="oto.php">Ô tô</a></li>
                     <li><a href="service.php">Dịch vụ hậu mãi</a></li>
                     <li><a href="battery_station.php">Trạm Sạc VinFast</a></li>
+                    <li><a href="chat_bot.php">AI Tư vấn</a></li>
                 </ul>
             </nav>
 
