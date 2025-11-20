@@ -15,6 +15,11 @@
         die("Connection failed: " . mysqli_connect_error());
     }
 
+    // Kiểm tra xem parameter product_id có tồn tại không
+    if (!isset($_GET['product_id']) || empty($_GET['product_id'])) {
+        die("Không tìm thấy sản phẩm.");
+    }
+
     $product_id = $_GET['product_id'];
 
     //Fetch product data only ONCE and store it in an array
