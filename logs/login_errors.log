@@ -193,3 +193,110 @@ User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 Request URI: /Vfast/client/login_check.php
 Additional Data: {"user_id":9,"usertype":"user","redirect_to":"home.php"}
 --------------------------------------------------------------------------------
+[2025-11-22 04:58:27] [127.0.0.1] [vfast.vtest] Login attempt started
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /client/login_check.php
+Additional Data: {"POST_data_received":true,"session_id":"","server_software":"Apache\/2.4.54 (Win64) OpenSSL\/1.1.1q mod_fcgid\/2.3.10-dev","https_status":"not_set"}
+--------------------------------------------------------------------------------
+[2025-11-22 04:58:27] [127.0.0.1] [vfast.vtest] Database connection successful
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /client/login_check.php
+--------------------------------------------------------------------------------
+[2025-11-22 04:58:27] [127.0.0.1] [vfast.vtest] Login form submitted
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /client/login_check.php
+Additional Data: {"email":"giabao@gmail.com","password_length":3,"post_data_keys":["email","password","submit"]}
+--------------------------------------------------------------------------------
+[2025-11-22 04:58:27] [127.0.0.1] [vfast.vtest] Executing SQL query
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /client/login_check.php
+Additional Data: {"sql":"SELECT id, email, password, usertype FROM users WHERE email = ? LIMIT 1","email_param":"giabao@gmail.com"}
+--------------------------------------------------------------------------------
+[2025-11-22 04:58:27] [127.0.0.1] [vfast.vtest] Query executed
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /client/login_check.php
+Additional Data: {"user_found":false,"result_type":"object","num_rows":0}
+--------------------------------------------------------------------------------
+[2025-11-22 04:58:27] [127.0.0.1] [vfast.vtest] Login failed - user not found
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /client/login_check.php
+Additional Data: {"email":"giabao@gmail.com","sql_executed":true}
+--------------------------------------------------------------------------------
+[2025-11-22 05:00:16] [127.0.0.1] [vfast.vtest] Login attempt started
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /client/login_check.php
+Additional Data: {"POST_data_received":true,"session_id":"","server_software":"Apache\/2.4.54 (Win64) OpenSSL\/1.1.1q mod_fcgid\/2.3.10-dev","https_status":"not_set"}
+--------------------------------------------------------------------------------
+[2025-11-22 05:00:16] [127.0.0.1] [vfast.vtest] Database connection successful
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /client/login_check.php
+--------------------------------------------------------------------------------
+[2025-11-22 05:00:16] [127.0.0.1] [vfast.vtest] Login form submitted
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /client/login_check.php
+Additional Data: {"email":"nhianh@gmail.com","password_length":3,"post_data_keys":["email","password","submit"]}
+--------------------------------------------------------------------------------
+[2025-11-22 05:00:16] [127.0.0.1] [vfast.vtest] Executing SQL query
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /client/login_check.php
+Additional Data: {"sql":"SELECT id, email, password, usertype FROM users WHERE email = ? LIMIT 1","email_param":"nhianh@gmail.com"}
+--------------------------------------------------------------------------------
+[2025-11-22 05:00:16] [127.0.0.1] [vfast.vtest] Query executed
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /client/login_check.php
+Additional Data: {"user_found":true,"result_type":"object","num_rows":1}
+--------------------------------------------------------------------------------
+[2025-11-22 05:00:16] [127.0.0.1] [vfast.vtest] User found in database
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /client/login_check.php
+Additional Data: {"user_id":12,"email":"nhianh@gmail.com","usertype":"user","password_hash_length":3}
+--------------------------------------------------------------------------------
+[2025-11-22 05:00:16] [127.0.0.1] [vfast.vtest] Password verification
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /client/login_check.php
+Additional Data: {"password_match":false,"input_password_length":3,"stored_hash_starts_with":"123"}
+--------------------------------------------------------------------------------
+[2025-11-22 05:00:16] [127.0.0.1] [vfast.vtest] Login failed - wrong password
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /client/login_check.php
+Additional Data: {"email":"nhianh@gmail.com","attempt_count":1}
+--------------------------------------------------------------------------------
+[2025-11-22 05:00:40] [127.0.0.1] [vfast.vtest] Login attempt started
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /client/login_check.php
+Additional Data: {"POST_data_received":true,"session_id":"","server_software":"Apache\/2.4.54 (Win64) OpenSSL\/1.1.1q mod_fcgid\/2.3.10-dev","https_status":"not_set"}
+--------------------------------------------------------------------------------
+[2025-11-22 05:00:40] [127.0.0.1] [vfast.vtest] Database connection successful
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /client/login_check.php
+--------------------------------------------------------------------------------
+[2025-11-22 05:00:40] [127.0.0.1] [vfast.vtest] Login form submitted
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /client/login_check.php
+Additional Data: {"email":"nhianh@gmail.com","password_length":3,"post_data_keys":["email","password","submit"]}
+--------------------------------------------------------------------------------
+[2025-11-22 05:00:40] [127.0.0.1] [vfast.vtest] Executing SQL query
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /client/login_check.php
+Additional Data: {"sql":"SELECT id, email, password, usertype FROM users WHERE email = ? LIMIT 1","email_param":"nhianh@gmail.com"}
+--------------------------------------------------------------------------------
+[2025-11-22 05:00:40] [127.0.0.1] [vfast.vtest] Query executed
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /client/login_check.php
+Additional Data: {"user_found":true,"result_type":"object","num_rows":1}
+--------------------------------------------------------------------------------
+[2025-11-22 05:00:40] [127.0.0.1] [vfast.vtest] User found in database
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /client/login_check.php
+Additional Data: {"user_id":12,"email":"nhianh@gmail.com","usertype":"user","password_hash_length":3}
+--------------------------------------------------------------------------------
+[2025-11-22 05:00:40] [127.0.0.1] [vfast.vtest] Password verification
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /client/login_check.php
+Additional Data: {"password_match":false,"input_password_length":3,"stored_hash_starts_with":"123"}
+--------------------------------------------------------------------------------
+[2025-11-22 05:00:40] [127.0.0.1] [vfast.vtest] Login failed - wrong password
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0
+Request URI: /client/login_check.php
+Additional Data: {"email":"nhianh@gmail.com","attempt_count":2}
+--------------------------------------------------------------------------------
