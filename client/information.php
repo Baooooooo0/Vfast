@@ -29,9 +29,7 @@ if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $userName = $row['name'];
     $userEmail = $row['email'];
-    $userPhone = $row['phone'];
-    $userBirth = $row['birthday'];
-    $userPob = $row['pob'];
+
 } else {
     echo "No user found";
     exit; // Thoát nếu không tìm thấy người dùng
@@ -178,20 +176,8 @@ text-align: center;
                     <span id="userName"><?php echo htmlspecialchars($userName); ?></span>
                 </div>
                 <div class="form-group">
-                    <b>Phone:</b>
-                    <span id="userPhone"><?php echo htmlspecialchars($userPhone); ?></span>
-                </div>
-                <div class="form-group">
                     <b>Email:</b>
                     <span id="userEmail"><?php echo htmlspecialchars($userEmail); ?></span>
-                </div>
-                <div class="form-group">
-                    <b>Birthday:</b>
-                    <span id="userBirth"><?php echo htmlspecialchars($userBirth); ?></span>
-                </div>
-                <div class="form-group">
-                    <b>Place Of Birth:</b>
-                    <span id="userPob"><?php echo htmlspecialchars($userPob); ?></span>
                 </div>
             </div>
         </div>
