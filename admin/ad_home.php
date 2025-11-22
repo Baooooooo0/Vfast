@@ -450,7 +450,7 @@ $result_users = mysqli_query($data, $sql_users);
                 <table class="table table-bordered table-hover">
                     <thead class="thead-light">
                         <tr>
-                            <th>ID</th> <th>Tên</th> <th>Email</th> <th>SĐT</th> <th>Loại TK</th> <th>Hành Động</th>
+                            <th>ID</th> <th>Tên</th> <th>Email</th> <th>Loại TK</th> <th>Hành Động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -464,7 +464,7 @@ $result_users = mysqli_query($data, $sql_users);
                                     <td><?php echo $row['id']; ?></td>
                                     <td><?php echo htmlspecialchars($row['name']); ?></td>
                                     <td><?php echo htmlspecialchars($row['email']); ?></td>
-                                    <td><?php echo htmlspecialchars($row['phone']); ?></td>
+                                    <!-- <td><?php echo htmlspecialchars($row['phone']); ?></td> -->
                                     <td style="min-width: 200px;">
 
                                         <span id="role-badge-<?php echo $row['id']; ?>" 
