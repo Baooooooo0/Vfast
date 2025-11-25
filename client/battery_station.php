@@ -1125,13 +1125,13 @@ session_start();
         /* Modal Styles */
         .modal {
             display: none;
-            position: fixed;
-            z-index: 1050;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            position: fixed !important;
+            z-index: 999999 !important;
+            left: 0 !important;
+            top: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            background-color: rgba(0, 0, 0, 0.6) !important;
             backdrop-filter: blur(4px);
             animation: fadeIn 0.3s ease-out;
             overflow-y: auto;
@@ -1145,22 +1145,24 @@ session_start();
         }
 
         .modal-dialog {
-            position: relative;
+            position: relative !important;
             width: 100%;
             max-width: 650px;
             margin: auto;
             animation: slideInUp 0.3s ease-out;
-            transform: none;
+            transform: none !important;
+            z-index: 1000000 !important;
         }
 
         .modal-content {
-            background: white;
+            background: white !important;
             border-radius: 16px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4) !important;
             border: 1px solid #e5e7eb;
             overflow: hidden;
-            position: relative;
+            position: relative !important;
             width: 100%;
+            z-index: 1000001 !important;
         }
 
         .modal-header {
@@ -1433,7 +1435,7 @@ session_start();
             padding: 12px 18px;
             border-radius: 8px;
             color: white;
-            z-index: 1000;
+            z-index: 10002;
             max-width: 300px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             animation: slideInRight 0.3s ease-out;
@@ -2506,6 +2508,16 @@ session_start();
 
                 const modal = document.createElement('div');
                 modal.className = 'modal';
+                modal.style.cssText = `
+                    position: fixed !important;
+                    z-index: 999999 !important;
+                    left: 0 !important;
+                    top: 0 !important;
+                    width: 100% !important;
+                    height: 100% !important;
+                    background-color: rgba(0, 0, 0, 0.6) !important;
+                    display: none;
+                `;
                 modal.innerHTML = `
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -2548,11 +2560,23 @@ session_start();
                     </div>
                 `;
 
-                // Add modal to body
+                // Add modal to body with highest priority
                 document.body.appendChild(modal);
+                
+                // Force the modal to be on top of everything
+                modal.style.position = 'fixed';
+                modal.style.zIndex = '999999';
+                modal.style.left = '0';
+                modal.style.top = '0';
+                modal.style.width = '100%';
+                modal.style.height = '100%';
 
                 // Show modal with animation
                 setTimeout(() => {
+                    modal.style.display = 'flex';
+                    modal.style.alignItems = 'center';
+                    modal.style.justifyContent = 'center';
+                    modal.style.padding = '20px';
                     modal.classList.add('show');
                 }, 10);
 

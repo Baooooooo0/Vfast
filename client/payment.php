@@ -8,14 +8,8 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Database connection
-$host = "localhost";
-$user = "root";
-$password = "";
-$db = "carshop";
-$data = new mysqli($host, $user, $password, $db);
-if ($data->connect_error) {
-    die("Connection failed: " . $data->connect_error);
-}
+    require_once __DIR__ . "/../config/db_connect.php";
+    $data = $conn;
 
 // Get product details from POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -48,7 +42,6 @@ if ($result_user->num_rows > 0) {
     }
 }
 $stmt_user->close();
-$data->close();
 ?>
 
 <!DOCTYPE html>

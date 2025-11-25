@@ -35,11 +35,11 @@ $responseTime = $momo_data['responseTime'];
 $extraData = $momo_data['extraData'];
 $signature = $momo_data['signature'];
 
-$secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
-
+$secretKey = Secret_Momo;
+$access_key = Momo_access_key;
 // CHUẨN HÓA RAW HASH
 $rawHash = 
-    "accessKey=klm05TvNBzhg7h7j" .
+    "accessKey=$access_key" .
     "&amount=$amount" .
     "&extraData=$extraData" .
     "&message=$message" .
@@ -73,11 +73,8 @@ if ($signature == $partnerSignature) {
         file_put_contents($log_file, "Payment SUCCESS. Connecting to DB...\n", FILE_APPEND);
 
         // ====== KẾT NỐI DATABASE ======
-        $host = "localhost";
-        $user = "root";
-        $password = "";
-        $db = "carshop";
-        $data = new mysqli($host, $user, $password, $db);
+        require_once __DIR__ . "../config/db_connect.php";
+        $data = $conn;
 
         if ($data->connect_error) {
             file_put_contents($log_file, "DB Connection FAILED: " . $data->connect_error . "\n", FILE_APPEND);

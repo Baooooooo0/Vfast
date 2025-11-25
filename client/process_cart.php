@@ -1,11 +1,8 @@
 <?php
 
-$host = "localhost";
-$user = "root";
-$password = "";
-$db = "carshop";
+require_once __DIR__ . "../config/db_connect.php";
+$data = $conn;
 
-$data = new mysqli($host, $user, $password, $db);
 
 // Kiểm tra kết nối
 if ($data->connect_error) {

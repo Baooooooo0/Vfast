@@ -10,11 +10,9 @@ if (!isset($_SESSION['user_id']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // KẾT NỐI DATABASE
-$host = "localhost";
-$user = "root";
-$password = "";
-$db = "carshop";
-$data = new mysqli($host, $user, $password, $db);
+require_once __DIR__ . "/../config/db_connect.php";
+$data = $conn;
+
 if ($data->connect_error) {
     die("Connection failed: " . $data->connect_error);
 }

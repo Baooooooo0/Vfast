@@ -5,7 +5,7 @@ require_once realpath(__DIR__ . '/../config/db_connect.php');
 // ✅ Lấy header xác thực
 $headers = getallheaders();
 $authHeader = $headers['Authorization'] ?? '';
-$expectedKey = 'E1Y2KPJFTM1WPJGCUBLI8TDVEIWKVPAQPVNHB4FNXAVC3Q7WHSZEUL03XSBBHOCF';
+$expectedKey = Expectedkey;
 
 // Ghi log header để debug
 file_put_contents(__DIR__ . '/sepay_webhook_log.txt',

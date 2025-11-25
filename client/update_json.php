@@ -1,11 +1,7 @@
 <?php
-$host = "localhost";
-$user = "root";
-$password = "";
-$db = "carshop";
+require_once __DIR__ . "../config/db_connect.php";
+$data = $conn;
 
-
-$conn = new mysqli($host,$user,$password,$db);
 
 if ($conn->connect_error) {
     die("Kết nối thất bại: " . $conn->connect_error);
