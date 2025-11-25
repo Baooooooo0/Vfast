@@ -1,14 +1,14 @@
 <?php
 session_start();
-$host = "localhost";
-$user = "root";
-$password = "";
-$db = "carshop";
+
+require_once __DIR__ . "/../config/db_connect.php";
+$data = $conn;
+
 if (!isset($_SESSION['email'])) {
     header("Location: login.php");
     exit();
 }
-$data = mysqli_connect($host, $user, $password, $db);
+
 
 if (!$data) {
     die("Connection failed: " . mysqli_connect_error());
@@ -38,7 +38,6 @@ $sql_infor_product = "SELECT product_id,product_name,product_price,color,image,p
 $result_infor_product = mysqli_query($data, $sql_infor_product);
 
 
-mysqli_close($data);
 ?>
 <!DOCTYPE html>
 <html lang="en">

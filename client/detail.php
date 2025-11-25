@@ -4,16 +4,8 @@
         header("Location: login.php");
         exit();
     }
-    $host = "localhost";
-    $user = "root";
-    $password = "";
-    $db = "carshop";
-
-    $data = mysqli_connect($host, $user, $password, $db);
-
-    if (!$data) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
+    require_once __DIR__ . "/../config/db_connect.php";
+    $data = $conn;
 
     // Kiểm tra xem parameter product_id có tồn tại không
     if (!isset($_GET['product_id']) || empty($_GET['product_id'])) {

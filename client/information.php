@@ -1,13 +1,8 @@
 <?php
 session_start();
 
-$host = "localhost";
-$user = "root";
-$password = "";
-$db = "carshop";
-
-// Kết nối đến cơ sở dữ liệu
-$data = new mysqli($host, $user, $password, $db);
+require_once __DIR__ . "/../config/db_connect.php";
+$data = $conn;
 
 // Kiểm tra kết nối
 if ($data->connect_error) {
@@ -36,7 +31,7 @@ if ($result->num_rows > 0) {
 }
 
 $stmt->close();
-$data->close();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,12 +1,7 @@
 <?php
 
-$host = "localhost";
-$user = "root";
-$password = "";
-$db = "carshop";
-
-
-$data = new mysqli($host, $user, $password, $db);
+require_once __DIR__ . "../config/db_connect.php";
+$data = $conn;
 
 
 if ($data->connect_error) {

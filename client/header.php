@@ -9,17 +9,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
     exit();
 }
 
-$host = "localhost";
-$user = "root";
-$password = "";
-$db = "carshop";
+// Use existing connection if available, otherwise create new one
+if (!isset($conn) || !$conn) {
+    require_once __DIR__ . "/../config/db_connect.php";
+}
+$data = $conn;
 
 if (defined('HEADER_INCLUDED')) return;
 define('HEADER_INCLUDED', true);
 
-$data = new mysqli($host, $user, $password, $db);
-
 if (isset($_SESSION['email'])) {
+    // Check if database connection is valid
+    if (!$data || mysqli_connect_errno()) {
+        require_once __DIR__ . "/../config/db_connect.php";
+        $data = $conn;
+    }
+    
     $email = $data->real_escape_string($_SESSION['email']);
 
     $sql = $data->prepare("SELECT name FROM users WHERE email = ?");

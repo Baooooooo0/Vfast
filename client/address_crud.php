@@ -10,11 +10,8 @@ if (!isset($_SESSION['user_id'])) {
 // Lấy product_id từ URL (GET) hoặc từ form (POST) để không bị mất khi submit
 $product_id = isset($_REQUEST['product_id']) ? $_REQUEST['product_id'] : null;
 
-$host = "localhost";
-$user = "root";
-$password = "";
-$db = "carshop";
-$data = new mysqli($host, $user, $password, $db);
+require_once __DIR__ . "../config/db_connect.php";
+$data = $conn;
 
 if ($data->connect_error) {
     die("Connection failed: " . $data->connect_error);
