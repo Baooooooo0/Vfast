@@ -11,10 +11,10 @@
         }
     ],
     "env": {
-        "MYSQLHOST": "@mysqlhost",
-        "MYSQLUSER": "@mysqluser", 
-        "MYSQLPASSWORD": "@mysqlpassword",
-        "MYSQLDATABASE": "@mysqldatabase",
-        "MYSQLPORT": "@mysqlport"
+        "MYSQLHOST": "$DB_HOST",
+        "MYSQLUSER": "$DB_USER", 
+        "MYSQLPASSWORD": "$DB_PASS",
+        "MYSQLDATABASE": "$DB_NAME",
+        "MYSQLPORT": "$DB_PORT"
     }
 }
